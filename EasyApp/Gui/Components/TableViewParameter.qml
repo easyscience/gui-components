@@ -19,7 +19,7 @@ EaElements.TextInput {
                              'name': 'default',
                              'prettyName': '',
                              'title': '',
-                             'units': '',
+                             'unit': '',
                              'url': '',
                              'cifDict': ''}
 
@@ -49,7 +49,7 @@ EaElements.TextInput {
     property string name: parameter.name ?? 'default'
     property string prettyName: parameter.prettyName ?? ''
     property string title: parameter.title ?? ''
-    property string units: parameter.units ?? ''
+    property string unit: parameter.unit ?? ''
     property string url: parameter.url ?? ''
     property string cifDict: parameter.cifDict ?? ''
 

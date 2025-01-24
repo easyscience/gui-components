@@ -21,7 +21,7 @@ EaElements.ComboBox {
                              'name': 'default',
                              'prettyName': '',
                              'shortPrettyName': '',
-                             'units': '',
+                             'unit': '',
                              'url': '',
                              'cifDict': ''}
 
@@ -49,7 +49,7 @@ EaElements.ComboBox {
     property string name: parameter.name ?? 'default'
     property string prettyName: parameter.prettyName ?? ''
     property string shortPrettyName: parameter.shortPrettyName ?? ''
-    property string units: parameter.units ?? ''
+    property string unit: parameter.unit ?? ''
     property string url: parameter.url ?? ''
     property string cifDict: parameter.cifDict ?? ''
 
