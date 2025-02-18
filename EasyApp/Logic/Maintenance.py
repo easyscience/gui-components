@@ -4,8 +4,8 @@ import re
 import urllib.request
 import sys
 
-from PySide2.QtCore import QObject, QProcess, Property, Signal, Slot
-from PySide2.QtWidgets import QApplication
+from PySide6.QtCore import QObject, QProcess, Property, Signal, Slot
+from PySide6.QtWidgets import QApplication
 
 
 class Updater(QObject):

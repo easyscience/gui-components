@@ -4,9 +4,9 @@ __version__ = "0.0.1"
 import os
 from dicttoxml import dicttoxml
 
-from PySide2.QtCore import QObject, QTranslator, QLocale, Slot
-from PySide2.QtWidgets import QApplication
-from PySide2.QtQml import QQmlApplicationEngine
+from PySide6.QtCore import QObject, QTranslator, QLocale, Slot
+from PySide6.QtWidgets import QApplication
+from PySide6.QtQml import QQmlApplicationEngine
 
 
 class Translator(QObject):
