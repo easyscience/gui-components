@@ -6,9 +6,14 @@ QtCharts1dBase QtCharts1dBase.qml
 QtCharts1dMeasVsCalc QtCharts1dMeasVsCalc.qml
 
 Plotly1dLine Plotly1dLine.qml
+Plotly1dLineNew Plotly1dLineNew.qml
 Plotly1dMeasVsCalc Plotly1dMeasVsCalc.qml
 
 Plotly2dHeatmap Plotly2dHeatmap.qml
+Plotly2dHeatmapNew Plotly2dHeatmapNew.qml
+Plotly2dPolarHeatmapNew Plotly2dPolarHeatmapNew.qml
+
 
 Plotly3dScatter Plotly3dScatter.qml
 Plotly3dSurface Plotly3dSurface.qml
+Plotly3dSurfaceNew Plotly3dSurfaceNew.qml
