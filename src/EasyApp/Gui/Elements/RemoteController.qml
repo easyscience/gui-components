@@ -281,8 +281,8 @@ Item {
         const y = item.height / 2
         const button = Qt.NoButton
         const delay = -1
-
-        event.mouseMove(item, x, y, delay, button)
+        const modifiers = Qt.NoModifier
+        event.mouseMove(item, x, y, button, modifiers, delay)
     }
 
     function mouseWheel(item) {
