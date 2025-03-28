@@ -1,7 +1,8 @@
 name: wasm
 
 on:
-  push:
+  workflow_dispatch:
+  # push:
   #schedule:
   #  - cron: '*/120 8-18 * * *'  # every 2 hours from 8:00 to 18:00 every day
 
