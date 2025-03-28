@@ -1,0 +1,39 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${cwd}/src"
+                }
+        },
+        {
+            "name": "Python Debugger: BasicPy",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${cwd}/examples/BasicPy/src/BasicPy/main.py",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Python Debugger: IntermediatePy",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${cwd}/examples/IntermediatePy/src/IntermediatePy/main.py",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Python Debugger: AdvancedPy",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${cwd}/examples/AdvancedPy/src/AdvancedPy/main.py",
+            "console": "integratedTerminal",
+        }
+    ]
+}
