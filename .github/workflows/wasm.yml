@@ -50,10 +50,10 @@ jobs:
         if: steps.cache-qt.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L -O https://download.qt.io/official_releases/online_installers/qt-online-installer-mac-x64-online.dmg
+          curl -L -O https://download.qt.io/official_releases/online_installers/qt-unified-mac-x64-online.dmg
           chmod u+x qt-unified-mac-x64-online.dmg
           hdiutil attach qt-unified-mac-x64-online.dmg
-          /Volumes/qt-online-installer-macOS-x64-4.9.0/qt-online-installer-macOS-x64-4.9.0.app/Contents/MacOS/qt-online-installer-macOS-x64-4.9.0 \
+          /Volumes/qt-online-installer-macOS-x64-4.9.0/qt-online-installer-macOS-x64-4.8.0.app/Contents/MacOS/qt-online-installer-macOS-x64-4.8.0 \
           --email ${{ secrets.QT_ACCOUNT_EMAIL }} \
           --pw ${{ secrets.QT_ACCOUNT_PASSWORD }} \
           --root ${{ github.workspace }}/Qt \
@@ -62,7 +62,7 @@ jobs:
           --default-answer \
           --confirm-command \
           install qt.qt6.672.wasm_singlethread qt.qt6.672.qt5compat
-          hdiutil detach /Volumes/qt-online-installer-macOS-x64-4.9.0
+          hdiutil detach /Volumes/qt-online-installer-macOS-x64-4.8.0
 
       - name: Print some debug info
         shell: bash
