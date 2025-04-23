@@ -40,3 +40,4 @@ TextField 1.0 TextField.qml
 TextInput 1.0 TextInput.qml
 ToolButton 1.0 ToolButton.qml
 ToolTip 1.0 ToolTip.qml
+ToolTipShadow 1.0 ToolTipShadow.qml
