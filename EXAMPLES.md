@@ -10,7 +10,7 @@ Different types of examples are given here. All examples have a graphical fronte
 | AdvancedPy     | III  | QML      | Python   | `python` interpreter |
 | BasicC++       | IV   | QML      | Mock QML | need to be compiled  |
 
-## Setting up Python and IDE 
+## Setting up Python and IDE
 
 ### Python environment
 
@@ -35,11 +35,11 @@ Different types of examples are given here. All examples have a graphical fronte
   ```
   pip install --upgrade pip
   ```
-  
+
 * Install the Qt for Python `PySide6` package using PIP
 
   ```
-  pip install PySide6 
+  pip install 'PySide6>=6.8,<6.9'
   ```
 
 ### Integrated development environment (IDE)
@@ -51,7 +51,7 @@ Qt Creator is a prefered IDE for developing the GUI in QML. It allows to run QML
 * Download Qt Online Installer from [qt.io](https://www.qt.io/download-qt-installer-oss). More info at [doc.qt.io](https://doc.qt.io/qt-6/qt-online-installation.html).
 * Install Qt for desktop development using a custom installation that includes the following components:
     * Qt
-	   * [ ] Qt 6.9.z
+	   * [ ] Qt 6.8.z
 	       * [x] Desktop (***macOS***) or MSVC 2019 64-bit (***Windows***)
    	       * [ ] Additional Libraries
    	           * [x] Qt Charts  
