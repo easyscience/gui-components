@@ -19,14 +19,14 @@ Different types of examples are given here. All examples have a graphical fronte
   ***macOS and Linux***
 
   ```
-  python3.11 -m venv .venv
+  python3 -m venv .venv
   source .venv/bin/activate
   ```
 
   ***Windows***
 
   ```
-  python3.11 -m venv .venv
+  python3 -m venv .venv
   .venv\Scripts\activate
   ```
 
@@ -39,7 +39,7 @@ Different types of examples are given here. All examples have a graphical fronte
 * Install the Qt for Python `PySide6` package using PIP
 
   ```
-  pip install --force-reinstall "PySide6>=6.6,<6.7" 
+  pip install PySide6 
   ```
 
 ### Integrated development environment (IDE)
@@ -51,12 +51,11 @@ Qt Creator is a prefered IDE for developing the GUI in QML. It allows to run QML
 * Download Qt Online Installer from [qt.io](https://www.qt.io/download-qt-installer-oss). More info at [doc.qt.io](https://doc.qt.io/qt-6/qt-online-installation.html).
 * Install Qt for desktop development using a custom installation that includes the following components:
     * Qt
-	   * [ ] Qt 6.7.z
+	   * [ ] Qt 6.9.z
 	       * [x] Desktop (***macOS***) or MSVC 2019 64-bit (***Windows***)
-	       * [x] Qt 5 Compatibility Module
-	       * [x] Qt Shader Tools
    	       * [ ] Additional Libraries
    	           * [x] Qt Charts  
+   	           * [x] Qt Shader Tools
 	   * [ ] Developer and Designer Tools
 	       * [x] Qt Creator x.y.z
 
