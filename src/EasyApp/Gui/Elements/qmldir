@@ -2,7 +2,6 @@ module Elements
 
 AppBarTabButton 1.0 AppBarTabButton.qml
 ApplicationWindow 1.0 ApplicationWindow.qml
-BoxShadow 1.0 BoxShadow.qml
 Button 1.0 Button.qml
 ComboBox 1.0 ComboBox.qml
 CheckBox 1.0 CheckBox.qml
@@ -10,7 +9,6 @@ CheckIndicator 1.0 CheckIndicator.qml
 CursorDelegate 1.0 CursorDelegate.qml
 Dialog 1.0 Dialog.qml
 DialogButtonBox 1.0 DialogButtonBox.qml
-ElevationEffect 1.0 ElevationEffect.qml
 GroupBox 1.0 GroupBox.qml
 GroupButton 1.0 GroupButton.qml
 GroupColumn 1.0 GroupColumn.qml
