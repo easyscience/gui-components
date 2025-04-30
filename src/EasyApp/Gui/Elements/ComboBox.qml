@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Controls.impl
+import QtQuick.Controls.Material.impl
 import QtQuick.Templates as T
 
 import EasyApp.Gui.Style as EaStyle
@@ -187,7 +188,7 @@ T.ComboBox {
             }
 
             layer.enabled: control.enabled
-            layer.effect: EaElements.ElevationEffect {
+            layer.effect: ElevationEffect {
                 elevation: 8
             }
         }
