@@ -89,6 +89,8 @@
         colorbar: {title: {text: ''}},
         colorscale: 'Portland',
       },
+      customdata: [],
+      hovertemplate: ''
     }
 
     // Plot dataset
@@ -127,6 +129,9 @@
       Plotly.redraw('plotDiv')
     }
 
+    function setColorbarTitle(newTitle){
+      trace.marker.colorbar.title.text = newTitle
+    }
 
     function setXyzData(newData) {
       trace.r = newData.r
@@ -134,9 +139,8 @@
       trace.marker.color = newData.z
       trace.marker.cmin = Math.min(newData.z)
       trace.marker.cmax = Math.min(newData.z)
-      trace.marker.colorbar.title.text = newData.colorbarTitle
-      trace.hovertemplate = newData.hoverTemplate
       trace.customdata = newData.customData
+      trace.hovertemplate = newData.hoverTemplate
     }
 
     function getDataFromJson(filename) {
@@ -144,7 +148,7 @@
         request.open("GET", filename, false)
         request.send(null)
         let data = JSON.parse(request.responseText)
-        return data;
+        return data
     }
 
   </script>

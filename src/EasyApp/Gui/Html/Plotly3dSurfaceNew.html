@@ -76,9 +76,12 @@
 
     // Default trace
     let trace = {
+      name: '',
       x: data.x,
       y: data.y,
       z: data.z,
+      customdata: [],
+      hovertemplate: '',
       surfacecolor: data.surfaceColor,
       type: 'surface',
       colorscale: 'Portland',
@@ -114,6 +117,10 @@
       Plotly.redraw('plotDiv')
     }
 
+    function setColorbarTitle(newTitle){
+      trace.colorbar.title.text = newTitle
+    }
+
     function setScene(newScene) {
       plotLayout.scene = newScene
     }
@@ -123,11 +130,8 @@
       trace.y = newData.y
       trace.z = newData.z
       trace.surfacecolor = newData.surfaceColor
-      trace.colorbar.title.text = newData.colorbarTitle
-      if (newData.hoverText) {
-        trace.hoverinfo = 'text'
-        trace.text = newData.hoverText
-      }
+      trace.customdata = newData.customData
+      trace.hovertemplate = newData.hoverTemplate
     }
 
     function getDataFromJson(filename) {

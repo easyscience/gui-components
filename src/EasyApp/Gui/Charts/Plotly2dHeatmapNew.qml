@@ -8,13 +8,14 @@ WebEngineView {
     property bool loadSucceededStatus: false
     property string xAxisTitle: ''
     property string yAxisTitle: ''
+    property string colorbarTitle: ''
 
     property var plotData: ({})
 
     width: parent.width
     height: parent.height
 
-    url:  Qt.resolvedUrl('../Html/Plotly2dHeatmapNew.html')
+    url: Qt.resolvedUrl('../Html/Plotly2dHeatmapNew.html')
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
@@ -63,6 +64,10 @@ WebEngineView {
 
     function setYAxisTitle() {
         runJavaScript(`setYAxisTitle(${JSON.stringify(yAxisTitle)})`)
+    }
+
+    function setColorbarTitle() {
+        runJavaScript(`setColorbarTitle(${JSON.stringify(colorbarTitle)})`)
     }
 
     function setXyzData() {

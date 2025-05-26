@@ -6,6 +6,7 @@ WebEngineView {
     id: chartView
 
     property bool loadSucceededStatus: false
+    property string colorbarTitle: ''
 
     property var scene: ({})
 
@@ -30,6 +31,13 @@ WebEngineView {
         }
     }
 
+    onColorbarTitleChanged: {
+        if (loadSucceededStatus) {
+            setColorbarTitle()
+            redrawPlot()
+        }
+    }
+
     onSceneChanged: {
         if (loadSucceededStatus) {
             setScene()
@@ -48,6 +56,10 @@ WebEngineView {
 
     function redrawPlot() {
         chartView.runJavaScript(`redrawPlot()`)
+    }
+
+    function setColorbarTitle() {
+        runJavaScript(`setColorbarTitle(${JSON.stringify(colorbarTitle)})`)
     }
 
     function setScene() {

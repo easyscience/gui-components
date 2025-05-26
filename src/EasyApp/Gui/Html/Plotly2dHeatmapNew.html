@@ -131,11 +131,14 @@
       plotLayout.yaxis.title = newTitle
     }
 
+    function setColorbarTitle(newTitle){
+      trace.colorbar.title.text = newTitle
+    }
+
     function setXyzData(newData) {
       trace.x = newData.x
       trace.y = newData.y
       trace.z = newData.z
-      trace.colorbar.title.text = newData.colorbarTitle
       trace.hovertemplate = newData.hoverTemplate
     }
 

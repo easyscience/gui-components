@@ -74,10 +74,11 @@
     // Default trace
     let trace = {
       name: '',
+      type: 'scatter',
       x: data.x,
       y: data.y,
-      type: 'scatter',
       mode: 'lines',
+      customdata: [],
       hovertemplate: ''
     }
 
@@ -141,6 +142,7 @@
     function setXyData(newData) {
       trace.x = newData.x
       trace.y = newData.y
+      trace.customdata = newData.customData
       trace.hovertemplate = newData.hoverTemplate
     }
 
@@ -149,7 +151,7 @@
         request.open("GET", filename, false)
         request.send(null)
         let data = JSON.parse(request.responseText)
-        return data;
+        return data
     }
 
   </script>
