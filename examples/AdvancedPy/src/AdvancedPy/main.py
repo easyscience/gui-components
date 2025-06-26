@@ -5,7 +5,7 @@
 from pathlib import Path
 import sys
 
-from PySide6.QtGui import QGuiApplication
+from PySide6.QtWidgets import QApplication
 from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType
 from PySide6.QtCore import qInstallMessageHandler
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     qmlRegisterSingletonType(Backend, 'Backends', 1, 0, 'PyBackend')
     console.debug('Backend class is registered as a singleton type for QML')
 
-    app = QGuiApplication(sys.argv)
+    app = QApplication(sys.argv)
     console.debug(f'Qt Application created {app}')
 
     engine = QQmlApplicationEngine()
