@@ -5,6 +5,7 @@ QtCharts1dValueAxis QtCharts1dValueAxis.qml
 QtCharts1dBase QtCharts1dBase.qml
 QtCharts1dMeasVsCalc QtCharts1dMeasVsCalc.qml
 
+Plotly1dBarPlotNew Plotly1dBarPlotNew.qml
 Plotly1dLine Plotly1dLine.qml
 Plotly1dLineNew Plotly1dLineNew.qml
 Plotly1dMeasVsCalc Plotly1dMeasVsCalc.qml

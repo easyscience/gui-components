@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+  <script src="plotly-2.18.0.min.js"></script>
+
+  <style type="text/css">
+
+    @font-face {
+      font-family: ChartFont;
+      src:url("PTSans-Regular.ttf");
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+      font-family: 'ChartFont';
+    }
+
+    #plotContainer {
+      height: 100%;
+      width: 100%;
+      padding: 14px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    #plotDiv {
+      width: 100%;
+      height: 100%;
+    }
+
+    div.plotly-notifier { /* Plotly notifier element */
+      visibility: hidden;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id='plotContainer'>
+    <div id='plotDiv'></div>
+  </div>
+
+  <script>
+
+    ///////
+    // Data
+    ///////
+
+    let data = {
+      'x': [1, 2, 3],
+      'y': [10, 20, 30],
+    }
+
+    /////////
+    // Plotly
+    /////////
+
+    // Default trace
+    let trace = {
+      name: '',
+      type: 'bar',
+      x: data.x,
+      y: data.y,
+      customdata: [],
+      hovertemplate: ''
+    }
+
+    // Plot dataset
+    let plotTraces = [ trace ]
+
+    // Plot layout
+    let plotLayout = {
+      //autosize: true,
+      xaxis: {
+        title: 'x-title',
+        autorange: true,
+      },
+      yaxis: {
+        title: 'y-title',
+        autorange: true,
+      },
+    }
+
+    // Plot config
+    let plotConfig = {
+      displayModeBar: true,
+      displaylogo: false,
+    }
+
+    // Create plot
+    Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
+
+    /////////////////////////////////////////
+    // Functionality to be accesable from QML
+    /////////////////////////////////////////
+
+    function redrawPlot() {
+      Plotly.redraw('plotDiv')
+    }
+
+    function setXAxisTitle(newTitle) {
+      plotLayout.xaxis.title = newTitle
+    }
+
+    function setYAxisTitle(newTitle) {
+      plotLayout.yaxis.title = newTitle
+    }
+
+    function setXyData(newData) {
+      trace.x = newData.x
+      trace.y = newData.y
+      trace.customdata = newData.customData
+      trace.hovertemplate = newData.hoverTemplate
+    }
+
+    function getDataFromJson(filename) {
+        let request = new XMLHttpRequest()
+        request.open("GET", filename, false)
+        request.send(null)
+        let data = JSON.parse(request.responseText)
+        return data
+    }
+
+  </script>
+
+</body>
+
+</html>
