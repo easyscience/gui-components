@@ -73,10 +73,13 @@
 
     // Default trace
     let trace = {
+      name: '',
+      type: 'scatter',
       x: data.x,
       y: data.y,
-      type: 'scatter', //'scattergl'
       mode: 'lines',
+      customdata: [],
+      hovertemplate: ''
     }
 
     // Plot dataset
@@ -139,6 +142,16 @@
     function setXyData(newData) {
       trace.x = newData.x
       trace.y = newData.y
+      trace.customdata = newData.customData
+      trace.hovertemplate = newData.hoverTemplate
+    }
+
+    function getDataFromJson(filename) {
+        let request = new XMLHttpRequest()
+        request.open("GET", filename, false)
+        request.send(null)
+        let data = JSON.parse(request.responseText)
+        return data
     }
 
   </script>

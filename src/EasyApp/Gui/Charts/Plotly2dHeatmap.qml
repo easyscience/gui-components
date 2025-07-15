@@ -8,16 +8,17 @@ WebEngineView {
     property bool loadSucceededStatus: false
     property string xAxisTitle: ''
     property string yAxisTitle: ''
+    property string colorbarTitle: ''
+
+    property var plotData: ({})
 
     width: parent.width
     height: parent.height
 
-    url:  Qt.resolvedUrl('../Html/Plotly2dHeatmap.html')
+    url: Qt.resolvedUrl('../Html/Plotly2dHeatmap.html')
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            setXAxisTitle(xAxisTitle)
-            setYAxisTitle(yAxisTitle)
             redrawPlot()
         }
     }
@@ -32,14 +33,21 @@ WebEngineView {
 
     onXAxisTitleChanged: {
         if (loadSucceededStatus) {
-            setXAxisTitle(newTitle)
+            setXAxisTitle()
             redrawPlot()
         }
     }
 
     onYAxisTitleChanged: {
         if (loadSucceededStatus) {
-            setYAxisTitle(newTitle)
+            setYAxisTitle()
+            redrawPlot()
+        }
+    }
+
+    onPlotDataChanged: {
+        if (loadSucceededStatus) {
+            setXyzData()
             redrawPlot()
         }
     }
@@ -50,12 +58,20 @@ WebEngineView {
         chartView.runJavaScript(`redrawPlot()`)
     }
 
-    function setXAxisTitle(newTitle) {
-        runJavaScript(`setXAxisTitle(${JSON.stringify(newTitle)})`)
+    function setXAxisTitle() {
+        runJavaScript(`setXAxisTitle(${JSON.stringify(xAxisTitle)})`)
     }
 
-    function setYAxisTitle(newTitle) {
-        runJavaScript(`setYAxisTitle(${JSON.stringify(newTitle)})`)
+    function setYAxisTitle() {
+        runJavaScript(`setYAxisTitle(${JSON.stringify(yAxisTitle)})`)
+    }
+
+    function setColorbarTitle() {
+        runJavaScript(`setColorbarTitle(${JSON.stringify(colorbarTitle)})`)
+    }
+
+    function setXyzData() {
+        runJavaScript(`setXyzData(${JSON.stringify(plotData)})`)
     }
 
 }

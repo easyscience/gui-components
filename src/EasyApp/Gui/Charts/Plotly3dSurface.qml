@@ -6,9 +6,11 @@ WebEngineView {
     id: chartView
 
     property bool loadSucceededStatus: false
-    property string xAxisTitle: ''
-    property string yAxisTitle: ''
-    property string zAxisTitle: ''
+    property string colorbarTitle: ''
+
+    property var scene: ({})
+
+    property var plotData: ({})
 
     width: parent.width
     height: parent.height
@@ -17,9 +19,6 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            setXAxisTitle(xAxisTitle)
-            setYAxisTitle(yAxisTitle)
-            setZAxisTitle(zAxisTitle)
             redrawPlot()
         }
     }
@@ -32,23 +31,23 @@ WebEngineView {
         }
     }
 
-    onXAxisTitleChanged: {
+    onColorbarTitleChanged: {
         if (loadSucceededStatus) {
-            setXAxisTitle(newTitle)
+            setColorbarTitle()
             redrawPlot()
         }
     }
 
-    onYAxisTitleChanged: {
+    onSceneChanged: {
         if (loadSucceededStatus) {
-            setYAxisTitle(newTitle)
+            setScene()
             redrawPlot()
         }
     }
 
-    onZAxisTitleChanged: {
+    onPlotDataChanged: {
         if (loadSucceededStatus) {
-            setZAxisTitle(newTitle)
+            setXyzData()
             redrawPlot()
         }
     }
@@ -59,16 +58,16 @@ WebEngineView {
         chartView.runJavaScript(`redrawPlot()`)
     }
 
-    function setXAxisTitle(newTitle) {
-        runJavaScript(`setXAxisTitle(${JSON.stringify(newTitle)})`)
+    function setColorbarTitle() {
+        runJavaScript(`setColorbarTitle(${JSON.stringify(colorbarTitle)})`)
     }
 
-    function setYAxisTitle(newTitle) {
-        runJavaScript(`setYAxisTitle(${JSON.stringify(newTitle)})`)
+    function setScene() {
+        runJavaScript(`setScene(${JSON.stringify(scene)})`)
     }
 
-    function setZAxisTitle(newTitle) {
-        runJavaScript(`setZAxisTitle(${JSON.stringify(newTitle)})`)
+    function setXyzData() {
+        runJavaScript(`setXyzData(${JSON.stringify(plotData)})`)
     }
 
 }
