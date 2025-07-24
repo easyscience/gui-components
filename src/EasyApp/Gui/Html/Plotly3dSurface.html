@@ -88,8 +88,24 @@
       colorbar: {title: {text: ''}},
     }
 
+    // Rectangular patch trace
+    let patchTrace = {
+      name: '',
+      type: 'scatter3d',
+      mode: 'lines',
+      x: [],
+      y: [],
+      z: [],
+      line: {
+        color: 'black',
+        width: 4,
+        dash: 'dash'
+      },
+      hoverinfo: 'skip',
+    }
+
     // Plot dataset
-    let plotTraces = [ trace ]
+    let plotTraces = [ trace, patchTrace ]
 
     // Plot layout
     let plotLayout = {
@@ -132,6 +148,12 @@
       trace.surfacecolor = newData.surfaceColor
       trace.customdata = newData.customData
       trace.hovertemplate = newData.hoverTemplate
+    }
+
+    function setPatchData(newData) {
+      patchTrace.x = newData.x
+      patchTrace.y = newData.y
+      patchTrace.z = newData.z
     }
 
     function getDataFromJson(filename) {

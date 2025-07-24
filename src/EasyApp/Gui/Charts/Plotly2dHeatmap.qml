@@ -11,6 +11,7 @@ WebEngineView {
     property string colorbarTitle: ''
 
     property var plotData: ({})
+    property var shapes: ([{}])
 
     width: parent.width
     height: parent.height
@@ -52,6 +53,13 @@ WebEngineView {
         }
     }
 
+    onShapesChanged: {
+        if (loadSucceededStatus) {
+            setShape()
+            redrawPlot()
+        }
+    }
+
     // Logic
 
     function redrawPlot() {
@@ -64,6 +72,10 @@ WebEngineView {
 
     function setYAxisTitle() {
         runJavaScript(`setYAxisTitle(${JSON.stringify(yAxisTitle)})`)
+    }
+
+    function setShape() {
+        runJavaScript(`setShape(${JSON.stringify(shapes)})`)
     }
 
     function setColorbarTitle() {

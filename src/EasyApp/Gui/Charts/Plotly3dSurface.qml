@@ -11,6 +11,7 @@ WebEngineView {
     property var scene: ({})
 
     property var plotData: ({})
+    property var patchData: ({})
 
     width: parent.width
     height: parent.height
@@ -52,6 +53,13 @@ WebEngineView {
         }
     }
 
+    onPatchDataChanged: {
+        if (loadSucceededStatus) {
+            setPatchData()
+            redrawPlot()
+        }
+    }
+
     // Logic
 
     function redrawPlot() {
@@ -68,6 +76,10 @@ WebEngineView {
 
     function setXyzData() {
         runJavaScript(`setXyzData(${JSON.stringify(plotData)})`)
+    }
+
+    function setPatchData() {
+        runJavaScript(`setPatchData(${JSON.stringify(patchData)})`)
     }
 
 }

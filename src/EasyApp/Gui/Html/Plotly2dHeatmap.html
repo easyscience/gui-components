@@ -104,6 +104,7 @@
       zaxis: {
         title: 'z-axis',
       },
+      shapes: [],
     }
 
     // Plot config
@@ -129,6 +130,10 @@
 
     function setYAxisTitle(newTitle) {
       plotLayout.yaxis.title = newTitle
+    }
+
+    function setShape(newShape) {
+      return plotLayout.shapes = newShape
     }
 
     function setColorbarTitle(newTitle){
