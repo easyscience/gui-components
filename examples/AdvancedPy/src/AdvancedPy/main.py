@@ -8,6 +8,7 @@ import sys
 from PySide6.QtWidgets import QApplication
 from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType
 from PySide6.QtCore import qInstallMessageHandler
+from PySide6.QtGui import QIcon
 
 # It is usually assumed that the EasyApp package is already installed in the desired python environment.
 # If this is not the case, and if the example is run from the EasyApp repository, one need to add the path to the
@@ -33,6 +34,7 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     console.debug(f'Qt Application created {app}')
+    app.setWindowIcon(QIcon(str(CURRENT_DIR / 'Gui' / 'Resources' / 'Logos' / 'App.svg')))
 
     engine = QQmlApplicationEngine()
     console.debug(f'QML application engine created {engine}')
