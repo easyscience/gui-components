@@ -127,11 +127,17 @@ ListView {
 
     function setAllColumnsWidthAndAlignment() {
         for (let item of contentItem.children) {
-            if (item instanceof TableViewDelegate) {
-                for (let columnIndex in item.children[0].children) {
-                    item.children[0].children[columnIndex].width = headerLabelItems[columnIndex].width
-                    if (typeof item.children[0].children[columnIndex].horizontalAlignment !== 'undefined') {
-                        item.children[0].children[columnIndex].horizontalAlignment = headerLabelItems[columnIndex].horizontalAlignment
+            // Check for TableViewDelegate using explicit property
+            if (item.isTableViewDelegate === true) {
+                const rowElement = item.children[0]
+                if (rowElement && rowElement.children) {
+                    for (let columnIndex in rowElement.children) {
+                        if (columnIndex < headerLabelItems.length) {
+                            rowElement.children[columnIndex].width = headerLabelItems[columnIndex].width
+                            if (typeof rowElement.children[columnIndex].horizontalAlignment !== 'undefined') {
+                                rowElement.children[columnIndex].horizontalAlignment = headerLabelItems[columnIndex].horizontalAlignment
+                            }
+                        }
                     }
                 }
             }
