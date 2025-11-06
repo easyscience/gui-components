@@ -9,7 +9,6 @@ Rectangle {
     default property alias contentRowData: contentRow.data
     property alias mouseArea: mouseArea
     property Item tableView: parent === null ? null : parent.parent
-    readonly property bool isTableViewDelegate: true
 
     implicitWidth: parent == null ? 0 : parent.width
     implicitHeight: tableView === null ? EaStyle.Sizes.tableRowHeight : tableView.tableRowHeight

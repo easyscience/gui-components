@@ -128,7 +128,7 @@ ListView {
     function setAllColumnsWidthAndAlignment() {
         for (let item of contentItem.children) {
             // Check for TableViewDelegate using explicit property
-            if (item.isTableViewDelegate === true) {
+            if (item.toString().startsWith('TableViewDelegate_QMLTYPE')) {
                 const rowElement = item.children[0]
                 if (rowElement && rowElement.children) {
                     for (let columnIndex in rowElement.children) {
