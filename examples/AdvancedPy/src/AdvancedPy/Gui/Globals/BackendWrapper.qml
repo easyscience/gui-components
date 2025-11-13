@@ -56,6 +56,13 @@ QtObject {
     function projectSave() { activeBackend.project.save() }
     function projectEditInfo(path, new_value) { activeBackend.project.editInfo(path, new_value) }
 
+    ////////////////
+    // Analysis page
+    ////////////////
+
+    // All the properties and methods related to the analysis page
+    // are defined directly in the Backends/MockQml/Analysis.qml !!!
+
     ///////////////
     // Summary page
     ///////////////

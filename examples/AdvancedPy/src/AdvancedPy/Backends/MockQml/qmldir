@@ -1,5 +1,6 @@
 module MockQml
 
 singleton Project Project.qml
+singleton Analysis Analysis.qml
 singleton Report Report.qml
 singleton Status Status.qml
