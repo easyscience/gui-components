@@ -5,7 +5,7 @@
 from pathlib import Path
 import sys
 
-from PySide6.QtWidgets import QApplication
+from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType
 
 # It is usually assumed that the EasyApp package is already installed in the desired python environment.
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     qmlRegisterSingletonType(Backend, 'Backends', 1, 0, 'PyBackend')
 
     # Create Qt application
-    app = QApplication(sys.argv)
+    app = QGuiApplication(sys.argv)
 
     # Create the QML application engine
     engine = QQmlApplicationEngine()

@@ -5,7 +5,7 @@
 from pathlib import Path
 import sys
 
-from PySide6.QtWidgets import QApplication
+from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType
 from PySide6.QtCore import qInstallMessageHandler
 from PySide6.QtGui import QIcon
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     qmlRegisterSingletonType(Backend, 'Backends', 1, 0, 'PyBackend')
     console.debug('Backend class is registered as a singleton type for QML')
 
-    app = QApplication(sys.argv)
+    app = QGuiApplication(sys.argv)
     console.debug(f'Qt Application created {app}')
     app.setWindowIcon(QIcon(str(CURRENT_DIR / 'Gui' / 'Resources' / 'Logos' / 'App.svg')))
 
