@@ -29,6 +29,7 @@ T.DialogButtonBox {
     delegate: EaElements.Button { highlighted: true }
 
     contentItem: ListView {
+        implicitWidth: contentWidth
         model: control.contentModel
         spacing: control.spacing
         orientation: ListView.Horizontal
