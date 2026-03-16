@@ -8,4 +8,13 @@ EaElements.TextInput {
     height: parent.height
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
+
+    Keys.onReturnPressed: {
+        accepted()
+        focus = false
+    }
+    Keys.onEnterPressed: {
+        accepted()
+        focus = false
+    }
 }
