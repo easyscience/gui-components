@@ -80,6 +80,16 @@ T.TextField {
         Behavior on border.color { EaAnimations.ThemeChange {} }
     }
 
+    // Visual feedback for the user that editing finish was accepted
+    Keys.onReturnPressed: {
+        accepted()
+        focus = false
+    }
+    Keys.onEnterPressed: {
+        accepted()
+        focus = false
+    }
+
     //Mouse area to react on click events
     MouseArea {
         id: mouseArea

@@ -66,6 +66,16 @@ T.TextField {
         color: 'transparent'
     }
 
+    // Visual feedback for the user that editing finish was accepted
+    Keys.onReturnPressed: {
+        accepted()
+        focus = false
+    }
+    Keys.onEnterPressed: {
+        accepted()
+        focus = false
+    }
+
     //Mouse area to react on click events
     MouseArea {
         id: mouseArea
