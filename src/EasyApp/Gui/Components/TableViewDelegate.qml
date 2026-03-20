@@ -43,6 +43,12 @@ Rectangle {
         blocking: false
         onHoveredChanged: {
             if (hovered) {
+                // Don't change current index while a text input is being edited,
+                // as this steals focus from the active editor
+                var fi = control.Window.activeFocusItem
+                if (fi && fi.activeFocus && fi.hasOwnProperty('cursorPosition')) {
+                    return
+                }
                 //console.error(`${control} [TableViewDelegate.qml] hovered`)
                 parent.ListView.view.currentIndex = index
             }
