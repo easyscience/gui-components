@@ -57,6 +57,7 @@ ListView {
     Rectangle {
         anchors.fill: listView
         color: "transparent"
+        //antialiasing: true
         border.color: EaStyle.Colors.appBarComboBoxBorder
         Behavior on border.color { EaAnimations.ThemeChange {} }
     }
