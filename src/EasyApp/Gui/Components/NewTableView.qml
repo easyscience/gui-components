@@ -9,10 +9,15 @@ import EasyApp.Gui.Components as EaComponents
 
 Item {
     id: newTableView
-    height: 200
+    height: count === 0 ?
+                2 * EaStyle.Sizes.tableRowHeight :
+                showHeader ?
+                    nestedTableView.tableRowHeight * (Math.min(count, maxRowCountShow) + 1 ) :
+                    nestedTableView.tableRowHeight * (Math.min(count, maxRowCountShow))
     width: EaStyle.Sizes.sideBarContentWidth
 
     // exposing underlying tableview API
+    property alias count: nestedTableView.count
     property alias showHeader: nestedTableView.showHeader
     property alias tallRows: nestedTableView.tallRows
     property alias maxRowCountShow: nestedTableView.maxRowCountShow
@@ -21,9 +26,22 @@ Item {
     property alias model: nestedTableView.model
     property alias delegate: nestedTableView.delegate
 
+    // trigger for bindings
+    property int selectionRevision: 0
+    // idx for shift-selection
+    property int anchorRow: -1
+
     ItemSelectionModel {
         id: selectionModel
         model: nestedTableView.model
+    }
+
+    Connections {
+        target: selectionModel
+
+        function onSelectionChanged() {
+            newTableView.selectionRevision++
+        }
     }
 
     // --- helper: convert row -> QModelIndex ---
@@ -39,45 +57,53 @@ Item {
         return idx ? selectionModel.isSelected(idx) : false
     }
 
-    function select(row) {
+    function selectWithModifiers(row, modifiers) {
         let idx = _index(row)
-        if (!idx)
+        if (!idx) return
+
+        // --- SHIFT: range selection ---
+        if (modifiers & Qt.ShiftModifier) {
+            if (anchorRow < 0) {
+                anchorRow = row
+            }
+
+            let from = Math.min(anchorRow, row)
+            let to = Math.max(anchorRow, row)
+
+            // If Ctrl is NOT pressed → replace selection
+            if (!(modifiers & Qt.ControlModifier)) {
+                selectionModel.clearSelection()
+            }
+
+            for (let i = from; i <= to; i++) {
+                let rIdx = _index(i)
+                if (rIdx) {
+                    selectionModel.select(
+                        rIdx,
+                        ItemSelectionModel.Select | ItemSelectionModel.Rows
+                    )
+                }
+            }
+
             return
-
-        selectionModel.select(
-            idx,
-            ItemSelectionModel.Select | ItemSelectionModel.Rows
-        )
-    }
-
-    function selectSingle(row) {
-        let idx = _index(row)
-        if (!idx)
-            return
-
-        selectionModel.clearSelection()
-        selectionModel.select(
-            idx,
-            ItemSelectionModel.Select | ItemSelectionModel.Rows
-        )
-    }
-
-    function toggleSelection(row) {
-        let idx = _index(row)
-        if (!idx)
-            return
-
-        if (selectionModel.isSelected(idx)) {
-            selectionModel.select(
-                idx,
-                ItemSelectionModel.Deselect | ItemSelectionModel.Rows
-            )
-        } else {
-            selectionModel.select(
-                idx,
-                ItemSelectionModel.Select | ItemSelectionModel.Rows
-            )
         }
+
+        // --- CTRL: toggle ---
+        if (modifiers & Qt.ControlModifier) {
+            selectionModel.select(
+                idx,
+                ItemSelectionModel.Toggle | ItemSelectionModel.Rows
+            )
+            anchorRow = row
+            return
+        }
+
+        // --- DEFAULT: single selection ---
+        selectionModel.select(
+            idx,
+            ItemSelectionModel.ClearAndSelect | ItemSelectionModel.Rows
+        )
+        anchorRow = row
     }
 
     function clearSelection() {
@@ -92,18 +118,12 @@ Item {
         anchors.fill: parent
         anchors.margins: 1
 
-        delegate: EaComponents.TableViewDelegate {
-
+        delegate: EaComponents.NewTableViewDelegate {
             required property int index
             required property string name
             required property string structure_type
             required property string description
-
-            color: newTableView.isSelected(index)
-                   ? EaStyle.Colors.themeAccentMinor
-                   : (index % 2
-                        ? EaStyle.Colors.themeBackgroundHovered2
-                        : EaStyle.Colors.themeBackgroundHovered1)
+            tableView: nestedTableView
 
             EaComponents.TableViewLabel {
                 id: modelNameColumn
@@ -122,10 +142,6 @@ Item {
                 id: descrColumn
                 width: EaStyle.Sizes.fontPixelSize * 22
                 text: description
-            }
-
-            mouseArea.onPressed: (mouse) => {
-                newTableView.select(index)
             }
         }
     }

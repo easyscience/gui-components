@@ -22,6 +22,7 @@ PreferencesDialog 1.0 PreferencesDialog.qml
 ProjectDescriptionDialog 1.0 ProjectDescriptionDialog.qml
 
 NewTableView 1.0 NewTableView.qml
+NewTableViewDelegate 1.0 NewTableViewDelegate.qml
 TableView 1.0 TableView.qml
 TableViewHeader 1.0 TableViewHeader.qml
 TableViewDelegate 1.0 TableViewDelegate.qml
