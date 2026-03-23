@@ -118,30 +118,6 @@ Item {
         anchors.fill: parent
         anchors.margins: 1
 
-        delegate: EaComponents.NewTableViewDelegate {
-            required property int index
-            required property string name
-            required property string structure_type
-            required property string description
 
-            EaComponents.TableViewLabel {
-                id: modelNameColumn
-                width: EaStyle.Sizes.fontPixelSize * 10
-                text: name
-                leftPadding: EaStyle.Sizes.fontPixelSize * 0.7
-            }
-
-            EaComponents.TableViewLabel {
-                id: typeColumn
-                width: EaStyle.Sizes.fontPixelSize * 6
-                text: structure_type
-            }
-
-            EaComponents.TableViewLabel {
-                id: descrColumn
-                width: EaStyle.Sizes.fontPixelSize * 22
-                text: description
-            }
-        }
     }
 }

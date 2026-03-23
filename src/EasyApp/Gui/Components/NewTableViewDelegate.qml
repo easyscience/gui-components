@@ -14,10 +14,11 @@ Rectangle {
     implicitHeight: tableView === null ? EaStyle.Sizes.tableRowHeight : tableView.tableRowHeight
 
     color: {
-        newTableView.selectionRevision
+        ListView.view.parent.selectionRevision
 
-        let selected = newTableView.isSelected(index)
-        let c1 = EaStyle.Colors.themeAccentMinor || "#4d9dbd"
+        let selected = ListView.view.parent.isSelected(index)
+        // quickfix until new color accent PR is accepted
+        let c1 = EaStyle.Colors.themeAccentMinor || "#4d9dbd" // "#8ad6ed" for light or "#4d9dbd" for dark
         let c2 = EaStyle.Colors.themeBackgroundHovered2 || "#eeeeee"
         let c3 = EaStyle.Colors.themeBackgroundHovered1 || "#dddddd"
 
@@ -59,5 +60,4 @@ Rectangle {
             }
         }
     }
-
 }
