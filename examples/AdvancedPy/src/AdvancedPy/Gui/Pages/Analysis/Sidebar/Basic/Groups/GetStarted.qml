@@ -38,12 +38,20 @@ EaElements.GroupColumn {
             height: generateDataButton.height
 
             inputMethodHints: Qt.ImhDigitsOnly
+            validator: IntValidator {
+                bottom: 2
+                top: 100000
+            }
 
             value: Globals.BackendWrapper.activeBackend.analysis.dataSize
             units: 'points'
 
             onTextChanged: {
-                Globals.BackendWrapper.activeBackend.analysis.dataSize = text
+                if (acceptableInput) {
+                    Globals.BackendWrapper.activeBackend.analysis.dataSize = text
+                } else {
+                    console.warn("Input value must belong to [2, 100'000]")
+                }
             }
         }
         // text input
