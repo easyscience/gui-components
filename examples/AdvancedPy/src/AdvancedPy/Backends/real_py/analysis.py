@@ -129,5 +129,4 @@ class Analysis(QObject):
         # Background
         y += background
 
-
         return x, y

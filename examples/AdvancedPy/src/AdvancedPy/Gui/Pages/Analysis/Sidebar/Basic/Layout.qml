@@ -14,11 +14,9 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: qsTr('Get started')
-        icon: 'rocket'
-        collapsed: false
+        collapsible: false
 
-        Loader { source: 'Groups/GetStarted.qml' }
+        Loader { source: 'Groups/GenerateData.qml' }
     }
 
 }

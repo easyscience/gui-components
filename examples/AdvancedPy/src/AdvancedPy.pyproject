@@ -15,7 +15,7 @@
         "AdvancedPy/Gui/Pages/Analysis/Layout.qml",
         "AdvancedPy/Gui/Pages/Analysis/MainArea/Chart.qml",
         "AdvancedPy/Gui/Pages/Analysis/Sidebar/Basic/Layout.qml",
-        "AdvancedPy/Gui/Pages/Analysis/Sidebar/Basic/Groups/GetStarted.qml",
+        "AdvancedPy/Gui/Pages/Analysis/Sidebar/Basic/Groups/GenerateData.qml",
         "AdvancedPy/Gui/Pages/Project/Layout.qml",
         "AdvancedPy/Gui/Pages/Project/MainArea/Description.qml",
         "AdvancedPy/Gui/Pages/Project/Sidebar/Basic/Layout.qml",
