@@ -29,17 +29,18 @@ QtObject {
         const ymin = axesRanges.ymin
         const ymax = axesRanges.ymax
 
-        const stepSize = (xmax - xmin) / (dataSize - 1)
+        const pointCount = Math.max(1, dataSize)
+        const stepSize = pointCount > 1 ? (xmax - xmin) / (pointCount - 1) : 0
 
         let dataPoints = []
-        for (let i = 0; i < dataSize + 1; i++) {
-            const x = i * stepSize
+        for (let i = 0; i < pointCount; i++) {
+            const x = xmin + i * stepSize
             const y = ymin + Math.random() * (ymax - ymin)
             dataPoints.push(Qt.point(x, y))
         }
         console.debug("  Data generation completed.")
 
-        console.debug(`* Sending ${dataSize} data points to series...`)
+        console.debug(`* Sending ${pointCount} data points to series...`)
         dataPointsChanged(dataPoints)
         console.debug("  Data update signal emitted.")
     }
