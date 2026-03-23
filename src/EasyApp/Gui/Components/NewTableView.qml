@@ -123,7 +123,6 @@ Item {
             required property string name
             required property string structure_type
             required property string description
-            tableView: nestedTableView
 
             EaComponents.TableViewLabel {
                 id: modelNameColumn

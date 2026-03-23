@@ -17,7 +17,7 @@ Rectangle {
         newTableView.selectionRevision
 
         let selected = newTableView.isSelected(index)
-        let c1 = EaStyle.Colors.themeAccentMinor || "lightblue"
+        let c1 = EaStyle.Colors.themeAccentMinor || "#4d9dbd"
         let c2 = EaStyle.Colors.themeBackgroundHovered2 || "#eeeeee"
         let c3 = EaStyle.Colors.themeBackgroundHovered1 || "#dddddd"
 
@@ -42,7 +42,7 @@ Rectangle {
         cursorShape: undefined //Qt.PointingHandCursor
         hoverEnabled: false
         onPressed: (mouse) => {
-            parent.ListView.view.selectWithModifiers(index, mouse.modifiers)
+            control.ListView.view.parent.selectWithModifiers(index, mouse.modifiers)
         }
     }
 
