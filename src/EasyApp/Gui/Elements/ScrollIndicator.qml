@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Templates as T
 
+import EasyApp.Gui.Style as EaStyle
+
 T.ScrollIndicator {
     id: control
 
@@ -9,13 +11,16 @@ T.ScrollIndicator {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    padding: 2
+    property int _padding: 2
+    padding: _padding
+    topInset: parent.showHeader ? parent.tableRowHeight : 0
+    topPadding: parent.showHeader ? parent.tableRowHeight + _padding : 0
 
     contentItem: Rectangle {
         implicitWidth: 4
         implicitHeight: 4
 
-        ///color: control.Material.scrollBarColor
+        color: EaStyle.Colors.themeForegroundDisabled
         visible: control.size < 1.0
         opacity: 0.0
 
