@@ -17,14 +17,11 @@ Rectangle {
         ListView.view.parent.selectionRevision
 
         let selected = ListView.view.parent.isSelected(index)
-        // quickfix until new color accent PR is accepted
-        let c1 = EaStyle.Colors.themeAccentMinor || "#4d9dbd" // "#8ad6ed" for light or "#4d9dbd" for dark
-        let c2 = EaStyle.Colors.themeBackgroundHovered2 || "#eeeeee"
-        let c3 = EaStyle.Colors.themeBackgroundHovered1 || "#dddddd"
+        let c1 = EaStyle.Colors.themeAccentMinor
+        let c2 = EaStyle.Colors.themeBackgroundHovered2
+        let c3 = EaStyle.Colors.themeBackgroundHovered1
 
-        return selected
-                ? c1
-                : (index % 2 ? c2 : c3)
+        return selected ? c1 : (index % 2 ? c2 : c3)
     }
     Behavior on color { EaAnimations.ThemeChange {} }
 
