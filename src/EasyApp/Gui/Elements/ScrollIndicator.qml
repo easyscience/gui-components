@@ -19,6 +19,7 @@ T.ScrollIndicator {
     contentItem: Rectangle {
         implicitWidth: 4
         implicitHeight: 4
+        radius: width / 4
 
         color: EaStyle.Colors.themeForegroundDisabled
         visible: control.size < 1.0
