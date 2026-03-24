@@ -7,10 +7,10 @@ Rectangle {
     id: control
 
     default property alias contentRowData: contentRow.data
-    property alias mouseArea: mouseArea
+    //property alias mouseArea: mouseArea
     property Item tableView: parent === null ? null : parent.parent
 
-    implicitWidth: parent == null ? 0 : parent.width
+    implicitWidth: ListView.view.parent.width
     implicitHeight: tableView === null ? EaStyle.Sizes.tableRowHeight : tableView.tableRowHeight
 
     color: {
@@ -42,10 +42,17 @@ Rectangle {
         propagateComposedEvents: true
         cursorShape: undefined //Qt.PointingHandCursor
         hoverEnabled: false
-        onPressed: (mouse) => {
+        onReleased: (mouse) => {
             control.ListView.view.parent.selectWithModifiers(index, mouse.modifiers)
         }
     }
+
+    // TapHandler {
+    //     acceptedButtons: Qt.LeftButton // | Qt.RightButton  // match whatever you need
+    //     onTapped: (eventPoint, button) => {
+    //         control.ListView.view.parent.selectWithModifiers(index, eventPoint.modifiers)
+    //     }
+    // }
 
     // HoverHandler to react on hover events
     HoverHandler {

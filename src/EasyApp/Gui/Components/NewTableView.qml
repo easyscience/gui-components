@@ -110,14 +110,48 @@ Item {
         selectionModel.clearSelection()
     }
 
+    // ScrollView{
+    //     width: nestedTableView.width
+    //     height: nestedTableView.height
+
+    //     ScrollBar.vertical: EaElements.ScrollBar {
+    //                 id: scrollBar
+    //                 anchors.right: parent.right
+    //                 // anchors.top: parent.header.bottom
+    //                 topPadding: parent.showHeader ? parent.tableRowHeight : 0
+    //                 background.anchors.top: parent.parent.header.bottom
+    //                 //anchors.bottom: parent.bottom
+    //                 policy: ScrollBar.AlwaysOn //  ScrollBar.AsNeeded
+    //                 width: 6
+    //             }
 
     EaComponents.TableView {
         id: nestedTableView
         clip: true
         antialiasing: true
-        anchors.fill: parent
-        anchors.margins: 1
+        anchors {
+            fill: parent
+            margins: 1
+            // rightMargin: 1 // scrollBar.width
+        }
 
+        ScrollBar.vertical: EaElements.ScrollBar {
+            id: scrollBar
+            // anchors.right: parent.right
+            // anchors.top: parent.header.bottom
+            topInset: parent.showHeader ? parent.tableRowHeight : 0
+            background.anchors.top: parent.parent.header.bottom
+            //anchors.bottom: parent.bottom
+            policy: ScrollBar.AsNeeded //  ScrollBar.AsNeeded
+            width: 6
+        }
+
+        // fixes an issue of clicks not registering right after scroll
+        // does not give too much delay due to selection animation playing anyway
+        // somehow value doesn't affect anything, just fixes the missing clicks issue
+        // even 10000 delay doesn't create a long delay, just fixes the issue
+        pressDelay: 10
 
     }
+
 }
