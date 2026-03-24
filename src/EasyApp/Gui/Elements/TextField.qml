@@ -81,14 +81,20 @@ T.TextField {
     }
 
     // Visual feedback for the user that editing finish was accepted
-    Keys.onReturnPressed: {
+    function _commit(event) {
+        if (!acceptableInput) {
+            warned = true
+            event.accepted = true
+            return
+        }
+        warned = false
         accepted()
         focus = false
+        event.accepted = true
     }
-    Keys.onEnterPressed: {
-        accepted()
-        focus = false
-    }
+
+    Keys.onReturnPressed: (event) => _commit(event)
+    Keys.onEnterPressed:  (event) => _commit(event)
 
     //Mouse area to react on click events
     MouseArea {
