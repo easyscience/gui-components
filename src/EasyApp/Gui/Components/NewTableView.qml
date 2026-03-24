@@ -131,7 +131,7 @@ Item {
         antialiasing: true
         anchors {
             fill: parent
-            margins: 1
+            // margins: 1
             // rightMargin: 1 // scrollBar.width
         }
 
@@ -139,10 +139,12 @@ Item {
             id: scrollBar
             // anchors.right: parent.right
             // anchors.top: parent.header.bottom
+            anchors.topMargin: 1
             topInset: parent.showHeader ? parent.tableRowHeight : 0
-            background.anchors.top: parent.parent.header.bottom
-            //anchors.bottom: parent.bottom
-            policy: ScrollBar.AsNeeded //  ScrollBar.AsNeeded
+            topPadding: parent.showHeader ? parent.tableRowHeight + 1 : 0
+            //background.anchors.top: parent.parent.header.bottom
+            anchors.bottom: parent.bottom
+            policy: ScrollBar.AlwaysOn //  ScrollBar.AsNeeded // AlwaysOn
             width: 6
         }
 
