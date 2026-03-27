@@ -8,23 +8,26 @@ import EasyApp.Gui.Elements as EaElements
 import EasyApp.Gui.Components as EaComponents
 
 Item {
-    id: newTableView
+    id: listView
     height: count === 0 ?
                 2 * EaStyle.Sizes.tableRowHeight :
                 showHeader ?
-                    nestedTableView.tableRowHeight * (Math.min(count, maxRowCountShow) + 1 ) :
-                    nestedTableView.tableRowHeight * (Math.min(count, maxRowCountShow))
+                    nestedListView.tableRowHeight * (Math.min(count, maxRowCountShow) + 1 ) :
+                    nestedListView.tableRowHeight * (Math.min(count, maxRowCountShow))
     width: EaStyle.Sizes.sideBarContentWidth
 
     // exposing underlying tableview API
-    property alias count: nestedTableView.count
-    property alias showHeader: nestedTableView.showHeader
-    property alias tallRows: nestedTableView.tallRows
-    property alias maxRowCountShow: nestedTableView.maxRowCountShow
-    property alias defaultInfoText: nestedTableView.defaultInfoText
-    property alias header: nestedTableView.header
-    property alias model: nestedTableView.model
-    property alias delegate: nestedTableView.delegate
+    property alias count: nestedListView.count
+    property alias showHeader: nestedListView.showHeader
+    property alias tallRows: nestedListView.tallRows
+    property alias maxRowCountShow: nestedListView.maxRowCountShow
+    property alias defaultInfoText: nestedListView.defaultInfoText
+    property alias header: nestedListView.header
+    property alias model: nestedListView.model
+    property alias delegate: nestedListView.delegate
+
+    property ScrollBar verticalScrollBar: null
+    property ScrollIndicator verticalScrollIndicator: null
 
     // trigger for bindings
     property int selectionRevision: 0
@@ -33,14 +36,14 @@ Item {
 
     ItemSelectionModel {
         id: selectionModel
-        model: nestedTableView.model
+        model: nestedListView.model
     }
 
     Connections {
         target: selectionModel
 
         function onSelectionChanged() {
-            newTableView.selectionRevision++
+            listView.selectionRevision++
         }
     }
 
@@ -110,23 +113,8 @@ Item {
         selectionModel.clearSelection()
     }
 
-    // ScrollView{
-    //     width: nestedTableView.width
-    //     height: nestedTableView.height
-
-    //     ScrollBar.vertical: EaElements.ScrollBar {
-    //                 id: scrollBar
-    //                 anchors.right: parent.right
-    //                 // anchors.top: parent.header.bottom
-    //                 topPadding: parent.showHeader ? parent.tableRowHeight : 0
-    //                 background.anchors.top: parent.parent.header.bottom
-    //                 //anchors.bottom: parent.bottom
-    //                 policy: ScrollBar.AlwaysOn //  ScrollBar.AsNeeded
-    //                 width: 6
-    //             }
-
     EaComponents.TableView {
-        id: nestedTableView
+        id: nestedListView
         clip: true
         antialiasing: true
         anchors {
@@ -135,18 +123,8 @@ Item {
             // rightMargin: 1 // scrollBar.width
         }
 
-        ScrollBar.vertical: EaElements.ScrollBar {
-            id: scrollBar
-            // anchors.right: parent.right
-            // anchors.top: parent.header.bottom
-            anchors.topMargin: 1
-            topInset: parent.showHeader ? parent.tableRowHeight : 0
-            topPadding: parent.showHeader ? parent.tableRowHeight + 1 : 0
-            //background.anchors.top: parent.parent.header.bottom
-            anchors.bottom: parent.bottom
-            policy: ScrollBar.AlwaysOn //  ScrollBar.AsNeeded // AlwaysOn
-            width: 6
-        }
+        ScrollBar.vertical: listView.verticalScrollBar
+        ScrollIndicator.vertical: listView.verticalScrollIndicator
 
         // fixes an issue of clicks not registering right after scroll
         // does not give too much delay due to selection animation playing anyway
