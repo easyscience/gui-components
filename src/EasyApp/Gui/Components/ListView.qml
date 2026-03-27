@@ -12,8 +12,8 @@ Item {
     height: count === 0 ?
                 2 * EaStyle.Sizes.tableRowHeight :
                 showHeader ?
-                    nestedListView.tableRowHeight * (Math.min(count, maxRowCountShow) + 1 ) :
-                    nestedListView.tableRowHeight * (Math.min(count, maxRowCountShow))
+                    nestedListView.tableRowHeight * (Math.min(count, maxRowCountShow + 0.5) + 1 ) :
+                    nestedListView.tableRowHeight * (Math.min(count, maxRowCountShow + 0.5))
     width: EaStyle.Sizes.sideBarContentWidth
 
     // exposing underlying tableview API
@@ -28,7 +28,7 @@ Item {
 
     property ScrollBar verticalScrollBar: null
     property ScrollIndicator verticalScrollIndicator: null
-    property bool multiSelection: false
+    property bool multiSelection: true
 
     // trigger for bindings
     property int selectionRevision: 0
