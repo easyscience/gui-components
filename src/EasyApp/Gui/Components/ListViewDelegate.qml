@@ -7,16 +7,15 @@ Rectangle {
     id: control
 
     default property alias contentRowData: contentRow.data
-    //property alias mouseArea: mouseArea
-    property Item tableView: parent === null ? null : parent.parent
+    property Item listView: ListView.view.parent
 
-    implicitWidth: ListView.view.parent.width
-    implicitHeight: tableView === null ? EaStyle.Sizes.tableRowHeight : tableView.tableRowHeight
+    implicitWidth: listView.width
+    implicitHeight: listView.tableRowHeight
 
     color: {
-        ListView.view.parent.selectionRevision
+        listView.selectionRevision
 
-        let selected = ListView.view.parent.isSelected(index)
+        let selected = listView.isSelected(index)
         let c1 = EaStyle.Colors.themeAccentMinor
         let c2 = EaStyle.Colors.themeBackgroundHovered2
         let c3 = EaStyle.Colors.themeBackgroundHovered1
@@ -40,16 +39,9 @@ Rectangle {
         cursorShape: undefined //Qt.PointingHandCursor
         hoverEnabled: false
         onReleased: (mouse) => {
-            control.ListView.view.parent.selectWithModifiers(index, mouse.modifiers)
+            listView.selectWithModifiers(index, mouse.modifiers)
         }
     }
-
-    // TapHandler {
-    //     acceptedButtons: Qt.LeftButton // | Qt.RightButton  // match whatever you need
-    //     onTapped: (eventPoint, button) => {
-    //         control.ListView.view.parent.selectWithModifiers(index, eventPoint.modifiers)
-    //     }
-    // }
 
     // HoverHandler to react on hover events
     HoverHandler {
@@ -60,7 +52,7 @@ Rectangle {
         onHoveredChanged: {
             if (hovered) {
                 //console.error(`${control} [TableViewDelegate.qml] hovered`)
-                parent.ListView.view.currentIndex = index
+                listView.currentIndex = index
             }
         }
     }

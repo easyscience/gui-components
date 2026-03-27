@@ -18,6 +18,8 @@ Item {
 
     // exposing underlying tableview API
     property alias count: nestedListView.count
+    property alias currentIndex: nestedListView.currentIndex
+    property alias tableRowHeight: nestedListView.tableRowHeight
     property alias showHeader: nestedListView.showHeader
     property alias tallRows: nestedListView.tallRows
     property alias maxRowCountShow: nestedListView.maxRowCountShow
