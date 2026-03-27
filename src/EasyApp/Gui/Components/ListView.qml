@@ -28,6 +28,7 @@ Item {
 
     property ScrollBar verticalScrollBar: null
     property ScrollIndicator verticalScrollIndicator: null
+    property bool multiSelection: false
 
     // trigger for bindings
     property int selectionRevision: 0
@@ -65,7 +66,7 @@ Item {
         if (!idx) return
 
         // --- SHIFT: range selection ---
-        if (modifiers & Qt.ShiftModifier) {
+        if (listView.multiSelection && modifiers & Qt.ShiftModifier) {
             if (anchorRow < 0) {
                 anchorRow = row
             }
@@ -92,7 +93,7 @@ Item {
         }
 
         // --- CTRL: toggle ---
-        if (modifiers & Qt.ControlModifier) {
+        if (listView.multiSelection && modifiers & Qt.ControlModifier) {
             selectionModel.select(
                 idx,
                 ItemSelectionModel.Toggle | ItemSelectionModel.Rows
