@@ -47,15 +47,14 @@ Item {
 
     property ScrollBar verticalScrollBar: null
     property ScrollIndicator verticalScrollIndicator: null
+
+    // flag to limit selections
     property bool multiSelection: true
 
     // trigger for bindings
     property int selectionRevision: 0
     // idx for shift-selection
     property int anchorRow: -1
-
-
-
 
     ItemSelectionModel {
         id: selectionModel
@@ -176,12 +175,6 @@ Item {
             Behavior on color { EaAnimations.ThemeChange {} }
         }
 
-        // Empty header row
-        //header: EaComponents.TableViewHeader {}
-
-        // Empty content rows
-        //delegate: EaComponents.TableViewDelegate {}
-
         // Table border
         Rectangle {
             anchors.fill: nestedListView
@@ -213,13 +206,7 @@ Item {
             id: mouseHoverHandler
             acceptedDevices: PointerDevice.AllDevices
             blocking: false
-            onHoveredChanged: {
-                if (hovered) {
-                    //console.error(`${nestedListView} [TableView.qml] hovered`)
-                }
             }
         }
-
     }
-
 }
