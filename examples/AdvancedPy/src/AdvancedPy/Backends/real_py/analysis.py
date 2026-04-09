@@ -90,11 +90,8 @@ class Analysis(QObject):
     def _ndarrays_to_qpoints(x: np.ndarray, y: np.ndarray):
         """
         Convert NumPy X/Y arrays to list[QPointF].
-        Uses memoryview to avoid Python float conversions inside numpy.
         """
-        mvx = memoryview(x)
-        mvy = memoryview(y)
-        return [QPointF(xi, yi) for xi, yi in zip(mvx, mvy)]
+        return [QPointF(xi, yi) for xi, yi in zip(x, y, strict=True)]
 
     @staticmethod
     def _generate_data(
