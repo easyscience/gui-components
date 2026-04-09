@@ -21,8 +21,8 @@ T.ScrollBar {
     minimumSize: orientation === Qt.Horizontal ? height / width : width / height
 
     contentItem: Rectangle {
-        implicitWidth: 4
-        implicitHeight: 4
+        implicitWidth: control.hovered ? 8 : 4
+        implicitHeight: control.hovered ? 8 : 4
         radius: width / 4
 
         color: control.pressed ?
@@ -31,14 +31,28 @@ T.ScrollBar {
                        EaStyle.Colors.themeForegroundMinor :
                        EaStyle.Colors.themeForegroundDisabled
         opacity: 0.0
+
+        Behavior on implicitWidth {
+            NumberAnimation { duration: 150; easing.type: Easing.InOutQuad }
+        }
+        Behavior on implicitHeight {
+            NumberAnimation { duration: 150; easing.type: Easing.InOutQuad }
+        }
     }
 
     background: Rectangle {
-        implicitWidth: control.interactive ? 7 : 4
-        implicitHeight: control.interactive ? 7 : 4
+        implicitWidth: control.hovered ? 14 : (control.interactive ? 7 : 4)
+        implicitHeight: control.hovered ? 14 : (control.interactive ? 7 : 4)
         color: "#0e000000"
         opacity: 0.0
         visible: control.interactive
+
+        Behavior on implicitWidth {
+            NumberAnimation { duration: 150; easing.type: Easing.InOutQuad }
+        }
+        Behavior on implicitHeight {
+            NumberAnimation { duration: 150; easing.type: Easing.InOutQuad }
+        }
     }
 
     states: State {
