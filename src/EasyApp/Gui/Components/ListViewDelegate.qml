@@ -24,6 +24,23 @@ Rectangle {
     }
     Behavior on color { EaAnimations.ThemeChange {} }
 
+    function syncColumnWidths() {
+        let widths = listView.resolvedColumnWidths
+        let cols = listView.columns
+        for (let i = 0; i < contentRow.children.length && i < widths.length; i++) {
+            contentRow.children[i].width = widths[i]
+            if (cols[i] && typeof contentRow.children[i].horizontalAlignment !== 'undefined')
+                contentRow.children[i].horizontalAlignment = cols[i].alignment
+        }
+    }
+
+    Component.onCompleted: syncColumnWidths()
+
+    Connections {
+        target: listView
+        function onResolvedColumnWidthsChanged() { syncColumnWidths() }
+    }
+
     Row {
         id: contentRow
 

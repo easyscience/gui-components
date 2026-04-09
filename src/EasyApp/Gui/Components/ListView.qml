@@ -26,6 +26,25 @@ Item {
 
     property alias hasMoreRows: nestedListView.hasMoreRows
 
+    // Column layout definition. Each entry: { width: <px>, alignment: <Text.Align*> }
+    // Use width: -1 for a column that fills remaining space. Example:
+    // columns: [
+    //     { width: 40,  alignment: Text.AlignHCenter },
+    //     { width: -1,  alignment: Text.AlignLeft },
+    //     { width: 100, alignment: Text.AlignRight }
+    // ]
+    property var columns: []
+    readonly property var resolvedColumnWidths: {
+        if (!columns.length) return []
+        let fixed = 0, flexCount = 0
+        for (let c of columns)
+            c.width > 0 ? fixed += c.width : flexCount++
+        const spacing = EaStyle.Sizes.tableColumnSpacing * (columns.length - 1)
+        const border = EaStyle.Sizes.borderThickness * 2
+        const fill = flexCount > 0 ? (width - fixed - spacing - border) / flexCount : 0
+        return columns.map(c => c.width > 0 ? c.width : fill)
+    }
+
     property ScrollBar verticalScrollBar: null
     property ScrollIndicator verticalScrollIndicator: null
     property bool multiSelection: true
@@ -48,6 +67,8 @@ Item {
 
         function onSelectionChanged() {
             listView.selectionRevision++
+            if (selectionModel.selectedIndexes.length === 0)
+                anchorRow = -1
         }
     }
 
@@ -115,6 +136,7 @@ Item {
 
     function clearSelection() {
         selectionModel.clearSelection()
+        anchorRow = -1
     }
 
     ListView {
@@ -123,8 +145,6 @@ Item {
         property alias defaultInfoText: defaultInfoLabel.text
         property bool showHeader: true
         property bool tallRows: false
-        property var headerLabelItems: headerItem.children[0].children
-        property int contentItemChildrenLength: contentItem.children.length
         property int maxRowCountShow: EaStyle.Sizes.tableMaxRowCountShow
         property int tableRowHeight: tallRows ?
                                          1.5 * EaStyle.Sizes.tableRowHeight :
@@ -145,9 +165,6 @@ Item {
         clip: true
         headerPositioning: ListView.OverlayHeader
         boundsBehavior: Flickable.StopAtBounds
-
-        onHeaderLabelItemsChanged: setWidthOfFlexibleColumnForHeader()
-        onContentItemChildrenLengthChanged: widthAndAlignmentChangeTimer.start()
 
         // Highlight current row
         highlightMoveDuration: EaStyle.Sizes.tableHighlightMoveDuration
@@ -190,13 +207,6 @@ Item {
             }
         }
 
-        // Width and alignment change timer
-        Timer {
-            id: widthAndAlignmentChangeTimer
-            interval: 10
-            onTriggered: setAllColumnsWidthAndAlignment()
-        }
-
         // HoverHandler to react on hover events
         // Hide current row highlight if table is not hovered
         HoverHandler {
@@ -206,52 +216,6 @@ Item {
             onHoveredChanged: {
                 if (hovered) {
                     //console.error(`${nestedListView} [TableView.qml] hovered`)
-                }
-            }
-        }
-
-        // Logic
-
-        function flexibleColumnWidth() {
-            let fixedColumnsWidth = 0
-            for (let item of headerLabelItems) {
-                if (!item.flexibleWidth) {
-                    fixedColumnsWidth += item.width
-                }
-            }
-            const allColumnWidth = nestedListView.width
-            const spacingWidth = EaStyle.Sizes.tableColumnSpacing * (headerLabelItems.length - 1)
-            const borderThickness = EaStyle.Sizes.borderThickness * 2
-            const flexibleColumnWidth = allColumnWidth -
-                                      fixedColumnsWidth -
-                                      spacingWidth -
-                                      borderThickness
-            return flexibleColumnWidth
-        }
-
-        function setWidthOfFlexibleColumnForHeader() {
-            for (let item of headerLabelItems) {
-                if (item.flexibleWidth) {
-                    item.width = flexibleColumnWidth()
-                }
-            }
-        }
-
-        function setAllColumnsWidthAndAlignment() {
-            for (let item of contentItem.children) {
-                // Check for TableViewDelegate using explicit property
-                if (item.toString().startsWith('TableViewDelegate_QMLTYPE')) {
-                    const rowElement = item.children[0]
-                    if (rowElement && rowElement.children) {
-                        for (let columnIndex in rowElement.children) {
-                            if (columnIndex < headerLabelItems.length) {
-                                rowElement.children[columnIndex].width = headerLabelItems[columnIndex].width
-                                if (typeof rowElement.children[columnIndex].horizontalAlignment !== 'undefined') {
-                                    rowElement.children[columnIndex].horizontalAlignment = headerLabelItems[columnIndex].horizontalAlignment
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }
