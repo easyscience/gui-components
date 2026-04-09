@@ -21,28 +21,32 @@ Item {
     property alias maxRowCountShow: nestedListView.maxRowCountShow
     property alias defaultInfoText: nestedListView.defaultInfoText
     property alias header: nestedListView.header
+    // Must be a QAbstractItemModel (e.g. ListModel). JS arrays or integers
+    // won't support selection.
     property alias model: nestedListView.model
     property alias delegate: nestedListView.delegate
 
     property alias hasMoreRows: nestedListView.hasMoreRows
 
-    // Column layout definition. Each entry: { width: <px>, alignment: <Text.Align*> }
-    // Use width: -1 for a column that fills remaining space. Example:
-    // columns: [
-    //     { width: 40,  alignment: Text.AlignHCenter },
-    //     { width: -1,  alignment: Text.AlignLeft },
-    //     { width: 100, alignment: Text.AlignRight }
-    // ]
-    property var columns: []
+    // Column widths definition. Each entry is a width in px, or -1 to fill remaining space. Example:
+    // columnWidths: [40, -1, 100]
+    property var columnWidths: []
     readonly property var resolvedColumnWidths: {
-        if (!columns.length) return []
+        if (!columnWidths.length) return []
         let fixed = 0, flexCount = 0
-        for (let c of columns)
-            c.width > 0 ? fixed += c.width : flexCount++
-        const spacing = EaStyle.Sizes.tableColumnSpacing * (columns.length - 1)
+        for (let w of columnWidths)
+            w > 0 ? fixed += w : flexCount++
+        const spacing = EaStyle.Sizes.tableColumnSpacing * (columnWidths.length - 1)
         const border = EaStyle.Sizes.borderThickness * 2
-        const fill = flexCount > 0 ? (width - fixed - spacing - border) / flexCount : 0
-        return columns.map(c => c.width > 0 ? c.width : fill)
+        // Remaining space after fixed columns, inter-column spacing, and border,
+        // divided equally among flex columns (width: -1). Clamped to 0.
+        const fill = flexCount > 0 ? Math.max(0, (width - fixed - spacing - border) / flexCount) : 0
+        return columnWidths.map(w => w > 0 ? w : fill)
+    }
+
+    function applyWidths(row) {
+        for (let i = 0; i < row.children.length && i < resolvedColumnWidths.length; i++)
+            row.children[i].width = resolvedColumnWidths[i]
     }
 
     property ScrollBar verticalScrollBar: null
@@ -94,6 +98,7 @@ Item {
                 anchorRow = row
             }
 
+            let savedAnchor = anchorRow
             let from = Math.min(anchorRow, row)
             let to = Math.max(anchorRow, row)
 
@@ -112,6 +117,7 @@ Item {
                 }
             }
 
+            anchorRow = savedAnchor
             return
         }
 
@@ -153,8 +159,10 @@ Item {
         property real visibleRowCount: hasMoreRows ? maxRowCountShow + 0.5 : count
 
         enabled: count > 0
+        // fixes an issue of clicks not registering right after scroll
+        pressDelay: 10
 
-        width: EaStyle.Sizes.sideBarContentWidth
+        width: parent.width
         height: count === 0
                     ? 2 * EaStyle.Sizes.tableRowHeight
                     : showHeader
@@ -175,14 +183,6 @@ Item {
             Behavior on color { EaAnimations.ThemeChange {} }
         }
 
-        // Table border
-        Rectangle {
-            anchors.fill: nestedListView
-            color: "transparent"
-            border.color: EaStyle.Colors.appBarComboBoxBorder
-            Behavior on border.color { EaAnimations.ThemeChange {} }
-        }
-
         // Default info, if no rows added
         Rectangle {
             visible: count === 0
@@ -200,13 +200,20 @@ Item {
             }
         }
 
-        // HoverHandler to react on hover events
         // Hide current row highlight if table is not hovered
         HoverHandler {
             id: mouseHoverHandler
             acceptedDevices: PointerDevice.AllDevices
             blocking: false
-            }
         }
+    }
+
+    // Table border, z above all content (header z:3, highlight z:2)
+    Rectangle {
+        z: 4
+        anchors.fill: parent
+        color: "transparent"
+        border.color: EaStyle.Colors.appBarComboBoxBorder
+        Behavior on border.color { EaAnimations.ThemeChange {} }
     }
 }

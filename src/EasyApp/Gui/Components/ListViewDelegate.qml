@@ -24,21 +24,11 @@ Rectangle {
     }
     Behavior on color { EaAnimations.ThemeChange {} }
 
-    function syncColumnWidths() {
-        let widths = listView.resolvedColumnWidths
-        let cols = listView.columns
-        for (let i = 0; i < contentRow.children.length && i < widths.length; i++) {
-            contentRow.children[i].width = widths[i]
-            if (cols[i] && typeof contentRow.children[i].horizontalAlignment !== 'undefined')
-                contentRow.children[i].horizontalAlignment = cols[i].alignment
-        }
-    }
-
-    Component.onCompleted: syncColumnWidths()
+    Component.onCompleted: if (listView) listView.applyWidths(contentRow)
 
     Connections {
         target: listView
-        function onResolvedColumnWidthsChanged() { syncColumnWidths() }
+        function onResolvedColumnWidthsChanged() { listView.applyWidths(contentRow) }
     }
 
     Row {
@@ -53,24 +43,22 @@ Rectangle {
         id: mouseArea
         anchors.fill: parent
         propagateComposedEvents: true
-        cursorShape: undefined //Qt.PointingHandCursor
         hoverEnabled: false
-        onReleased: (mouse) => {
+        onClicked: (mouse) => {
             listView.selectWithModifiers(index, mouse.modifiers)
         }
     }
 
-    // HoverHandler to react on hover events
+    // Mouse-only navigation: highlight follows hover.
+    // If keyboard navigation is added, guard this with a keyboardActive flag.
     HoverHandler {
         id: mouseHoverHandler
         acceptedDevices: PointerDevice.AllDevices
         cursorShape: Qt.PointingHandCursor
         blocking: false
         onHoveredChanged: {
-            if (hovered) {
-                //console.error(`${control} [TableViewDelegate.qml] hovered`)
+            if (hovered)
                 listView.currentIndex = index
-            }
         }
     }
 }
