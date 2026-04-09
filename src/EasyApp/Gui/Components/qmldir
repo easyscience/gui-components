@@ -23,6 +23,7 @@ ProjectDescriptionDialog 1.0 ProjectDescriptionDialog.qml
 
 ListView 1.0 ListView.qml
 ListViewDelegate 1.0 ListViewDelegate.qml
+ListViewHeader 1.0 ListViewHeader.qml
 TableView 1.0 TableView.qml
 TableViewHeader 1.0 TableViewHeader.qml
 TableViewDelegate 1.0 TableViewDelegate.qml
