@@ -12,7 +12,6 @@ Item {
     property alias items: items.contentData
 
     property alias continueButton: continueButton
-    property Component footerComponent: null
 
     anchors.fill: parent
 
@@ -31,7 +30,9 @@ Item {
         id: items
 
         anchors.top: tabs.bottom
-        anchors.bottom: footerLoader.top
+        anchors.bottom: continueButton.visible ?
+                            continueButton.top:
+                            sideBarContainer.bottom
         anchors.left: sideBarContainer.left
         anchors.right: sideBarContainer.right
 
@@ -43,20 +44,6 @@ Item {
         currentIndex: tabs.currentIndex
     }
     // Sidebar content
-
-    // Footer content (pinned above continue button)
-    Loader {
-        id: footerLoader
-
-        active: sideBarContainer.footerComponent !== null
-        sourceComponent: sideBarContainer.footerComponent
-
-        anchors.bottom: continueButton.visible ? continueButton.top : sideBarContainer.bottom
-        anchors.horizontalCenter: sideBarContainer.horizontalCenter
-
-        anchors.bottomMargin: footerLoader.item ? 0.25 * EaStyle.Sizes.fontPixelSize : 0
-    }
-    // Footer content
 
     // Continue button
     EaElements.SideBarButton {
@@ -77,7 +64,7 @@ Item {
     // Gradient area above button
     Rectangle {
         height: 1.25 * EaStyle.Sizes.fontPixelSize
-        anchors.bottom: footerLoader.top
+        anchors.bottom: continueButton.top
         anchors.left: sideBarContainer.left
         anchors.right: sideBarContainer.right
 
