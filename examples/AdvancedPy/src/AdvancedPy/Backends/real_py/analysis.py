@@ -64,14 +64,17 @@ class Analysis(QObject):
     def generateData(self):
         """Generate new synthetic data and notify QML."""
         console.debug(f"* Generating {self.dataSize} data points...")
-        x, y = self._generate_data(n_points=self.dataSize)
-        console.debug("  Data generation completed.")
+        try:
+            x, y = self._generate_data(n_points=self.dataSize)
+            console.debug("  Data generation completed.")
 
-        console.debug(f"* Converting and sending {self.dataSize} data points to series...")
-        self.dataPointsChanged.emit(self._ndarrays_to_qpoints(x, y))
-        console.debug("  Data update signal emitted.")
+            console.debug(f"* Converting and sending {self.dataSize} data points to series...")
+            self.dataPointsChanged.emit(self._ndarrays_to_qpoints(x, y))
+            console.debug("  Data update signal emitted.")
 
-        self._updateAxesRanges(x.min(), x.max(), y.min(), y.max())
+            self._updateAxesRanges(x.min(), x.max(), y.min(), y.max())
+        except Exception as exception:
+            console.error(f"Failed to generate analysis data: {exception}")
 
     # ------------------------------------------------------------------
     # Internal Helpers
