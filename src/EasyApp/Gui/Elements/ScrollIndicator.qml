@@ -11,15 +11,11 @@ T.ScrollIndicator {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    property int _padding: 2
-    padding: _padding
-    topInset: parent.showHeader ? parent.tableRowHeight : 0
-    topPadding: parent.showHeader ? parent.tableRowHeight + _padding : 0
+    padding: control.interactive ? 1 : 2
 
     contentItem: Rectangle {
         implicitWidth: 4
         implicitHeight: 4
-        radius: width / 4
 
         color: EaStyle.Colors.themeForegroundDisabled
         visible: control.size < 1.0
