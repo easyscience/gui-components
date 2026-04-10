@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Controls as QC
+import QtQuick.Controls
 
 import EasyApp.Gui.Globals as EaGlobals
 import EasyApp.Gui.Style as EaStyle
@@ -7,7 +7,7 @@ import EasyApp.Gui.Animations as EaAnimations
 import EasyApp.Gui.Elements as EaElements
 import EasyApp.Gui.Components as EaComponents
 
-QC.ListView {
+ListView {
     id: listView
     width: EaStyle.Sizes.sideBarContentWidth
 
@@ -20,12 +20,15 @@ QC.ListView {
     property alias defaultInfoText: defaultInfoLabel.text
     
 
+    // Externally, use the full module path: EaComponents.ListView.Indicator, etc.
+    // Unqualified "ListView.Indicator" will resolve to QtQuick's ListView, not this component.
+    // Internally, we reference via the id (listView.Indicator) to avoid the same clash.
     enum ScrollBarMode {
         Indicator,
         AsNeeded,
         AlwaysOn
     }
-    property int scrollBarMode: ListView.Indicator
+    property int scrollBarMode: listView.Indicator
 
     // flag to limit selections
     property bool multiSelection: true
@@ -68,7 +71,7 @@ QC.ListView {
                     : tableRowHeight * visibleRowCount
 
     clip: true
-    headerPositioning: QC.ListView.OverlayHeader
+    headerPositioning: ListView.OverlayHeader
     boundsBehavior: Flickable.StopAtBounds
     enabled: count > 0
     // Highlight current row
@@ -88,16 +91,16 @@ QC.ListView {
         blocking: false
     }
 
-    QC.ScrollBar.vertical: EaElements.ScrollBar {
-        policy: scrollBarMode === ListView.AlwaysOn  ? QC.ScrollBar.AlwaysOn
-              : scrollBarMode === ListView.AsNeeded  ? QC.ScrollBar.AsNeeded
-              : QC.ScrollBar.AlwaysOff
+    ScrollBar.vertical: EaElements.ScrollBar {
+        policy: scrollBarMode === listView.AlwaysOn  ? ScrollBar.AlwaysOn
+              : scrollBarMode === listView.AsNeeded  ? ScrollBar.AsNeeded
+              : ScrollBar.AlwaysOff
         topInset: listView.showHeader ? listView.tableRowHeight : 0
         topPadding: listView.padding + (listView.showHeader ? listView.tableRowHeight : 0)
     }
 
-    QC.ScrollIndicator.vertical: EaElements.ScrollIndicator {
-        active: scrollBarMode === ListView.Indicator
+    ScrollIndicator.vertical: EaElements.ScrollIndicator {
+        active: scrollBarMode === listView.Indicator
         topInset: listView.showHeader ? listView.tableRowHeight : 0
         topPadding: listView.padding + (listView.showHeader ? listView.tableRowHeight : 0)
     }
