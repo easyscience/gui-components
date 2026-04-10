@@ -12,16 +12,11 @@ T.ScrollBar {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    property bool snapToHeader: false
-    property int _padding: control.interactive ? 1 : 2
-    padding: _padding
-    topInset: snapToHeader && parent.showHeader ? parent.tableRowHeight : 0
-    topPadding: snapToHeader && parent.showHeader ? parent.tableRowHeight + _padding : 0
+    padding: control.interactive ? 1 : 2
     visible: control.policy !== T.ScrollBar.AlwaysOff
     minimumSize: orientation === Qt.Horizontal ? height / width : width / height
 
     contentItem: Rectangle {
-        radius: width / 4
 
         color: control.pressed ?
                    EaStyle.Colors.themeAccent :
