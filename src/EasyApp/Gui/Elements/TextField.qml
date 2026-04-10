@@ -11,6 +11,7 @@ T.TextField {
     id: control
 
     property bool warned: false
+    property bool enterFlash: false
 
     implicitWidth: implicitBackgroundWidth + leftInset + rightInset
                    || Math.max(contentWidth, placeholder.implicitWidth) + leftPadding + rightPadding
@@ -31,7 +32,9 @@ T.TextField {
     font.pixelSize: EaStyle.Sizes.fontPixelSize
     //font.bold: control.activeFocus ? true : false
 
-    color: warned ?
+    color: enterFlash ?
+               EaStyle.Colors.themeForeground :
+               warned ?
                EaStyle.Colors.red :
                !enabled ?
                    EaStyle.Colors.themeForegroundDisabled :
@@ -80,21 +83,17 @@ T.TextField {
         Behavior on border.color { EaAnimations.ThemeChange {} }
     }
 
-    // Visual feedback for the user that editing finish was accepted
-    function _commit(event) {
-        if (!acceptableInput) {
-            warned = true
-            event.accepted = true
-            return
-        }
-        warned = false
-        accepted()
-        focus = false
-        event.accepted = true
+    onAccepted: {
+        control.enterFlash = true
+        enterFlashTimer.start()
     }
 
-    Keys.onReturnPressed: (event) => _commit(event)
-    Keys.onEnterPressed:  (event) => _commit(event)
+    // Visual feedback for the user that editing finish was accepted
+    Timer {
+        id: enterFlashTimer
+        interval: 180
+        onTriggered: control.enterFlash = false
+    }
 
     //Mouse area to react on click events
     MouseArea {
