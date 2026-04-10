@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls as QC
 
 import EasyApp.Gui.Style as EaStyle
 import EasyApp.Gui.Animations as EaAnimations
@@ -7,7 +7,7 @@ import EasyApp.Gui.Animations as EaAnimations
 Rectangle {
     id: listViewHeader
     default property alias contentRowData: contentRow.data
-    property Item listView: ListView.view ? ListView.view.parent : null
+    property Item listView: ListView.view ?? null
 
     visible: listView && listView.showHeader
 
@@ -19,7 +19,7 @@ Rectangle {
     color: EaStyle.Colors.contentBackground
     Behavior on color { EaAnimations.ThemeChange {} }
 
-    Component.onCompleted: Qt.callLater(function() { if (listView) listView.applyWidths(contentRow) })
+    Component.onCompleted: if (listView) listView.applyWidths(contentRow)
 
     Connections {
         target: listView

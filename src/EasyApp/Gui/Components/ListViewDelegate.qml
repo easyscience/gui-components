@@ -7,15 +7,17 @@ Rectangle {
     id: control
 
     default property alias contentRowData: contentRow.data
-    property Item listView: ListView.view.parent
+    property Item listView: ListView.view ?? null
 
     implicitWidth: listView.width
     implicitHeight: listView.tableRowHeight
 
     color: {
-        listView.selectionRevision
+        // Read selectedIndexes to create a binding dependency — forces
+        // this color expression to re-evaluate whenever the selection changes.
+        listView.selectedIndexes
 
-        let selected = listView.isSelected(index)
+        let selected = index >= 0 && listView.isSelected(index)
         let c1 = EaStyle.Colors.themeAccentMinor
         let c2 = EaStyle.Colors.themeBackgroundHovered2
         let c3 = EaStyle.Colors.themeBackgroundHovered1
@@ -42,10 +44,10 @@ Rectangle {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        propagateComposedEvents: true
         hoverEnabled: false
         onClicked: (mouse) => {
-            listView.selectWithModifiers(index, mouse.modifiers)
+            if (index >= 0)
+                listView.selectWithModifiers(index, mouse.modifiers)
         }
     }
 
@@ -57,7 +59,7 @@ Rectangle {
         cursorShape: Qt.PointingHandCursor
         blocking: false
         onHoveredChanged: {
-            if (hovered)
+            if (hovered && index >= 0)
                 listView.currentIndex = index
         }
     }
