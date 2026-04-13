@@ -52,6 +52,10 @@ ListView {
     // ── Companion API ───────────────────────────────────────────────────
     // Used by ListViewHeader and ListViewDelegate. Not intended for direct consumer use.
 
+    // Anchor row index for shift-selection range tracking.
+    // Used by: ListViewDelegate (anchor indicator when row is not selected)
+    property int anchorRow: -1
+
     // Row height in px, derived from tallRows.
     // Used by: ListViewDelegate (implicitHeight), ListViewHeader (own height)
     property int tableRowHeight: tallRows ?
@@ -142,10 +146,6 @@ ListView {
         )
         anchorRow = row
     }
-
-    // Anchor row index for shift-selection range tracking.
-    // Used by: ListViewDelegate (anchor indicator when row is not selected)
-    property int anchorRow: -1
 
     // ── Internals ───────────────────────────────────────────────────────
 
