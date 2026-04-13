@@ -106,10 +106,6 @@ ListView {
             let from = Math.min(anchorRow, row)
             let to = Math.max(anchorRow, row)
 
-            if (!(modifiers & Qt.ControlModifier)) {
-                selectionModel.clearSelection()
-            }
-
             for (let i = from; i <= to; i++) {
                 let rIdx = _index(i)
                 if (rIdx) {
