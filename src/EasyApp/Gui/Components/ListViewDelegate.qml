@@ -40,6 +40,34 @@ Rectangle {
         spacing: EaStyle.Sizes.tableColumnSpacing
     }
 
+    // Anchor indicator: small triangle in top-right corner when row is
+    // the shift-selection anchor but not currently selected.
+    Item {
+        visible: {
+            // Read selectedIndexes to create binding dependency for reactivity.
+            listView.selectedIndexes
+            return index === listView.anchorRow && !listView.isSelected(index)
+        }
+        anchors.top: parent.top
+        anchors.right: parent.right
+        width: 8
+        height: 8
+        clip: true
+        layer.enabled: true
+        layer.smooth: false
+
+        Rectangle {
+            width: parent.width * 1.5
+            height: parent.height * 1.5
+            rotation: 45
+            x: Math.round(parent.width / 2)
+            y: Math.round(-parent.height * 0.75)
+            antialiasing: false
+            color: EaStyle.Colors.themeAccentMinor
+            Behavior on color { EaAnimations.ThemeChange {} }
+        }
+    }
+
     //Mouse area to react on click events
     MouseArea {
         id: mouseArea

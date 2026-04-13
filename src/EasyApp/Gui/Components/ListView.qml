@@ -106,6 +106,10 @@ ListView {
             let from = Math.min(anchorRow, row)
             let to = Math.max(anchorRow, row)
 
+            if (!(modifiers & Qt.ControlModifier)) {
+                selectionModel.clearSelection()
+            }
+
             for (let i = from; i <= to; i++) {
                 let rIdx = _index(i)
                 if (rIdx) {
@@ -138,10 +142,11 @@ ListView {
         anchorRow = row
     }
 
-    // ── Internals ───────────────────────────────────────────────────────
-
     // Anchor row index for shift-selection range tracking.
+    // Used by: ListViewDelegate (anchor indicator when row is not selected)
     property int anchorRow: -1
+
+    // ── Internals ───────────────────────────────────────────────────────
 
     // Convert row int to QModelIndex for selectionModel.
     function _index(row) {
