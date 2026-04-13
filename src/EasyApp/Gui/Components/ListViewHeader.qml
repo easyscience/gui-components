@@ -9,12 +9,10 @@ Rectangle {
     default property alias contentRowData: contentRow.data
     property Item listView: ListView.view ?? null
 
-    visible: listView && listView.showHeader
-
     z: 3 // To display header above delegate and highlighted area
 
     implicitWidth: parent === null ? 0 : parent.width
-    implicitHeight: listView && listView.showHeader ? listView.tableRowHeight : 0
+    implicitHeight: listView ? listView.tableRowHeight : 0
 
     color: EaStyle.Colors.contentBackground
     Behavior on color { EaAnimations.ThemeChange {} }
