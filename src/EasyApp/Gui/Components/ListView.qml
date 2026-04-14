@@ -43,11 +43,12 @@ ListView {
     focus: true
 
     // Drives whether the delegate renders selection/anchor visuals.
-    // Default: this list's own activeFocus. When hosted inside a FocusScope
+    // Default: always true. When hosted inside a FocusScope
     // with focusable siblings (buttons, filters), override with the scope's
     // activeFocus so visuals stay lit while focus is elsewhere in the panel,
-    // e.g. `selectionActive: myScope.activeFocus`.
-    property bool selectionActive: activeFocus
+    // e.g. `selectionActive: myScope.activeFocus`. Or use this list's own focus,
+    // e.g. `selectionActive: activeFocus`.
+    property bool selectionActive: true
 
     // Column widths definition. Each entry is a width in px, or -1 to fill remaining space.
     // Example: columnWidths: [40, -1, 100]
