@@ -17,7 +17,7 @@ Rectangle {
         // this color expression to re-evaluate whenever the selection changes.
         listView.selectedIndexes
 
-        let selected = index >= 0 && listView.isSelected(index)
+        let selected = index >= 0 && listView.isSelected(index) && listView.selectionActive
         let c1 = EaStyle.Colors.themeAccentMinor
         let c2 = EaStyle.Colors.themeBackgroundHovered2
         let c3 = EaStyle.Colors.themeBackgroundHovered1
@@ -46,7 +46,9 @@ Rectangle {
         visible: {
             // Read selectedIndexes to create binding dependency for reactivity.
             listView.selectedIndexes
-            return index === listView.anchorRow && !listView.isSelected(index)
+            return listView.selectionActive
+                   && index === listView.anchorRow
+                   && !listView.isSelected(index)
         }
         anchors.top: parent.top
         anchors.right: parent.right
@@ -68,14 +70,19 @@ Rectangle {
         }
     }
 
-    //Mouse area to react on click events
+    // MouseArea's exclusive grab on press blocks the ListView-level
+    // TapHandler from firing for delegate clicks, so focus transfer is
+    // driven from here. The ListView's own TapHandler still handles taps
+    // on the header, border, and empty area.
     MouseArea {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: false
         onClicked: (mouse) => {
-            if (index >= 0)
+            if (index >= 0) {
+                listView.forceActiveFocus()
                 listView.selectWithModifiers(index, mouse.modifiers)
+            }
         }
     }
 

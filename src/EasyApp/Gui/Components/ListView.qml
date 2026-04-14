@@ -39,6 +39,16 @@ ListView {
     // Allow ctrl/shift multi-select.
     property bool multiSelection: true
 
+    // Claim the enclosing FocusScope's default focus target.
+    focus: true
+
+    // Drives whether the delegate renders selection/anchor visuals.
+    // Default: this list's own activeFocus. When hosted inside a FocusScope
+    // with focusable siblings (buttons, filters), override with the scope's
+    // activeFocus so visuals stay lit while focus is elsewhere in the panel,
+    // e.g. `selectionActive: myScope.activeFocus`.
+    property bool selectionActive: activeFocus
+
     // Column widths definition. Each entry is a width in px, or -1 to fill remaining space.
     // Example: columnWidths: [40, -1, 100]
     property var columnWidths: []
@@ -186,6 +196,13 @@ ListView {
         id: mouseHoverHandler
         acceptedDevices: PointerDevice.AllDevices
         blocking: false
+    }
+
+    // Any tap on the list (header, delegates, empty area) claims focus.
+    // Non-blocking: delegate MouseAreas and header interactions still fire.
+    TapHandler {
+        acceptedDevices: PointerDevice.AllDevices
+        onTapped: listView.forceActiveFocus()
     }
 
     ScrollBar.vertical: EaElements.ScrollBar {

@@ -30,4 +30,13 @@ Rectangle {
         height: parent.height
         spacing: EaStyle.Sizes.tableColumnSpacing
     }
+
+    // Header sits above delegate 0 (OverlayHeader). Without an input
+    // handler here, clicks fall through to that delegate's MouseArea,
+    // bypassing the ListView-level TapHandler. This claims the press
+    // so header clicks transfer focus to the list.
+    MouseArea {
+        anchors.fill: parent
+        onClicked: if (listView) listView.forceActiveFocus()
+    }
 }
