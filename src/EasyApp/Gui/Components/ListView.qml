@@ -48,6 +48,7 @@ ListView {
     // activeFocus so visuals stay lit while focus is elsewhere in the panel,
     // e.g. `selectionActive: myScope.activeFocus`. Or use this list's own focus,
     // e.g. `selectionActive: activeFocus`.
+    // Used by: ListViewDelegate.
     property bool selectionActive: true
 
     // Column widths definition. Each entry is a width in px, or -1 to fill remaining space.

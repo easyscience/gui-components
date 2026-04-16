@@ -70,18 +70,15 @@ Rectangle {
         }
     }
 
-    // MouseArea's exclusive grab on press blocks the ListView-level
-    // TapHandler from firing for delegate clicks, so focus transfer is
-    // driven from here. The ListView's own TapHandler still handles taps
-    // on the header, border, and empty area.
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        hoverEnabled: false
-        onClicked: (mouse) => {
+    // TapHandler (not MouseArea) so nested interactive children like
+    // TableViewButton receive their own press events — MouseArea's
+    // exclusive grab on press would swallow clicks on those buttons.
+    TapHandler {
+        id: tap
+        onTapped: {
             if (index >= 0) {
                 listView.forceActiveFocus()
-                listView.selectWithModifiers(index, mouse.modifiers)
+                listView.selectWithModifiers(index, tap.point.modifiers)
             }
         }
     }
