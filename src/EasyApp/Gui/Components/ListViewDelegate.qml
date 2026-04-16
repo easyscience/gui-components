@@ -38,6 +38,8 @@ Rectangle {
 
         height: parent.height
         spacing: EaStyle.Sizes.tableColumnSpacing
+        leftPadding: EaStyle.Sizes.tableColumnSpacing
+        rightPadding: EaStyle.Sizes.tableColumnSpacing
     }
 
     // Anchor indicator: small triangle in top-right corner when row is
