@@ -9,6 +9,12 @@ Rectangle {
     default property alias contentRowData: contentRow.data
     property Item listView: ListView.view ?? null
 
+    // True while any focusable cell inside the row (typically a TextInput)
+    // owns activeFocus. Aggregated by the FocusScope wrapping contentRow.
+    // The delegate also factors this into its own selection visuals so
+    // inline editing isn't drawn over the accent row background.
+    readonly property alias editing: editScope.activeFocus
+
     implicitWidth: listView.width
     implicitHeight: listView.tableRowHeight
 
@@ -17,7 +23,7 @@ Rectangle {
         // this color expression to re-evaluate whenever the selection changes.
         listView.selectedIndexes
 
-        let selected = index >= 0 && listView.isSelected(index) && listView.selectionActive
+        let selected = index >= 0 && listView.isSelected(index) && listView.selectionActive && !editing
         let c1 = EaStyle.Colors.themeAccentMinor
         let c2 = EaStyle.Colors.themeBackgroundHovered2
         let c3 = EaStyle.Colors.themeBackgroundHovered1
@@ -33,13 +39,18 @@ Rectangle {
         function onResolvedColumnWidthsChanged() { listView.applyWidths(contentRow) }
     }
 
-    Row {
-        id: contentRow
+    FocusScope {
+        id: editScope
+        anchors.fill: parent
 
-        height: parent.height
-        spacing: EaStyle.Sizes.tableColumnSpacing
-        leftPadding: EaStyle.Sizes.tableColumnSpacing
-        rightPadding: EaStyle.Sizes.tableColumnSpacing
+        Row {
+            id: contentRow
+
+            height: parent.height
+            spacing: EaStyle.Sizes.tableColumnSpacing
+            leftPadding: EaStyle.Sizes.tableColumnSpacing
+            rightPadding: EaStyle.Sizes.tableColumnSpacing
+        }
     }
 
     // Anchor indicator: small triangle in top-right corner when row is
@@ -51,6 +62,7 @@ Rectangle {
             return listView.selectionActive
                    && index === listView.anchorRow
                    && !listView.isSelected(index)
+                   && !editing
         }
         anchors.top: parent.top
         anchors.right: parent.right
