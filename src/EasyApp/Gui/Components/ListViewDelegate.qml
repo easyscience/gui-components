@@ -24,11 +24,13 @@ Rectangle {
         listView.selectedIndexes
 
         let selected = index >= 0 && listView.isSelected(index) && listView.selectionActive && !editing
-        let c1 = EaStyle.Colors.themeAccentMinor
-        let c2 = EaStyle.Colors.themeBackgroundHovered2
-        let c3 = EaStyle.Colors.themeBackgroundHovered1
 
-        return selected ? c1 : (index % 2 ? c2 : c3)
+        let selectedColor = EaStyle.Colors.themeAccentMinor
+        let evenRowColor = EaStyle.Colors.themeBackgroundHovered2
+        let oddRowColor = EaStyle.Colors.themeBackgroundHovered1
+        let alternatingColor = index % 2 ? evenRowColor : oddRowColor
+
+        return selected ? selectedColor : alternatingColor
     }
     Behavior on color { EaAnimations.ThemeChange {} }
 
@@ -48,8 +50,8 @@ Rectangle {
 
             height: parent.height
             spacing: EaStyle.Sizes.tableColumnSpacing
-            leftPadding: EaStyle.Sizes.tableColumnSpacing
-            rightPadding: EaStyle.Sizes.tableColumnSpacing
+            leftPadding: listView ? listView.rowPadding : 0
+            rightPadding: listView ? listView.rowPadding : 0
         }
     }
 
@@ -97,16 +99,21 @@ Rectangle {
         }
     }
 
-    // Mouse-only navigation: highlight follows hover.
-    // If keyboard navigation is added, guard this with a keyboardActive flag.
+    // Visual-only hover tracking. Writes to listView.hoveredIndex, never
+    // currentIndex or selectionModel — keeping those independent prevents
+    // hover from stealing activeFocus from inline editors (e.g. TextInput)
+    // in a different row during editing.
     HoverHandler {
         id: mouseHoverHandler
         acceptedDevices: PointerDevice.AllDevices
         cursorShape: Qt.PointingHandCursor
         blocking: false
         onHoveredChanged: {
-            if (hovered && index >= 0)
-                listView.currentIndex = index
+            if (index < 0) return
+            if (hovered)
+                listView.hoveredIndex = index
+            else if (listView.hoveredIndex === index)
+                listView.hoveredIndex = -1
         }
     }
 }

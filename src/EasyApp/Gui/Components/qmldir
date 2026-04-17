@@ -36,6 +36,7 @@ TableViewComboBox 1.0 TableViewComboBox.qml
 TableViewButton 1.0 TableViewButton.qml
 TableViewLabelControl 1.0 TableViewLabelControl.qml
 TableViewTextInput 1.0 TableViewTextInput.qml
+ListViewTextInput 1.0 ListViewTextInput.qml
 
 JsonListModel 1.0 JsonListModel.qml
 

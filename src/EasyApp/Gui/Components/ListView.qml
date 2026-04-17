@@ -55,6 +55,10 @@ ListView {
     // Example: columnWidths: [40, -1, 100]
     property var columnWidths: []
 
+    // Horizontal padding inside each row (header + delegate). Subtracted from
+    // flex-column budget so -1 columns don't overflow the row.
+    property real rowPadding: EaStyle.Sizes.tableColumnSpacing
+
     // Clear all selection and reset anchor.
     function clearSelection() {
         selectionModel.clearSelection()
@@ -67,6 +71,12 @@ ListView {
     // Anchor row index for shift-selection range tracking.
     // Used by: ListViewDelegate (anchor indicator when row is not selected)
     property int anchorRow: -1
+
+    // Row index currently under the mouse. Visual-only. Never mutated from
+    // keyboard or selection paths — stays orthogonal to currentIndex and
+    // selectionModel so inline editors don't lose activeFocus on hover.
+    // Used by: ListViewDelegate (hover tint in row color binding)
+    property int hoveredIndex: -1
 
     // Row height in px, derived from tallRows.
     // Used by: ListViewDelegate (implicitHeight), ListViewHeader (own height)
@@ -89,7 +99,7 @@ ListView {
         }
         const spacing = EaStyle.Sizes.tableColumnSpacing * (columnWidths.length - 1)
         const border = EaStyle.Sizes.borderThickness * 2
-        const fill = flexCount > 0 ? Math.max(0, (width - fixed - spacing - border) / flexCount) : 0
+        const fill = flexCount > 0 ? Math.max(0, (width - fixed - spacing - border - rowPadding * 2) / flexCount) : 0
         return columnWidths.map(w => w > 0 ? w : fill)
     }
 
@@ -185,19 +195,26 @@ ListView {
     boundsBehavior: Flickable.StopAtBounds
     enabled: count > 0
 
+    // Hover highlight via the built-in highlight delegate, but detached
+    // from currentIndex: we drive position from hoveredIndex (mouse-only,
+    // never touches focus/selection) while still getting the smooth
+    // inter-row translation that highlightMoveDuration provides.
+    highlightFollowsCurrentItem: false
     highlightMoveDuration: EaStyle.Sizes.tableHighlightMoveDuration
     highlight: Rectangle {
         z: 2
-        color: mouseHoverHandler.hovered ?
+        width: listView.width
+        height: listView.tableRowHeight
+        // Freeze at last hovered row on leave so the tint fades in place
+        // instead of sliding back to row 0.
+        y: listView.hoveredIndex >= 0
+               ? listView.hoveredIndex * listView.tableRowHeight
+               : y
+        color: listView.hoveredIndex >= 0 ?
                    EaStyle.Colors.tableHighlight :
                    "transparent"
+        Behavior on y { NumberAnimation { duration: listView.highlightMoveDuration } }
         Behavior on color { EaAnimations.ThemeChange {} }
-    }
-
-    HoverHandler {
-        id: mouseHoverHandler
-        acceptedDevices: PointerDevice.AllDevices
-        blocking: false
     }
 
     // Any tap on the list (header, delegates, empty area) claims focus.

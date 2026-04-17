@@ -29,6 +29,8 @@ Rectangle {
 
         height: parent.height
         spacing: EaStyle.Sizes.tableColumnSpacing
+        leftPadding: listView ? listView.rowPadding : 0
+        rightPadding: listView ? listView.rowPadding : 0
     }
 
     // Header sits above delegate 0 (OverlayHeader). Without an input
