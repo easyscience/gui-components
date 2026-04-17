@@ -1,0 +1,64 @@
+#######################
+# ENVIRONMENT VARIABLES
+#######################
+
+# Platform-independent
+
+[activation.env]
+PYTHONIOENCODING = "utf-8"
+
+# Platform-specific
+
+# Ensures the main package is used from the source code during
+# development, even if main package is installed in editable mode
+# via uv. This is important because `pixi update` might replace
+# the installed version with the latest released version.
+
+# Unix/macOS
+[target.unix.activation.env]
+PYTHONPATH = "${PIXI_PROJECT_ROOT}/src${PYTHONPATH:+:${PYTHONPATH}}"
+
+# Windows
+[target.win.activation.env]
+PYTHONPATH = "${PIXI_PROJECT_ROOT}/src;%PYTHONPATH%"
+
+###########
+# WORKSPACE
+###########
+
+[workspace]
+# Supported platforms for the lock file (pixi.lock)
+platforms = ['win-64', 'linux-64', 'osx-64', 'osx-arm64']
+
+# Channels for fetching packages
+channels = ['conda-forge']
+
+##########
+# FEATURES
+##########
+
+[dependencies] # == [feature.default.dependencies]
+python = '3.13.*'
+
+[pypi-dependencies] # == [feature.default.pypi-dependencies]
+pip = '*'
+easyapp = { path = ".", editable = true }
+
+
+##############
+# ENVIRONMENTS
+##############
+
+[environments]
+
+# The `default` feature is always included in all environments.
+# Additional features can be specified per environment.
+
+# The `default` environment is always created and includes the `default` feature.
+# It does not need to be specified explicitly unless non-default features are included.
+
+#######
+# TASKS
+#######
+
+#[tasks]
