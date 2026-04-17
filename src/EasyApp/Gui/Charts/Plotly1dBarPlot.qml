@@ -21,6 +21,9 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
+            setXAxisTitle()
+            setYAxisTitle()
+            setXyData()
             redrawPlot()
         }
     }

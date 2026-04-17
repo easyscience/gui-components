@@ -10,6 +10,7 @@ WebEngineView {
     property string yAxisTitle: ''
 
     property var plotData: ({})
+    property var fullData: ({})
 
     width: parent.width
     height: parent.height
@@ -18,6 +19,9 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
+            setXAxisTitle()
+            setYAxisTitle()
+            setXyData()
             redrawPlot()
         }
     }

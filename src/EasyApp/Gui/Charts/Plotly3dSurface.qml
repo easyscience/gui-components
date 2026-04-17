@@ -20,6 +20,10 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
+            setColorbarTitle()
+            setScene()
+            setXyzData()
+            setPatchData()
             redrawPlot()
         }
     }

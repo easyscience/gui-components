@@ -20,6 +20,11 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
+            setXAxisTitle()
+            setYAxisTitle()
+            setColorbarTitle()
+            setShape()
+            setXyData()
             redrawPlot()
         }
     }
@@ -29,6 +34,13 @@ WebEngineView {
         //if (loadRequest.status === WebEngineView.LoadSucceededStatus) {
         if (loadProgress === 100) {
             loadSucceededStatus = true
+        }
+    }
+
+    onColorbarTitleChanged: {
+        if (loadSucceededStatus) {
+            setColorbarTitle()
+            redrawPlot()
         }
     }
 

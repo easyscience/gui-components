@@ -11,6 +11,7 @@ WebEngineView {
     property string colorbarTitle: ''
 
     property var plotData: ({})
+    property var fullData: ({})
 
     width: parent.width
     height: parent.height
@@ -19,6 +20,8 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
+            setColorbarTitle()
+            setXyzData()
             redrawPlot()
         }
     }
