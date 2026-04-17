@@ -137,8 +137,8 @@
       trace.r = newData.r
       trace.theta = newData.theta
       trace.marker.color = newData.z
-      trace.marker.cmin = Math.min(newData.z)
-      trace.marker.cmax = Math.max(newData.z)
+      trace.marker.cmin = Math.min(...newData.z)
+      trace.marker.cmax = Math.max(...newData.z)
       trace.customdata = newData.customData
       trace.hovertemplate = newData.hoverTemplate
     }

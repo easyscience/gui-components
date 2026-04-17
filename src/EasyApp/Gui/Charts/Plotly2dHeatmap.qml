@@ -24,7 +24,7 @@ WebEngineView {
             setYAxisTitle()
             setColorbarTitle()
             setShape()
-            setXyData()
+            setXyzData()
             redrawPlot()
         }
     }
