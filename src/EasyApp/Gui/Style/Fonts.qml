@@ -23,7 +23,7 @@ QtObject {
     property FontLoader nunitoLight: FontLoader { source: fontPath("Nunito", "Nunito-Light.ttf") }  // font.weight: Font.Light
     property FontLoader nunitoSemiBold: FontLoader { source: fontPath("Nunito", "Nunito-SemiBold.ttf") } // font.weight: Font.DemiBold
 
-    property FontLoader fontAwesomeSolid: FontLoader { source: fontPath("FontAwesome", "Font Awesome 7 Free-Solid-900.otf") }
+    property FontLoader fontAwesomeSolid: FontLoader { source: fontPath("FontAwesome", "Font Awesome 5 Free-Solid-900.otf") }
 
     // Font families
     readonly property string fontFamily: ptSansRegular.name
