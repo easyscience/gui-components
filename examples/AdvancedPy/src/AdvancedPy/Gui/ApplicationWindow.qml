@@ -71,6 +71,19 @@ EaComponents.ApplicationWindow {
         },
         // Project page
 
+        // Analysis page
+        EaElements.AppBarTabButton {
+            id: analysisButton
+            enabled: false
+            fontIcon: 'microscope'
+            text: qsTr('Analysis')
+            ToolTip.text: qsTr('Calculation and fitting page')
+            Component.onCompleted: {
+                Globals.References.applicationWindow.appBarCentralTabs.analysisButton = analysisButton
+            }
+        },
+        // Analysis page
+
         // Summary page
         EaElements.AppBarTabButton {
             id: summaryButton
@@ -93,6 +106,7 @@ EaComponents.ApplicationWindow {
     contentArea: [
         Loader { source: 'Pages/Home/Content.qml' },
         Loader { source: 'Pages/Project/Layout.qml' },
+        Loader { source: 'Pages/Analysis/Layout.qml' },
         Loader { source: 'Pages/Report/Layout.qml' }
     ]
 

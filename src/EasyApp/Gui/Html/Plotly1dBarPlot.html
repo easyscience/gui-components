@@ -9,8 +9,9 @@
 
   <style type="text/css">
 
-    :root {
-      --fontPixelSize:14;
+    @font-face {
+      font-family: ChartFont;
+      src:url("PTSans-Regular.ttf");
     }
 
     * {
@@ -26,13 +27,13 @@
 
     body {
       overflow: hidden;
-      font-size: calc(var(--fontPixelSize) * 1px);
+      font-family: 'ChartFont';
     }
 
     #plotContainer {
       height: 100%;
       width: 100%;
-      padding: calc(var(--fontPixelSize) * 1px);;
+      padding: 14px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -43,6 +44,10 @@
     #plotDiv {
       width: 100%;
       height: 100%;
+    }
+
+    div.plotly-notifier { /* Plotly notifier element */
+      visibility: hidden;
     }
 
   </style>
@@ -61,10 +66,9 @@
     // Data
     ///////
 
-    // Default data
     let data = {
       'x': [1, 2, 3],
-      'y': [4.0, 2.0, 3.5],
+      'y': [10, 20, 30],
     }
 
     /////////
@@ -74,10 +78,9 @@
     // Default trace
     let trace = {
       name: '',
-      type: 'scatter',
+      type: 'bar',
       x: data.x,
       y: data.y,
-      mode: 'lines',
       customdata: [],
       hovertemplate: ''
     }
@@ -87,30 +90,14 @@
 
     // Plot layout
     let plotLayout = {
-      autosize: true,
-      margin: { l: 43, r: 3, b: 50, t: 40, pad: 0 },
-      showlegend: false,
+      //autosize: true,
       xaxis: {
-        title: 'x-axis',
-        automargin: true,
+        title: 'x-title',
         autorange: true,
-        showgrid: true,
-        zeroline: false,
-        showline: true,
-        linecolor: '#ccc',
-        linewidth: 1,
-        mirror: 'ticks',
       },
       yaxis: {
-        title: 'y-axis',
-        automargin: true,
+        title: 'y-title',
         autorange: true,
-        showgrid: true,
-        zeroline: false,
-        showline: true,
-        linecolor: '#ccc',
-        linewidth: 1,
-        mirror: 'ticks',
       },
     }
 
