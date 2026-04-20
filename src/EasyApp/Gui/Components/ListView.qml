@@ -71,6 +71,7 @@ ListView {
     // Anchor row index for shift-selection range tracking.
     // Used by: ListViewDelegate (anchor indicator when row is not selected)
     property int anchorRow: -1
+    onCountChanged: if (anchorRow >= count) anchorRow = -1
 
     // Row index currently under the mouse. Visual-only. Never mutated from
     // keyboard or selection paths — stays orthogonal to currentIndex and

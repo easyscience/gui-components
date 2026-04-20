@@ -7,7 +7,8 @@ Rectangle {
     id: control
 
     default property alias contentRowData: contentRow.data
-    property Item listView: ListView.view ?? null
+    // Needs to be instantiated inside of a EaComponents.ListView, won't work otherwise
+    property Item listView: ListView.view
 
     // True while any focusable cell inside the row (typically a TextInput)
     // owns activeFocus. Aggregated by the FocusScope wrapping contentRow.
