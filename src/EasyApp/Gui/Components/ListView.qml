@@ -195,28 +195,6 @@ ListView {
     boundsBehavior: Flickable.StopAtBounds
     enabled: count > 0
 
-    // Hover highlight via the built-in highlight delegate, but detached
-    // from currentIndex: we drive position from hoveredIndex (mouse-only,
-    // never touches focus/selection) while still getting the smooth
-    // inter-row translation that highlightMoveDuration provides.
-    highlightFollowsCurrentItem: false
-    highlightMoveDuration: EaStyle.Sizes.tableHighlightMoveDuration
-    highlight: Rectangle {
-        z: 2
-        width: listView.width
-        height: listView.tableRowHeight
-        // Freeze at last hovered row on leave so the tint fades in place
-        // instead of sliding back to row 0.
-        y: listView.hoveredIndex >= 0
-               ? listView.hoveredIndex * listView.tableRowHeight
-               : y
-        color: listView.hoveredIndex >= 0 ?
-                   EaStyle.Colors.tableHighlight :
-                   "transparent"
-        Behavior on y { NumberAnimation { duration: listView.highlightMoveDuration } }
-        Behavior on color { EaAnimations.ThemeChange {} }
-    }
-
     // Any tap on the list (header, delegates, empty area) claims focus.
     // Non-blocking: delegate MouseAreas and header interactions still fire.
     TapHandler {

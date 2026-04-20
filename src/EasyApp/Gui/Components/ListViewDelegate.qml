@@ -41,6 +41,16 @@ Rectangle {
         function onResolvedColumnWidthsChanged() { listView.applyWidths(contentRow) }
     }
 
+    // Hover tint. Lives in the delegate so position is implicit from the
+    // delegate's own bounds — no y math, no uniform-row-height assumption.
+    Rectangle {
+        anchors.fill: parent
+        color: EaStyle.Colors.tableHighlight
+        opacity: listView && listView.hoveredIndex === index ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: EaStyle.Sizes.tableHighlightMoveDuration } }
+        Behavior on color { EaAnimations.ThemeChange {} }
+    }
+
     FocusScope {
         id: editScope
         anchors.fill: parent
