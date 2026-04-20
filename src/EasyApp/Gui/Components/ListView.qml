@@ -24,17 +24,11 @@ ListView {
     // Text shown when ListView model is empty.
     property alias defaultInfoText: defaultInfoLabel.text
 
-    // Scroll bar display mode.
-    // Internally, use enum type name: ScrollBarMode.Indicator, etc.
-    // Externally, use full module path: EaComponents.ListView.ScrollBarMode.Indicator, etc.
-    // Cannot use id (listView.Indicator) — enums are type-scoped, not instance-scoped.
-    // Cannot use ListView.Indicator — resolves to QtQuick's ListView, not this component.
-    enum ScrollBarMode {
-        Indicator,
-        AsNeeded,
-        AlwaysOn
-    }
-    property int scrollBarMode: ScrollBarMode.Indicator
+    // ScrollBar.AsNeeded / ScrollBar.AlwaysOff / ScrollBar.AlwaysOn
+    property int scrollBarPolicy: ScrollBar.AsNeeded
+
+    // false = indicator style: thin, non-draggable, shows only while scrolling
+    property bool scrollBarInteractive: true
 
     // Allow ctrl/shift multi-select.
     property bool multiSelection: true
@@ -204,20 +198,10 @@ ListView {
     }
 
     ScrollBar.vertical: EaElements.ScrollBar {
-        // ScrollBarMode enum not in scope inside child objects; use int values.
-        // AlwaysOn=2, AsNeeded=1
-        policy: listView.scrollBarMode === 2 ? ScrollBar.AlwaysOn
-              : listView.scrollBarMode === 1 ? ScrollBar.AsNeeded
-              : ScrollBar.AlwaysOff
+        policy: listView.scrollBarPolicy
+        interactive: listView.scrollBarInteractive
         topInset: listView._headerHeight
-        topPadding: listView.padding + listView._headerHeight
-    }
-
-    ScrollIndicator.vertical: EaElements.ScrollIndicator {
-        // Indicator=0
-        active: listView.scrollBarMode === 0
-        topInset: listView._headerHeight
-        topPadding: listView.padding + listView._headerHeight
+        topPadding: listView._headerHeight
     }
 
     // Empty-state label.
