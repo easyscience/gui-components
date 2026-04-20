@@ -1,8 +1,8 @@
 import QtQuick
-import QtQuick.Templates as T
+import QtQuick.Window
 import QtQuick.Controls.Material
 import QtQuick.Controls.Material.impl
-import QtQuick.Window
+import QtQuick.Templates as T
 
 import EasyApp.Gui.Style as EaStyle
 

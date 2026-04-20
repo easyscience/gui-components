@@ -17,6 +17,7 @@ QtObject {
         'appBarCentralTabs': {
             'homeButton': null,
             'projectButton': null,
+            'analysisButton': null,
             'summaryButton': null,
         }
     }
@@ -28,6 +29,20 @@ QtObject {
                 'basic': {
                     'popups': {
                         'openCifFile': null
+                    }
+                }
+            }
+        },
+        'analysis': {
+            'sidebar': {
+                'basic': {
+                    'slider': null
+                }
+            },
+            'mainarea': {
+                'description': {
+                    'graph': {
+                        'lineseries': null
                     }
                 }
             }

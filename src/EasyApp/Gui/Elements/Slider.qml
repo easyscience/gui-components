@@ -31,8 +31,8 @@ T.Slider {
         EaElements.ToolTip {
             id: toolTip
 
-            visible: slider.pressed || slider.hovered
-            //text: EaLogic.Utils.toDefaultPrecision(control.value)
+            visible: control.pressed || control.hovered
+            text: EaLogic.Utils.toDefaultPrecision(control.value)
         }
     }
 

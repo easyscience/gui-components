@@ -1,6 +1,5 @@
 import QtQuick
-//import QtGraphicalEffects 1.13
-import Qt5Compat.GraphicalEffects
+
 
 Rectangle {
     id: pointer

@@ -1,7 +1,8 @@
 name: wasm
 
 on:
-  push:
+  workflow_dispatch:
+  #push:
   #schedule:
   #  - cron: '*/120 8-18 * * *'  # every 2 hours from 8:00 to 18:00 every day
 
@@ -21,12 +22,44 @@ jobs:
       - name: Check-out repository
         uses: actions/checkout@v4
 
+      # https://doc.qt.io/qt-6/wasm.html
+      # Emsdk 3.1.50 is needed for Qt 6.7
+      # Emsdk 3.1.56 is needed for Qt 6.8
+      # Emsdk 3.1.70 is needed for Qt 6.9
+      # QT_VER="6.9.0" - WORKS :)
+      # QT_VER="6.8.2" - FAILS :(
+      - name: Set environment variables based on selected Qt version
+        id: set-env
+        shell: bash
+        run: |
+          # Select Qt version (change this to switch version)
+          QT_VER="6.9.0"
+
+          # Set matching installer and emsdk version
+          if [[ "$QT_VER" == "6.9.0" ]]; then
+            QT_VER_NO_DOTS="690"
+            QT_INSTALLER_VER="4.9.0"
+            EMSDK_VER="3.1.70"
+          elif [[ "$QT_VER" == "6.8.2" ]]; then
+            QT_VER_NO_DOTS="682"
+            QT_INSTALLER_VER="4.9.0"
+            EMSDK_VER="3.1.56"
+          else
+            echo "Unsupported Qt version: $QT_VER"
+            exit 1
+          fi
+
+          echo "QT_VER=$QT_VER" >> $GITHUB_ENV
+          echo "QT_VER_NO_DOTS=$QT_VER_NO_DOTS" >> $GITHUB_ENV
+          echo "QT_INSTALLER_VER=$QT_INSTALLER_VER" >> $GITHUB_ENV
+          echo "EMSDK_VER=$EMSDK_VER" >> $GITHUB_ENV
+
       - name: Cache emsdk
         id: cache-emsdk
         uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/emsdk
-          key: ${{ runner.os }}-emsdk
+          key: ${{ runner.os }}-emsdk-${{ env.EMSDK_VER }}
 
       - name: Install emsdk
         if: steps.cache-emsdk.outputs.cache-hit != 'true'
@@ -35,24 +68,24 @@ jobs:
           git clone https://github.com/emscripten-core/emsdk.git
           cd emsdk
           git pull
-          ./emsdk install 3.1.50		# this version is needed for Qt 6.7
-          ./emsdk activate 3.1.50
+          ./emsdk install ${{ env.EMSDK_VER }}
+          ./emsdk activate ${{ env.EMSDK_VER }}
 
       - name: Cache Qt
         id: cache-qt
         uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/Qt
-          key: ${{ runner.os }}-qt
+          key: ${{ runner.os }}-qt-${{ env.QT_VER }}
 
       - name: Install Qt for WebAssembly
         if: steps.cache-qt.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L -O https://download.qt.io/official_releases/online_installers/qt-unified-mac-x64-online.dmg
-          chmod u+x qt-unified-mac-x64-online.dmg
-          hdiutil attach qt-unified-mac-x64-online.dmg
-          /Volumes/qt-online-installer-macOS-x64-4.8.0/qt-online-installer-macOS-x64-4.8.0.app/Contents/MacOS/qt-online-installer-macOS-x64-4.8.0 \
+          curl -L -O https://download.qt.io/official_releases/online_installers/qt-online-installer-mac-x64-online.dmg
+          chmod u+x qt-online-installer-mac-x64-online.dmg
+          hdiutil attach qt-online-installer-mac-x64-online.dmg
+          /Volumes/qt-online-installer-macOS-x64-${{ env.QT_INSTALLER_VER }}/qt-online-installer-macOS-x64-${{ env.QT_INSTALLER_VER }}.app/Contents/MacOS/qt-online-installer-macOS-x64-${{ env.QT_INSTALLER_VER }} \
           --email ${{ secrets.QT_ACCOUNT_EMAIL }} \
           --pw ${{ secrets.QT_ACCOUNT_PASSWORD }} \
           --root ${{ github.workspace }}/Qt \
@@ -60,22 +93,22 @@ jobs:
           --accept-obligations \
           --default-answer \
           --confirm-command \
-          install qt.qt6.672.wasm_singlethread qt.qt6.672.qt5compat
-          hdiutil detach /Volumes/qt-online-installer-macOS-x64-4.8.0
+          install qt.qt6.${{ env.QT_VER_NO_DOTS }}.wasm_singlethread qt.qt6.${{ env.QT_VER_NO_DOTS }}.addons.qt5compat
+          hdiutil detach /Volumes/qt-online-installer-macOS-x64-${{ env.QT_INSTALLER_VER }}
 
       - name: Print some debug info
         shell: bash
         run: |
           source ${{ github.workspace }}/emsdk/emsdk_env.sh
           em++ --version
-          export PATH=$PATH:${{ github.workspace }}/Qt/6.7.2/wasm_singlethread/bin
+          export PATH=$PATH:${{ github.workspace }}/Qt/${{ env.QT_VER }}/wasm_singlethread/bin
           qmake -v
 
       - name: Build WASM from BasicC++ example
         shell: bash
         run: |
           source ${{ github.workspace }}/emsdk/emsdk_env.sh
-          export PATH=$PATH:${{ github.workspace }}/Qt/6.7.2/wasm_singlethread/bin
+          export PATH=$PATH:${{ github.workspace }}/Qt/${{ env.QT_VER }}/wasm_singlethread/bin
           cd examples/BasicC++/src
           qmake BasicC++.pro -spec wasm-emscripten
           make -j

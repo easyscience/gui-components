@@ -1,7 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-//import QtGraphicalEffects 1.13
-import Qt5Compat.GraphicalEffects
 import QtMultimedia
 import QtTest
 
@@ -59,11 +57,8 @@ Item {
             opacity: 0.5
 
             layer.enabled: true
-            layer.effect: DropShadow {
-                radius: 15
-                samples: 50
-                color: EaStyle.Colors.toolTipBorder
-                opacity: 0.5
+            layer.effect: EaElements.ToolTipShadow {
+                shadowColor: EaStyle.Colors.toolTipBorder
             }
         }
 
@@ -281,8 +276,8 @@ Item {
         const y = item.height / 2
         const button = Qt.NoButton
         const delay = -1
-
-        event.mouseMove(item, x, y, delay, button)
+        const modifiers = Qt.NoModifier
+        event.mouseMove(item, x, y, button, modifiers, delay)
     }
 
     function mouseWheel(item) {

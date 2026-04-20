@@ -1,7 +1,8 @@
 import QtQuick
-import QtQuick.Templates as T
 import QtQuick.Controls
 import QtQuick.Controls.impl
+import QtQuick.Controls.Material.impl
+import QtQuick.Templates as T
 
 import EasyApp.Gui.Style as EaStyle
 import EasyApp.Gui.Globals as EaGlobals
@@ -55,7 +56,7 @@ T.Dialog {
         Behavior on color { EaAnimations.ThemeChange {} }
 
         layer.enabled: EaStyle.Sizes.dialogElevation
-        layer.effect: EaElements.ElevationEffect {
+        layer.effect: ElevationEffect {
             elevation: EaStyle.Sizes.dialogElevation
         }
     }

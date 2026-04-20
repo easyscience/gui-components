@@ -2,8 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.impl
 import QtQuick.Layouts 1.12
-//import QtGraphicalEffects 1.13
-import Qt5Compat.GraphicalEffects
 
 import EasyApp.Gui.Style as EaStyle
 import EasyApp.Gui.Globals as EaGlobals
