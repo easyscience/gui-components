@@ -62,12 +62,10 @@
     ///////
 
     // Default data
-    let angles = [45, 90, 135, 180, 225, 270, 315, 360]
     let data = {
-      'x': [angles.map(angle => Math.sin(angle * (Math.PI / 180))), angles.map(angle => Math.sin(angle * (Math.PI / 180)))],
-      'y': [angles.map(angle => Math.cos(angle * (Math.PI / 180))), angles.map(angle => Math.cos(angle * (Math.PI / 180)))],
-      'z': [Array(angles.length).fill(1), Array(angles.length).fill(2)],
-      'surfaceColor': [Array(angles.length).fill(0.5), Array(angles.length).fill(1.5)]
+      'r': [800, 800, 800], // Circle radius
+      'theta': [45, 90, 120], // Polar angle
+      'z': [10, 20, 30], // Color intensity
     }
 
     /////////
@@ -77,43 +75,41 @@
     // Default trace
     let trace = {
       name: '',
-      x: data.x,
-      y: data.y,
-      z: data.z,
-      customdata: [],
-      hovertemplate: '',
-      surfacecolor: data.surfaceColor,
-      type: 'surface',
-      colorscale: 'Portland',
-      colorbar: {title: {text: ''}},
-    }
-
-    // Rectangular patch trace
-    let patchTrace = {
-      name: '',
-      type: 'scatter3d',
-      mode: 'lines',
-      x: [],
-      y: [],
-      z: [],
-      line: {
-        color: 'black',
-        width: 4,
-        dash: 'dash'
+      type: 'barpolar',
+      r: data.r,
+      theta: data.theta,
+      mode: 'markers',
+      marker: {
+        symbol: 'circle',
+        color: data.z,
+        cmin: Math.min(...data.z),
+        cmax: Math.max(...data.z),
+        size: 5,
+        showscale: true,
+        colorbar: {title: {text: ''}},
+        colorscale: 'Portland',
       },
-      hoverinfo: 'skip',
+      customdata: [],
+      hovertemplate: ''
     }
 
     // Plot dataset
-    let plotTraces = [ trace, patchTrace ]
+    let plotTraces = [ trace ]
 
     // Plot layout
     let plotLayout = {
-      scene: {
-        xaxis: {title: 'x-axis'},
-        yaxis: {title: 'y-axis'},
-        zaxis: {title: 'z-axis'},
-      },
+      autoresize: true,
+      autosize: true,
+      polar: {
+        radialaxis: {
+          visible: false,
+          range: [Math.min(...data.r)-1, Math.max(...data.r)]
+        },
+        angularaxis: {
+          visible: true
+        },
+        hole: 0.9,
+      }
     }
 
     // Plot config
@@ -134,37 +130,29 @@
     }
 
     function setColorbarTitle(newTitle){
-      trace.colorbar.title.text = newTitle
-    }
-
-    function setScene(newScene) {
-      plotLayout.scene = newScene
+      trace.marker.colorbar.title.text = newTitle
     }
 
     function setXyzData(newData) {
-      trace.x = newData.x
-      trace.y = newData.y
-      trace.z = newData.z
-      trace.surfacecolor = newData.surfaceColor
+      trace.r = newData.r
+      trace.theta = newData.theta
+      trace.marker.color = newData.z
+      trace.marker.cmin = Math.min(...newData.z)
+      trace.marker.cmax = Math.max(...newData.z)
       trace.customdata = newData.customData
       trace.hovertemplate = newData.hoverTemplate
     }
 
-    function setPatchData(newData) {
-      patchTrace.x = newData.x
-      patchTrace.y = newData.y
-      patchTrace.z = newData.z
-    }
-
     function getDataFromJson(filename) {
-      let request = new XMLHttpRequest()
-      request.open("GET", filename, false)
-      request.send(null)
-      let data = JSON.parse(request.responseText)
-      return data
+        let request = new XMLHttpRequest()
+        request.open("GET", filename, false)
+        request.send(null)
+        let data = JSON.parse(request.responseText)
+        return data
     }
 
   </script>
+
 </body>
 
 </html>

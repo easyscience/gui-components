@@ -2,45 +2,37 @@ import QtQuick
 import QtQuick.Controls
 import QtWebEngine
 
+import EasyApp.Gui.Style as EaStyle
+import Gui.Globals as Globals
+
 WebEngineView {
     id: chartView
 
     property bool loadSucceededStatus: false
     property string xAxisTitle: ''
     property string yAxisTitle: ''
-    property string colorbarTitle: ''
 
     property var plotData: ({})
-    property var shapes: ([{}])
 
     width: parent.width
     height: parent.height
 
-    url: Qt.resolvedUrl('../Html/Plotly2dHeatmap.html')
+    url: Qt.resolvedUrl('../Html/Plotly1dBarPlot.html')
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             setXAxisTitle()
             setYAxisTitle()
-            setColorbarTitle()
-            setShape()
-            setXyzData()
+            setXyData()
             redrawPlot()
         }
     }
 
     onLoadingChanged: {
-        // Bug "loadRequest" is not declared - https://bugreports.qt.io/browse/QTBUG-84746
+        // Bug 'loadRequest' is not declared - https://bugreports.qt.io/browse/QTBUG-84746
         //if (loadRequest.status === WebEngineView.LoadSucceededStatus) {
         if (loadProgress === 100) {
             loadSucceededStatus = true
-        }
-    }
-
-    onColorbarTitleChanged: {
-        if (loadSucceededStatus) {
-            setColorbarTitle()
-            redrawPlot()
         }
     }
 
@@ -60,14 +52,7 @@ WebEngineView {
 
     onPlotDataChanged: {
         if (loadSucceededStatus) {
-            setXyzData()
-            redrawPlot()
-        }
-    }
-
-    onShapesChanged: {
-        if (loadSucceededStatus) {
-            setShape()
+            setXyData()
             redrawPlot()
         }
     }
@@ -86,16 +71,12 @@ WebEngineView {
         runJavaScript(`setYAxisTitle(${JSON.stringify(yAxisTitle)})`)
     }
 
-    function setShape() {
-        runJavaScript(`setShape(${JSON.stringify(shapes)})`)
+    function setXyData() {
+        runJavaScript(`setXyData(${JSON.stringify(plotData)})`)
     }
 
-    function setColorbarTitle() {
-        runJavaScript(`setColorbarTitle(${JSON.stringify(colorbarTitle)})`)
-    }
-
-    function setXyzData() {
-        runJavaScript(`setXyzData(${JSON.stringify(plotData)})`)
+    function redrawPlotWithAnimation() {
+        runJavaScript(`redrawPlotWithAnimation(${JSON.stringify(plotData)})`)
     }
 
 }

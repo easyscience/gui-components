@@ -2,28 +2,25 @@ import QtQuick
 import QtQuick.Controls
 import QtWebEngine
 
+import Gui.Globals as Globals
+
 WebEngineView {
     id: chartView
 
     property bool loadSucceededStatus: false
-    property string xAxisTitle: ''
-    property string yAxisTitle: ''
     property string colorbarTitle: ''
 
     property var plotData: ({})
-    property var shapes: ([{}])
+    property var fullData: ({})
 
     width: parent.width
     height: parent.height
 
-    url: Qt.resolvedUrl('../Html/Plotly2dHeatmap.html')
+    url:  Qt.resolvedUrl('../Html/Plotly2dPolarHeatmap.html')
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            setXAxisTitle()
-            setYAxisTitle()
             setColorbarTitle()
-            setShape()
             setXyzData()
             redrawPlot()
         }
@@ -44,30 +41,9 @@ WebEngineView {
         }
     }
 
-    onXAxisTitleChanged: {
-        if (loadSucceededStatus) {
-            setXAxisTitle()
-            redrawPlot()
-        }
-    }
-
-    onYAxisTitleChanged: {
-        if (loadSucceededStatus) {
-            setYAxisTitle()
-            redrawPlot()
-        }
-    }
-
     onPlotDataChanged: {
         if (loadSucceededStatus) {
             setXyzData()
-            redrawPlot()
-        }
-    }
-
-    onShapesChanged: {
-        if (loadSucceededStatus) {
-            setShape()
             redrawPlot()
         }
     }
@@ -76,18 +52,6 @@ WebEngineView {
 
     function redrawPlot() {
         chartView.runJavaScript(`redrawPlot()`)
-    }
-
-    function setXAxisTitle() {
-        runJavaScript(`setXAxisTitle(${JSON.stringify(xAxisTitle)})`)
-    }
-
-    function setYAxisTitle() {
-        runJavaScript(`setYAxisTitle(${JSON.stringify(yAxisTitle)})`)
-    }
-
-    function setShape() {
-        runJavaScript(`setShape(${JSON.stringify(shapes)})`)
     }
 
     function setColorbarTitle() {
