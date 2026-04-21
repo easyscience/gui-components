@@ -221,6 +221,8 @@ ListView {
         z: 4
         anchors.fill: parent
         color: "transparent"
+        // Fixes disappearing border lines
+        antialiasing: true
         border.color: EaStyle.Colors.appBarComboBoxBorder
         Behavior on border.color { EaAnimations.ThemeChange {} }
     }

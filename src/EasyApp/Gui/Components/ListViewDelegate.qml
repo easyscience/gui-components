@@ -57,7 +57,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        width: 4
+        width: 3
         color: EaStyle.Colors.themeAccent
         visible: {
             listView.selectedIndexes
@@ -73,12 +73,8 @@ Rectangle {
 
     // A cell editor (e.g. ListViewTextInput) claiming activeFocus flips
     // `editing` true. Mirror that into the row selection so the edited
-    // row is also the selected row. No modifier → single-select. Don't
-    // touch focus here — the editor already owns it.
+    // row is also the selected row.
     onEditingChanged: {
-        // Don't touch currentIndex — reassigning it mid-click can make the
-        // ListView re-target focus onto the delegate, stealing activeFocus
-        // from the editor the user just clicked into.
         if (editing && index >= 0 && !control.inSelection) {
             listView.selectWithModifiers(index, Qt.NoModifier)
         }
@@ -123,10 +119,12 @@ Rectangle {
         onTapped: {
             if (index < 0) return
             listView.currentIndex = index
-            // Don't steal focus when the tap landed on an inline editor
-            // (editing flips true as the editor gains activeFocus). The
-            // row still becomes selected via onEditingChanged.
-            if (!editing) listView.forceActiveFocus()
+            // Any tap that reaches this handler lands on the row background
+            // (not an inline editor — T.TextField's grab swallows onTapped
+            // for clicks on the editor itself). So claiming focus here ends
+            // any in-progress inline edit in this or another row.
+            //if (!editing) listView.forceActiveFocus()
+            listView.forceActiveFocus()
             listView.selectWithModifiers(index, tap.point.modifiers)
         }
     }
