@@ -54,6 +54,11 @@ QtObject {
     property color themeForegroundHovered: themeAccent
     property color themeForegroundHighlight: isDarkPalette ? '#FFAB91' : '#FF5722'
 
+    property color themeRowHovered: isDarkPalette ? "#2C3E48" : "#E6F5FC"
+    property color themeRowHighlight: isDarkPalette ? "#1F4E66" : "#DCF0FA"
+    property color themeRowHighlightHovered: isDarkPalette ? "#2F6A88" : "#C9E6F5"
+
+
     // Application window
     property color appBorder: isDarkPalette ? "#292929" : "#ddd"
 

@@ -190,13 +190,6 @@ ListView {
     boundsBehavior: Flickable.StopAtBounds
     enabled: count > 0
 
-    // Any tap on the list (header, delegates, empty area) claims focus.
-    // Non-blocking: delegate MouseAreas and header interactions still fire.
-    TapHandler {
-        acceptedDevices: PointerDevice.AllDevices
-        onTapped: listView.forceActiveFocus()
-    }
-
     ScrollBar.vertical: EaElements.ScrollBar {
         policy: listView.scrollBarPolicy
         interactive: listView.scrollBarInteractive

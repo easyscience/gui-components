@@ -16,26 +16,73 @@ Rectangle {
     // inline editing isn't drawn over the accent row background.
     readonly property alias editing: editScope.activeFocus
 
+    // Row is in the selection model. Reads selectedIndexes to create a
+    // binding dependency so this re-evaluates when selection changes
+    // (isSelected() alone isn't tracked by QML). Used for the left accent
+    // bar and the hover overlay color — both stay selection-aware even
+    // while an inline editor owns focus.
+    readonly property bool inSelection: {
+        listView.selectedIndexes
+        return index >= 0
+            && listView.isSelected(index)
+            && listView.selectionActive
+    }
+
+    // Selection for the base row fill. Suppressed during editing so the
+    // editor isn't drawn over the highlight color.
+    readonly property bool selected: inSelection && !editing
+
     implicitWidth: listView.width
     implicitHeight: listView.tableRowHeight
 
     color: {
-        // Read selectedIndexes to create a binding dependency — forces
-        // this color expression to re-evaluate whenever the selection changes.
-        listView.selectedIndexes
-
-        let selected = index >= 0 && listView.isSelected(index) && listView.selectionActive && !editing
-
-        let selectedColor = EaStyle.Colors.themeAccentMinor
+        let selectedColor = EaStyle.Colors.themeRowHighlight
         let evenRowColor = EaStyle.Colors.themeBackgroundHovered2
         let oddRowColor = EaStyle.Colors.themeBackgroundHovered1
         let alternatingColor = index % 2 ? evenRowColor : oddRowColor
 
-        return selected ? selectedColor : alternatingColor
+        return control.selected ? selectedColor : alternatingColor
     }
     Behavior on color { EaAnimations.ThemeChange {} }
 
+    // Vertical accent bar on the left edge. Dual-purpose:
+    //   - inSelection → solid themeAccent (selection indicator, persists
+    //     during inline editing so the selected row stays identifiable).
+    //   - shift-selection anchor row (not selected, not editing)
+    //     → themeAccentMinor (replaces the former top-right triangle).
+    // z:2 keeps the bar above the hover overlay (z:1) so selection
+    // remains visible while hovering.
+    Rectangle {
+        z: 2
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        width: 4
+        color: EaStyle.Colors.themeAccent
+        visible: {
+            listView.selectedIndexes
+            if (control.inSelection) return true
+            return listView.selectionActive
+                && index === listView.anchorRow
+                && !editing
+        }
+        Behavior on color { EaAnimations.ThemeChange {} }
+    }
+
     Component.onCompleted: if (listView) listView.applyWidths(contentRow)
+
+    // A cell editor (e.g. ListViewTextInput) claiming activeFocus flips
+    // `editing` true. Mirror that into the row selection so the edited
+    // row is also the selected row. No modifier → single-select. Don't
+    // touch focus here — the editor already owns it.
+    onEditingChanged: {
+        // Don't touch currentIndex — reassigning it mid-click can make the
+        // ListView re-target focus onto the delegate, stealing activeFocus
+        // from the editor the user just clicked into.
+        if (editing && index >= 0 && !control.inSelection) {
+            listView.selectWithModifiers(index, Qt.NoModifier)
+        }
+    }
 
     Connections {
         target: listView
@@ -46,7 +93,9 @@ Rectangle {
     // delegate's own bounds — no y math, no uniform-row-height assumption.
     Rectangle {
         anchors.fill: parent
-        color: EaStyle.Colors.tableHighlight
+        color: control.inSelection && !editing
+            ? EaStyle.Colors.themeRowHighlightHovered
+            : EaStyle.Colors.themeRowHovered
         opacity: (listView && listView.hoveredIndex === index) || editing ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: EaStyle.Sizes.tableHighlightMoveDuration } }
         Behavior on color { EaAnimations.ThemeChange {} }
@@ -66,47 +115,19 @@ Rectangle {
         }
     }
 
-    // Anchor indicator: small triangle in top-right corner when row is
-    // the shift-selection anchor but not currently selected.
-    Item {
-        visible: {
-            // Read selectedIndexes to create binding dependency for reactivity.
-            listView.selectedIndexes
-            return listView.selectionActive
-                   && index === listView.anchorRow
-                   && !listView.isSelected(index)
-                   && !editing
-        }
-        anchors.top: parent.top
-        anchors.right: parent.right
-        width: 8
-        height: 8
-        clip: true
-        layer.enabled: true
-        layer.smooth: false
-
-        Rectangle {
-            width: parent.width * 1.5
-            height: parent.height * 1.5
-            rotation: 45
-            x: Math.round(parent.width / 2)
-            y: Math.round(-parent.height * 0.75)
-            antialiasing: false
-            color: EaStyle.Colors.themeAccentMinor
-            Behavior on color { EaAnimations.ThemeChange {} }
-        }
-    }
-
     // TapHandler (not MouseArea) so nested interactive children like
     // TableViewButton receive their own press events — MouseArea's
     // exclusive grab on press would swallow clicks on those buttons.
     TapHandler {
         id: tap
         onTapped: {
-            if (index >= 0) {
-                listView.forceActiveFocus()
-                listView.selectWithModifiers(index, tap.point.modifiers)
-            }
+            if (index < 0) return
+            listView.currentIndex = index
+            // Don't steal focus when the tap landed on an inline editor
+            // (editing flips true as the editor gains activeFocus). The
+            // row still becomes selected via onEditingChanged.
+            if (!editing) listView.forceActiveFocus()
+            listView.selectWithModifiers(index, tap.point.modifiers)
         }
     }
 
