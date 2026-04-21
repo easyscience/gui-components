@@ -47,7 +47,7 @@ Rectangle {
     Rectangle {
         anchors.fill: parent
         color: EaStyle.Colors.tableHighlight
-        opacity: listView && listView.hoveredIndex === index ? 1 : 0
+        opacity: (listView && listView.hoveredIndex === index) || editing ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: EaStyle.Sizes.tableHighlightMoveDuration } }
         Behavior on color { EaAnimations.ThemeChange {} }
     }

@@ -19,12 +19,14 @@ EaElements.TextInput {
     // with a color override. Track activeFocus (real keyboard focus) rather than
     // the per-FocusScope `focus` flag used in TextInput.qml, so sibling
     // ListViewDelegates don't stay blue after editing ends.
-    color: warned ?
-               EaStyle.Colors.red :
-               !enabled || readOnly || minored ?
-                   EaStyle.Colors.themeForegroundMinor :
-                   activeFocus || selected || hovered ?
-                       EaStyle.Colors.themeForegroundHovered :
-                       EaStyle.Colors.themeForeground
+    color: enterFlash ?
+               EaStyle.Colors.themeForeground :
+               warned ?
+                   EaStyle.Colors.red :
+                   !enabled || readOnly || minored ?
+                       EaStyle.Colors.themeForegroundMinor :
+                       activeFocus || selected || hovered ?
+                           EaStyle.Colors.themeForegroundHovered :
+                           EaStyle.Colors.themeForeground
     Behavior on color { EaAnimations.ThemeChange {} }
 }
