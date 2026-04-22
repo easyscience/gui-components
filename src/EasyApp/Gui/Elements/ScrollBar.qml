@@ -12,7 +12,7 @@ T.ScrollBar {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    padding: control.interactive ? 1 : 2
+    padding: 1
     visible: control.policy !== T.ScrollBar.AlwaysOff
     minimumSize: orientation === Qt.Horizontal ? height / width : width / height
 
@@ -27,8 +27,8 @@ T.ScrollBar {
     }
 
     background: Rectangle {
-        implicitWidth: (control.hovered || control.pressed) ? 12 : (control.interactive ? 7 : 4)
-        implicitHeight: (control.hovered || control.pressed) ? 12 : (control.interactive ? 7 : 4)
+        implicitWidth: control.interactive && (control.hovered || control.pressed) ? 12 : 6
+        implicitHeight: control.interactive && (control.hovered || control.pressed) ? 12 : 6
         color: "#0e000000"
         opacity: 0.0
         visible: control.interactive
