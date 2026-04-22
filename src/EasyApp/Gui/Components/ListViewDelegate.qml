@@ -80,6 +80,16 @@ Rectangle {
         }
     }
 
+    // If this row leaves the selection while its inline editor still owns
+    // focus (e.g. user tapped another row's background, and listView's
+    // forceActiveFocus didn't pull focus out of this row's FocusScope),
+    // release it locally so the editor visuals and activeFocus drop.
+    onInSelectionChanged: {
+        if (!inSelection && editing) {
+            editScope.focus = false
+        }
+    }
+
     Connections {
         target: listView
         function onResolvedColumnWidthsChanged() { listView.applyWidths(contentRow) }
