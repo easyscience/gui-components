@@ -50,7 +50,7 @@ QtObject {
 
     property color themeForeground: isDarkPalette ? "#eee" : "#333"
     property color themeForegroundMinor: isDarkPalette ? "#888" : "#aaa"
-    property color themeForegroundDisabled: isDarkPalette ? "#555": "#bbb" // control.Material.hintTextColor
+    property color themeForegroundDisabled: isDarkPalette ? "#666": "#bbb" // control.Material.hintTextColor
     property color themeForegroundHovered: themeAccent
     property color themeForegroundHighlight: isDarkPalette ? '#FFAB91' : '#FF5722'
 
