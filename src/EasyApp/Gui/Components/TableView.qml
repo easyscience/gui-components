@@ -102,6 +102,12 @@ ListView {
         }
     }
 
+    // ScrollBar
+    ScrollBar.vertical: EaElements.ScrollBar {
+        policy: ScrollBar.AsNeeded
+        interactive: true
+    }
+
     // Logic
 
     function flexibleColumnWidth() {
