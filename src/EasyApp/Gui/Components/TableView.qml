@@ -104,8 +104,12 @@ ListView {
 
     // ScrollBar
     ScrollBar.vertical: EaElements.ScrollBar {
-        policy: ScrollBar.AsNeeded
+        topInset: listView.headerItem ? listView.headerItem.height : 0
+        topPadding: topInset
+
         interactive: true
+
+        policy: ScrollBar.AsNeeded
     }
 
     // Logic
