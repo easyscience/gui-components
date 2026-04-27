@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Templates as T
 
+import EasyApp.Gui.Style as EaStyle
+
 T.ScrollIndicator {
     id: control
 
@@ -15,7 +17,7 @@ T.ScrollIndicator {
         implicitWidth: 4
         implicitHeight: 4
 
-        ///color: control.Material.scrollBarColor
+        color: EaStyle.Colors.themeForegroundDisabled
         visible: control.size < 1.0
         opacity: 0.0
 

@@ -5,11 +5,11 @@ from urllib.parse import urlparse
 
 # Utils
 
-def generalizePath(fpath: str) -> str:
+def generalize_path(fpath: str) -> str:
     """
     Generalize the filepath to be platform-specific, so all file operations
     can be performed.
-    :param URI rcfPath: URI to the file
+    :param URI fpath: URI to the file
     :return URI filename: platform specific URI
     """
     filename = urlparse(fpath).path

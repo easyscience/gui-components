@@ -6,16 +6,16 @@ WebEngineView {
     id: chartView
 
     property bool loadSucceededStatus: false
-
     property string xAxisTitle: ''
     property string yAxisTitle: ''
 
-    property var xyData: ({})
+    property var plotData: ({})
+    property var fullData: ({})
 
     width: parent.width
     height: parent.height
 
-    url: Qt.resolvedUrl("Plotly1dLine.html")
+    url: Qt.resolvedUrl('../Html/Plotly1dLine.html')
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
@@ -27,7 +27,7 @@ WebEngineView {
     }
 
     onLoadingChanged: {
-        // Bug "loadRequest" is not declared - https://bugreports.qt.io/browse/QTBUG-84746
+        // Bug 'loadRequest' is not declared - https://bugreports.qt.io/browse/QTBUG-84746
         //if (loadRequest.status === WebEngineView.LoadSucceededStatus) {
         if (loadProgress === 100) {
             loadSucceededStatus = true
@@ -48,7 +48,7 @@ WebEngineView {
         }
     }
 
-    onXyDataChanged: {
+    onPlotDataChanged: {
         if (loadSucceededStatus) {
             setXyData()
             redrawPlot()
@@ -70,13 +70,10 @@ WebEngineView {
     }
 
     function setXyData() {
-        //runJavaScript(`setXyData(${JSON.stringify(xyData)})`, function(result) { console.log(JSON.stringify(result)); })
-        runJavaScript(`setXyData(${JSON.stringify(xyData)})`)
+        runJavaScript(`setXyData(${JSON.stringify(plotData)})`)
     }
 
     function redrawPlotWithAnimation() {
-        runJavaScript(`redrawPlotWithAnimation(${JSON.stringify(xyData)})`)
-
+        runJavaScript(`redrawPlotWithAnimation(${JSON.stringify(plotData)})`)
     }
-
 }

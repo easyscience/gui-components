@@ -32,7 +32,7 @@ T.Slider {
             id: toolTip
 
             visible: control.pressed || control.hovered
-            //text: EaLogic.Utils.toDefaultPrecision(control.value)
+            text: EaLogic.Utils.toDefaultPrecision(control.value)
         }
     }
 

@@ -74,10 +74,15 @@
 
     // Default trace
     let trace = {
+      name: '',
       x: data.x,
       y: data.y,
       z: data.z,
-      type: 'heatmap'
+      type: 'heatmap',
+      colorbar: {title: {text: ''}},
+      colorscale: 'Portland',
+      hoverongaps: false,
+      hovertemplate: ''
     }
 
     // Plot dataset
@@ -99,6 +104,7 @@
       zaxis: {
         title: 'z-axis',
       },
+      shapes: [],
     }
 
     // Plot config
@@ -126,7 +132,30 @@
       plotLayout.yaxis.title = newTitle
     }
 
-  </script>
+    function setShape(newShape) {
+      return plotLayout.shapes = newShape
+    }
+
+    function setColorbarTitle(newTitle){
+      trace.colorbar.title.text = newTitle
+    }
+
+    function setXyzData(newData) {
+      trace.x = newData.x
+      trace.y = newData.y
+      trace.z = newData.z
+      trace.hovertemplate = newData.hoverTemplate
+    }
+
+    function getDataFromJson(filename) {
+      let request = new XMLHttpRequest()
+      request.open("GET", filename, false)
+      request.send(null)
+      let data = JSON.parse(request.responseText)
+      return data
+    }
+
+</script>
 
 </body>
 

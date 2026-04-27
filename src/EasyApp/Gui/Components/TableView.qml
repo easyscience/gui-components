@@ -43,10 +43,14 @@ ListView {
     // Empty content rows
     //delegate: EaComponents.TableViewDelegate {}
 
+    // fixes an issue of clicks not registering right after scroll
+    pressDelay: 10
+
     // Table border
     Rectangle {
         anchors.fill: listView
         color: "transparent"
+        antialiasing: true
         border.color: EaStyle.Colors.appBarComboBoxBorder
         Behavior on border.color { EaAnimations.ThemeChange {} }
     }
