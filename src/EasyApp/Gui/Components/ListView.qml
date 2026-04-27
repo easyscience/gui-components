@@ -71,12 +71,6 @@ ListView {
     property int anchorRow: -1
     onCountChanged: if (anchorRow >= count) anchorRow = -1
 
-    // Row index currently under the mouse. Visual-only. Never mutated from
-    // keyboard or selection paths — stays orthogonal to currentIndex and
-    // selectionModel so inline editors don't lose activeFocus on hover.
-    // Used by: ListViewDelegate (hover tint in row color binding)
-    property int hoveredIndex: -1
-
     // Row height in px, derived from tallRows.
     // Used by: ListViewDelegate (implicitHeight), ListViewHeader (own height)
     property int tableRowHeight: tallRows ?

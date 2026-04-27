@@ -102,7 +102,7 @@ Rectangle {
         color: control.inSelection && !editing
             ? EaStyle.Colors.themeRowHighlightHovered
             : EaStyle.Colors.themeRowHovered
-        opacity: (listView && listView.hoveredIndex === index) || editing ? 1 : 0
+        opacity: mouseHoverHandler.hovered || editing ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: EaStyle.Sizes.tableHighlightMoveDuration } }
         Behavior on color { EaAnimations.ThemeChange {} }
     }
@@ -148,12 +148,5 @@ Rectangle {
         acceptedDevices: PointerDevice.AllDevices
         cursorShape: Qt.PointingHandCursor
         blocking: false
-        onHoveredChanged: {
-            if (index < 0) return
-            if (hovered)
-                listView.hoveredIndex = index
-            else if (listView.hoveredIndex === index)
-                listView.hoveredIndex = -1
-        }
     }
 }
