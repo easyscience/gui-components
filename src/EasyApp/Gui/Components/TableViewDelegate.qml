@@ -42,17 +42,17 @@ Rectangle {
         cursorShape: Qt.PointingHandCursor
         blocking: false
         onHoveredChanged: {
-            if (hovered) {
-                // Don't change current index while a text input is being edited,
-                // as this steals focus from the active editor
-                var fi = control.Window.activeFocusItem
-                if (fi && fi.activeFocus && fi.hasOwnProperty('cursorPosition')) {
-                    return
-                }
-                //console.error(`${control} [TableViewDelegate.qml] hovered`)
-                parent.ListView.view.currentIndex = index
-            }
+            // Hover highlight is now handled by the Rectangle below, no currentIndex binding
         }
+    }
+
+    // Hover tint
+    Rectangle {
+        anchors.fill: parent
+        color: EaStyle.Colors.tableHighlight
+        opacity: mouseHoverHandler.hovered ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: EaStyle.Sizes.tableHighlightMoveDuration } }
+        Behavior on color { EaAnimations.ThemeChange {} }
     }
 
 }

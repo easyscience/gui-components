@@ -46,7 +46,7 @@ class Updater(QObject):
 
     @Slot()
     def checkUpdate(self):
-        console.debug(f"Updater checkUpdate called")
+        console.debug("Updater checkUpdate called")
 
         if self._process.state() == QProcess.Running:
             return
@@ -59,7 +59,7 @@ class Updater(QObject):
         """
         Start the external maintenance tool as detached process
         """
-        console.debug(f"Updater installUpdate called")
+        console.debug("Updater installUpdate called")
 
         if self._process.state() == QProcess.Running:
             return
@@ -134,7 +134,7 @@ class Updater(QObject):
 
         # Something went wrong
         if exit_code != 0 or exit_status != QProcess.ExitStatus.NormalExit:
-            console.debug(f"Updater process failed")
+            console.debug("Updater process failed")
             self._error_message = f"Updater process finished with\n* exit code: {exit_code} \n* exit status: {exit_status}"
             self.errorMessageChanged.emit()
             if not self.silentCheck:
@@ -142,7 +142,7 @@ class Updater(QObject):
             return
 
         # Process finished succesfully
-        console.debug(f"Updater process succeeded; checking for updates...")
+        console.debug("Updater process succeeded; checking for updates...")
 
         # Check if a new version of any of the app component is found
         pattern = r'<update.*version="([A-Za-z0-9.-]*)".*/>'

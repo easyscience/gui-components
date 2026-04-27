@@ -37,16 +37,6 @@ ListView {
     onHeaderLabelItemsChanged: setWidthOfFlexibleColumnForHeader()
     onContentItemChildrenLengthChanged: widthAndAlignmentChangeTimer.start()
 
-    // Highlight current row
-    highlightMoveDuration: EaStyle.Sizes.tableHighlightMoveDuration
-    highlight: Rectangle {
-        z: 2 // To display highlight rect above delegate
-        color: mouseHoverHandler.hovered ?
-                   EaStyle.Colors.tableHighlight :
-                   "transparent"
-        Behavior on color { EaAnimations.ThemeChange {} }
-    }
-
     // Empty header row
     //header: EaComponents.TableViewHeader {}
 
@@ -84,22 +74,6 @@ ListView {
         interval: 10
         onTriggered: setAllColumnsWidthAndAlignment()
     }
-
-    // HoverHandler to react on hover events
-    // Hide current row highlight if table is not hovered
-    HoverHandler {
-        id: mouseHoverHandler
-        acceptedDevices: PointerDevice.AllDevices
-        blocking: false
-        onHoveredChanged: {
-            if (hovered) {
-                //console.error(`${listView} [TableView.qml] hovered`)
-            }
-        }
-    }
-
-    // Logic
-
     function flexibleColumnWidth() {
         let fixedColumnsWidth = 0
         for (let item of headerLabelItems) {

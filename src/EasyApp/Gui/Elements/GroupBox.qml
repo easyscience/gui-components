@@ -52,7 +52,7 @@ T.GroupBox {
         }
         // Collapse all other sidebar groups on this page
         for (const groupBox of parent.children) {
-            if (groupBox.toString().startsWith('GroupBox_QMLTYPE') && groupBox !== control) {  // groupBox instanceof GroupBox doesn't work
+            if (groupBox !== control && typeof groupBox.collapsible !== 'undefined' && typeof groupBox.collapsed !== 'undefined') {
                 if (groupBox.collapsible && !groupBox.collapsed) {
                     groupBox.collapsed = true
                 }
