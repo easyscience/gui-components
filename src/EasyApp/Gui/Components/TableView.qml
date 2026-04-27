@@ -102,6 +102,16 @@ ListView {
         }
     }
 
+    // ScrollBar
+    ScrollBar.vertical: EaElements.ScrollBar {
+        topInset: listView.headerItem ? listView.headerItem.height : 0
+        topPadding: topInset
+
+        interactive: true
+
+        policy: ScrollBar.AsNeeded
+    }
+
     // Logic
 
     function flexibleColumnWidth() {
