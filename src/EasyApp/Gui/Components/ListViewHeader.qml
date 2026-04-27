@@ -39,6 +39,10 @@ Rectangle {
     // so header clicks transfer focus to the list.
     MouseArea {
         anchors.fill: parent
-        onClicked: if (listView) listView.forceActiveFocus()
+        onClicked: {
+            if (!listView) return
+            listView.clearSelection()
+            listView.forceActiveFocus()
+        }
     }
 }

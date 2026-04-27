@@ -33,6 +33,10 @@ ListView {
     // Allow ctrl/shift multi-select.
     property bool multiSelection: true
 
+    // When false, clicking a cell editor (TextInput) does not select the row.
+    // Editing and selection remain orthogonal.
+    property bool selectOnEdit: false
+
     // Claim the enclosing FocusScope's default focus target.
     focus: true
 
@@ -146,13 +150,21 @@ ListView {
             return
         }
 
-        // CTRL: toggle
-        if (listView.multiSelection && modifiers & Qt.ControlModifier) {
-            selectionModel.select(
-                idx,
-                ItemSelectionModel.Toggle | ItemSelectionModel.Rows
-            )
-            anchorRow = row
+        // CTRL: toggle. Multi mode: add/remove from existing selection.
+        // Single mode: deselect same row, or replace selection with new row.
+        if (modifiers & Qt.ControlModifier) {
+            if (listView.multiSelection) {
+                selectionModel.select(idx, ItemSelectionModel.Toggle | ItemSelectionModel.Rows)
+                anchorRow = row
+                return
+            }
+            if (selectionModel.isSelected(idx)) {
+                selectionModel.clearSelection()
+                anchorRow = -1
+            } else {
+                selectionModel.select(idx, ItemSelectionModel.ClearAndSelect | ItemSelectionModel.Rows)
+                anchorRow = row
+            }
             return
         }
 

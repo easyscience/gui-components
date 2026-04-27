@@ -75,7 +75,7 @@ Rectangle {
     // `editing` true. Mirror that into the row selection so the edited
     // row is also the selected row.
     onEditingChanged: {
-        if (editing && index >= 0 && !control.inSelection) {
+        if (editing && index >= 0 && !control.inSelection && listView.selectOnEdit) {
             listView.selectWithModifiers(index, Qt.NoModifier)
         }
     }
