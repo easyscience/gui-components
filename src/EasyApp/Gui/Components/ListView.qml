@@ -30,6 +30,10 @@ ListView {
     // false = indicator style: thin, non-draggable, shows only while scrolling
     property bool scrollBarInteractive: true
 
+    // When false, clicks never modify the selection model. Use for lists
+    // with inline editors but no row-level selection concept.
+    property bool selectable: true
+
     // Allow ctrl/shift multi-select.
     property bool multiSelection: true
 
@@ -40,13 +44,9 @@ ListView {
     // Claim the enclosing FocusScope's default focus target.
     focus: true
 
-    // Drives whether the delegate renders selection/anchor visuals.
-    // Default: always true. When hosted inside a FocusScope
-    // with focusable siblings (buttons, filters), override with the scope's
-    // activeFocus so visuals stay lit while focus is elsewhere in the panel,
-    // e.g. `selectionActive: myScope.activeFocus`. Or use this list's own focus,
-    // e.g. `selectionActive: activeFocus`.
-    // Used by: ListViewDelegate.
+    // Whether the row highlight stays lit. Default true (always). Bind to a
+    // focus expression (e.g. `myScope.activeFocus`) to dim when focus leaves
+    // that scope.
     property bool selectionActive: true
 
     // Column widths definition. Each entry is a width in px, or -1 to fill remaining space.
@@ -113,6 +113,7 @@ ListView {
     // Select row with ctrl/shift modifier logic.
     // Used by: ListViewDelegate (MouseArea.onClicked)
     function selectWithModifiers(row, modifiers) {
+        if (!selectable) return
         let idx = _index(row)
         if (!idx) return
 
