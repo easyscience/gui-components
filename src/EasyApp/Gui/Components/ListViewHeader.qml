@@ -41,8 +41,8 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             if (!listView) return
+            listView.endEditing()
             listView.clearSelection()
-            listView.forceActiveFocus()
         }
     }
 }

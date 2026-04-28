@@ -63,6 +63,14 @@ ListView {
         anchorRow = -1
     }
 
+    // Release any cell editor that currently owns focus inside the list.
+    // Forces focus to a non-FocusScope sibling so the editScope's inner
+    // focus chain is broken at the listView level — `forceActiveFocus()`
+    // on listView itself would re-confirm the existing chain instead.
+    function endEditing() {
+        focusSink.forceActiveFocus()
+    }
+
     // ── Companion API ───────────────────────────────────────────────────
     // Used by ListViewHeader and ListViewDelegate. Not intended for direct consumer use.
 
@@ -242,5 +250,14 @@ ListView {
             if (selectedIndexes.length === 0)
                 listView.anchorRow = -1
         }
+    }
+
+    // Sink target for endEditing(). Non-FocusScope child of listView, so
+    // forceActiveFocus on it rewrites listView.focusedChild and breaks any
+    // delegate's editScope chain — which forceActiveFocus on listView itself
+    // cannot do (re-confirms the existing chain instead).
+    Item {
+        id: focusSink
+        parent: listView
     }
 }

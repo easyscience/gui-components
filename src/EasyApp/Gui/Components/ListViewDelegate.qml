@@ -80,16 +80,6 @@ Rectangle {
         }
     }
 
-    // If this row leaves the selection while its inline editor still owns
-    // focus (e.g. user tapped another row's background, and listView's
-    // forceActiveFocus didn't pull focus out of this row's FocusScope),
-    // release it locally so the editor visuals and activeFocus drop.
-    onInSelectionChanged: {
-        if (!inSelection && editing) {
-            editScope.focus = false
-        }
-    }
-
     Connections {
         target: listView
         function onResolvedColumnWidthsChanged() { listView.applyWidths(contentRow) }
@@ -129,12 +119,10 @@ Rectangle {
         onTapped: {
             if (index < 0) return
             listView.currentIndex = index
-            // Any tap that reaches this handler lands on the row background
-            // (not an inline editor — T.TextField's grab swallows onTapped
-            // for clicks on the editor itself). So claiming focus here ends
-            // any in-progress inline edit in this or another row.
-            //if (!editing) listView.forceActiveFocus()
-            listView.forceActiveFocus()
+            // Tap lands on the row background (cell editors swallow their
+            // own press). Release any in-progress edit before updating
+            // selection so editor visuals drop on row-background clicks.
+            listView.endEditing()
             listView.selectWithModifiers(index, tap.point.modifiers)
         }
     }
