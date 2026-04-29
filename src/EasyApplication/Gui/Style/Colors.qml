@@ -4,7 +4,7 @@ import QtQuick
 import QtQuick.Controls.Material
 import QtCore
 
-import EasyApp.Gui.Globals as EaGlobals
+import EasyApplication.Gui.Globals as EaGlobals
 
 
 QtObject {

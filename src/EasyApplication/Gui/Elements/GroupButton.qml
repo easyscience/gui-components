@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.Material
 
-import EasyApp.Gui.Style as EaStyle
+import EasyApplication.Gui.Style as EaStyle
 
 Button {
     implicitWidth: (parent.width - parent.spacing) * 0.5 - 1

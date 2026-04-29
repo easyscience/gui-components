@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtWebEngine 1.10
 
-import easyApp.Gui.Elements 1.0 as EaElements
+import EasyApplication.Gui.Elements 1.0 as EaElements
 
 Rectangle {
     id: container

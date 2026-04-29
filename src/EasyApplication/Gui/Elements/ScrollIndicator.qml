@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Templates as T
 
-import EasyApp.Gui.Style as EaStyle
+import EasyApplication.Gui.Style as EaStyle
 
 T.ScrollIndicator {
     id: control

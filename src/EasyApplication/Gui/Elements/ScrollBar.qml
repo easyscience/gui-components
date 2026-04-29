@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls.Material
 
-import EasyApp.Gui.Style as EaStyle
+import EasyApplication.Gui.Style as EaStyle
 
 T.ScrollBar {
     id: control

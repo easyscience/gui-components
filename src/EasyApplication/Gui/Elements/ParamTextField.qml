@@ -3,9 +3,9 @@ import QtQuick.Templates as T
 import QtQuick.Controls
 import QtQuick.Controls.impl
 
-import EasyApp.Gui.Logic as EaLogic
-import EasyApp.Gui.Style as EaStyle
-import EasyApp.Gui.Elements as EaElements
+import EasyApplication.Gui.Logic as EaLogic
+import EasyApplication.Gui.Style as EaStyle
+import EasyApplication.Gui.Elements as EaElements
 
 
 EaElements.TextField {

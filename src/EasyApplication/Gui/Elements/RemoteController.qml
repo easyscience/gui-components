@@ -3,9 +3,9 @@ import QtQuick.Controls
 import QtMultimedia
 import QtTest
 
-import EasyApp.Gui.Style as EaStyle
-import EasyApp.Gui.Globals as EaGlobals
-import EasyApp.Gui.Elements as EaElements
+import EasyApplication.Gui.Style as EaStyle
+import EasyApplication.Gui.Globals as EaGlobals
+import EasyApplication.Gui.Elements as EaElements
 
 Item {
     id: rc

@@ -4,7 +4,7 @@ import QtQuick.Controls.Material
 import QtQuick.Controls.Material.impl
 import QtQuick.Templates as T
 
-import EasyApp.Gui.Style as EaStyle
+import EasyApplication.Gui.Style as EaStyle
 
 T.Menu {
     id: control

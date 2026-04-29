@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Templates as T
 
-import EasyApp.Gui.Style as EaStyle
-import EasyApp.Gui.Animations as EaAnimations
+import EasyApplication.Gui.Style as EaStyle
+import EasyApplication.Gui.Animations as EaAnimations
 
 T.Label {
     id: control

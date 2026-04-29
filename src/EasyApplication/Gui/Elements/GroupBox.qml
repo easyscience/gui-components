@@ -3,10 +3,10 @@ import QtQuick.Controls
 import QtQuick.Controls.Basic  // Fixes EasyApp/Gui/Elements/GroupBox.qml:51:22: QML Row: The current style does not support customization of this control (property: "contentItem" item: QQuickRow(0x60000381e200, parent=0x0, geometry=0,0 0x0)). Please customize a non-native style (such as Basic, Fusion, Material, etc). For more information, see: https://doc.qt.io/qt-6/qtquickcontrols2-customize.html#customization-reference
 import QtQuick.Templates as T
 
-import EasyApp.Gui.Style as EaStyle
-import EasyApp.Gui.Globals as EaGlobals
-import EasyApp.Gui.Elements as EaElements
-import EasyApp.Gui.Animations as EaAnimations
+import EasyApplication.Gui.Style as EaStyle
+import EasyApplication.Gui.Globals as EaGlobals
+import EasyApplication.Gui.Elements as EaElements
+import EasyApplication.Gui.Animations as EaAnimations
 
 
 T.GroupBox {

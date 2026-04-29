@@ -1,7 +1,7 @@
 import QtQuick
 
-import EasyApp.Gui.Elements as EaElements
-import EasyApp.Gui.Style as EaStyle
+import EasyApplication.Gui.Elements as EaElements
+import EasyApplication.Gui.Style as EaStyle
 
 EaElements.TabButton {
     property int horizontalAlignment: Text.AlignHCenter

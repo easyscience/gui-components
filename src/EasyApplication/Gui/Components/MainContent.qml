@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
-import EasyApp.Gui.Elements as EaElements
+import EasyApplication.Gui.Elements as EaElements
 
 Item {
     id: mainAreaContainer

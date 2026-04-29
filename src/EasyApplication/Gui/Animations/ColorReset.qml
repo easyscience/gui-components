@@ -1,6 +1,6 @@
 import QtQuick
 
-import EasyApp.Gui.Style as EaStyle
+import EasyApplication.Gui.Style as EaStyle
 
 SequentialAnimation {
     property alias target: colorChangeAnimo.target

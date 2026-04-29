@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtWebEngine
 
-import EasyApp.Gui.Style as EaStyle
+import EasyApplication.Gui.Style as EaStyle
 import Gui.Globals as Globals
 
 WebEngineView {

@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 
-import EasyApp.Gui.Globals as EaGlobals
-import EasyApp.Gui.Elements as EaElements
+import EasyApplication.Gui.Globals as EaGlobals
+import EasyApplication.Gui.Elements as EaElements
 
 EaElements.Label {
     id: control

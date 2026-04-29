@@ -1,8 +1,8 @@
 import QtQuick
 
-import EasyApp.Gui.Style as EaStyle
-import EasyApp.Gui.Animations as EaAnimations
-import EasyApp.Gui.Elements as EaElements
+import EasyApplication.Gui.Style as EaStyle
+import EasyApplication.Gui.Animations as EaAnimations
+import EasyApplication.Gui.Elements as EaElements
 
 EaElements.TabButton {
     id: control

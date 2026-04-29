@@ -2,10 +2,10 @@ import QtQuick
 import QtQuick.Controls
 import QtCharts
 
-import EasyApp.Gui.Animations as EaAnimations
-import EasyApp.Gui.Style as EaStyle
-import EasyApp.Gui.Elements as EaElements
-import EasyApp.Gui.Charts as EaCharts
+import EasyApplication.Gui.Animations as EaAnimations
+import EasyApplication.Gui.Style as EaStyle
+import EasyApplication.Gui.Elements as EaElements
+import EasyApplication.Gui.Charts as EaCharts
 
 
 Rectangle {
