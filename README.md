@@ -28,8 +28,6 @@ License:
   [Documentation](https://easyscience.github.io/gui-components/latest)
 - 🚀
   [Getting Started](https://easyscience.github.io/gui-components/latest/introduction)
-- 🧪
-  [Tutorials](https://easyscience.github.io/gui-components/latest/tutorials)
 - 💬
   [Get in Touch](https://easyscience.github.io/gui-components/latest/introduction/#get-in-touch)
 - 🧾

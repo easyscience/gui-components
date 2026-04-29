@@ -96,7 +96,6 @@ default = { features = ['py-max'] }
 unit-tests = 'python -m pytest tests/unit/ --color=yes -v'
 functional-tests = 'python -m pytest tests/functional/ --color=yes -v'
 integration-tests = 'python -m pytest tests/integration/ --color=yes -n auto -v'
-notebook-tests = 'python -m pytest --nbmake docs/docs/tutorials/ --nbmake-timeout=1200 --color=yes -n auto -v'
 
 test = { depends-on = ['unit-tests'] }
 
@@ -106,9 +105,8 @@ test = { depends-on = ['unit-tests'] }
 
 pyproject-check = 'python -m validate_pyproject pyproject.toml'
 docstring-lint-check = 'pydoclint --quiet src/'
-notebook-lint-check = 'nbqa ruff docs/docs/tutorials/'
-py-lint-check = 'ruff check src/ tests/ docs/docs/tutorials/'
-py-format-check = 'ruff format --check src/ tests/ docs/docs/tutorials/'
+py-lint-check = 'ruff check src/ tests/'
+py-format-check = 'ruff format --check src/ tests/'
 nonpy-format-check = 'npx prettier --list-different --config=prettierrc.toml --ignore-unknown .'
 nonpy-format-check-modified = 'python tools/nonpy_prettier_modified.py'
 
@@ -120,10 +118,9 @@ check = 'pre-commit run --hook-stage manual --all-files'
 
 docstring-transform = 'pixi run docstripy src/ -s=numpy -w'
 docstring-format-fix = 'format-docstring src/'
-notebook-lint-fix = 'nbqa ruff --fix docs/docs/tutorials/'
-py-lint-fix = 'ruff check --fix src/ tests/ docs/docs/tutorials/'
-py-lint-fix-unsafe = 'ruff check --fix --unsafe-fixes src/ tests/ docs/docs/tutorials/'
-py-format-fix = 'ruff format src/ tests/ docs/docs/tutorials/'
+py-lint-fix = 'ruff check --fix src/ tests/'
+py-lint-fix-unsafe = 'ruff check --fix --unsafe-fixes src/ tests/'
+py-format-fix = 'ruff format src/ tests/'
 nonpy-format-fix = 'npx prettier --write --list-different --config=prettierrc.toml --ignore-unknown .'
 nonpy-format-fix-modified = 'python tools/nonpy_prettier_modified.py --write'
 success-message = 'echo "✅ All auto-formatting steps completed successfully!"'
@@ -133,7 +130,6 @@ fix = { depends-on = [
   'py-format-fix',
   'py-lint-fix',
   'nonpy-format-fix',
-  'notebook-lint-fix',
   'success-message',
 ] }
 
@@ -161,21 +157,6 @@ cov = { depends-on = [
   'docstring-coverage',
   'unit-tests-coverage',
   'integration-tests-coverage',
-] }
-
-########################
-# 📓 Notebook Management
-########################
-
-notebook-convert = 'jupytext docs/docs/tutorials/*.py --from py:percent --to ipynb'
-notebook-strip = 'nbstripout docs/docs/tutorials/*.ipynb'
-notebook-tweak = 'python tools/tweak_notebooks.py docs/docs/tutorials/'
-notebook-exec = 'python -m pytest --nbmake docs/docs/tutorials/ --nbmake-timeout=1200 --overwrite --color=yes -n auto -v'
-
-notebook-prepare = { depends-on = [
-  #'notebook-convert',
-  'notebook-strip',
-  #'notebook-tweak',
 ] }
 
 ########################

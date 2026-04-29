@@ -41,16 +41,11 @@ env:
   # For pushes: github.ref_name is the branch
   # For tags: github.ref_name is the tag name
   # GITHUB_REPOSITORY - the repository name (used in mkdocs.yml)
-  # NOTEBOOKS_DIR - the directory containing the Jupyter notebooks (used in mkdocs.yml)
   DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
   DEVELOP_BRANCH: develop
   CI_BRANCH: ${{ github.head_ref || github.ref_name }}
   IS_RELEASE_TAG: ${{ startsWith(github.ref, 'refs/tags/v') }}
   GITHUB_REPOSITORY: ${{ github.repository }}
-  NOTEBOOKS_DIR: tutorials
-  # Opt into Node.js 24 for all JavaScript actions.
-  # Remove once all referenced actions natively target Node 24.
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   # Single job that builds and deploys documentation.
@@ -109,16 +104,6 @@ jobs:
       # cache" messages during notebook execution.
       - name: Pre-build site step
         run: pixi run python -c "import EasyApplication"
-
-      # Prepare the Jupyter notebooks for documentation (strip output, etc.).
-      - name: Prepare notebooks
-        run: pixi run notebook-prepare
-
-      # Execute all Jupyter notebooks to generate output cells (plots, tables, etc.).
-      # Uses multiple cores for parallel execution to speed up the process.
-      - name: Run notebooks
-        # if: false # Temporarily disabled to speed up the docs build
-        run: pixi run notebook-exec
 
       # Build the static files for the documentation site for local inspection
       # Input: docs/ directory containing the Markdown files
