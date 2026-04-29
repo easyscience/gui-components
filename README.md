@@ -1,23 +1,51 @@
-<img src="https://github.com/EasyScience/EasyApp/blob/examples/resources/images/ea_logo.svg?raw=true" height="65">
+<p>
+  <picture>
+    <!-- light mode logo -->
+    <source media='(prefers-color-scheme: light)' srcset='https://raw.githubusercontent.com/easyscience/assets-branding/refs/heads/master/easyapplication/logos/light.svg'>
+    <!-- dark mode logo -->
+    <source media='(prefers-color-scheme: dark)' srcset='https://raw.githubusercontent.com/easyscience/assets-branding/refs/heads/master/easyapplication/logos/dark.svg'>
+    <!-- default logo == light mode logo -->
+    <img src='https://raw.githubusercontent.com/easyscience/assets-branding/refs/heads/master/easyapplication/logos/light.svg' alt='EasyApplication'>
+  </picture>
+</p>
 
-EasyApp is a collection of Qt QML graphical components which allows one to quickly create cross-platform applications with an eye-catching and intuitive graphical interface based on the [EasyScience](http://github.com/EasyScience) framework.
+**EasyApplication** is a collection of Qt/QML graphical components to
+create cross-platform applications with intuitive graphical interface
+based on the EasyScience framework.
 
-* Website: https://app.easyscience.software
-* Source code: https://github.com/EasyScience/EasyApp
-* Bug reports: https://github.com/EasyScience/EasyApp/issues
+<!-- HOME REPOSITORY SECTION -->
 
-EasyApp is currently being used as the basis for the graphical interface in the following projects:
+**EasyApplication** is developed as a Python library.
 
-* [EasyDiffraction](http://github.com/EasyScience/EasyDiffraction)
-* [EasyReflectometry](http://github.com/EasyScience/EasyReflectometry)
-* [EasyTexture](http://github.com/EasyScience/EasyTextureApp)
+License:
+[BSD 3-Clause](https://github.com/easyscience/easyapp/blob/master/LICENSE)
 
-More simple examples of how to use EasyApp are described in [EXAMPLES.md](https://github.com/EasyScience/EasyApp/blob/master/EXAMPLES.md) and presented in the project [examples](https://github.com/EasyScience/EasyApp/tree/master/examples) directory:
+License:
+[BSD 3-Clause](https://github.com/easyscience/gui-components/blob/master/LICENSE)
 
-* [BasicQml](https://github.com/EasyScience/EasyApp/tree/master/examples/BasicQml)
-* [BasicPy](https://github.com/EasyScience/EasyApp/tree/master/examples/BasicPy)
-* [BasicC++](https://github.com/EasyScience/EasyApp/tree/master/examples/BasicC++)
-* [IntermediatePy](https://github.com/EasyScience/EasyApp/tree/master/examples/IntermediatePy)
-* [AdvancedPy](https://github.com/EasyScience/EasyApp/tree/master/examples/AdvancedPy)
+## Useful Links
 
-If you want to see what EasyApp looks like, you can try the web demo based on the [BasicC++](https://github.com/EasyScience/EasyApp/tree/master/examples/BasicC++) example at https://easyscience.github.io/EasyApp/BasicC++.html.
+### For Users
+
+- 📖
+  [Documentation](https://easyscience.github.io/gui-components/latest)
+- 🚀
+  [Getting Started](https://easyscience.github.io/gui-components/latest/introduction)
+- 🧪
+  [Tutorials](https://easyscience.github.io/gui-components/latest/tutorials)
+- 💬
+  [Get in Touch](https://easyscience.github.io/gui-components/latest/introduction/#get-in-touch)
+- 🧾
+  [Citation](https://easyscience.github.io/gui-components/latest/introduction/#citation)
+
+### For Contributors
+
+- 🧑‍💻 [Source Code](https://github.com/easyscience/gui-components)
+- 🐞
+  [Issue Tracker](https://github.com/easyscience/gui-components/issues)
+- 💡
+  [Discussions](https://github.com/easyscience/gui-components/discussions)
+- 🤝
+  [Contributing Guide](https://github.com/easyscience/gui-components/blob/master/CONTRIBUTING.md)
+- 🛡
+  [Code of Conduct](https://github.com/easyscience/.github/blob/master/CODE_OF_CONDUCT.md)

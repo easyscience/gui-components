@@ -7,7 +7,7 @@ pragma Singleton
 import QtQuick
 
 // This module is registered in the main.py file and allows access to the properties
-// and backend  methods of the singleton object of the ‘PyBackend’ class.
+// and backend methods of the singleton object of the ‘PyBackend’ class.
 // If ‘PyBackend’ is not defined, then 'MockBackend' from directory 'Backends' is used.
 // It is needed to run the GUI frontend via the qml runtime tool without any Python backend.
 import Backends as Backends
@@ -55,6 +55,24 @@ QtObject {
     function projectCreate() { activeBackend.project.create() }
     function projectSave() { activeBackend.project.save() }
     function projectEditInfo(path, new_value) { activeBackend.project.editInfo(path, new_value) }
+
+    ////////////////
+    // Analysis page
+    ////////////////
+
+    // All properties and methods related to the analysis page, unlike other pages,
+    // are accessed directly via the `activeBackend` object, without an intermediate
+    // wrapper in this file.
+    //
+    // They are defined in the following files:
+    // - Backends/MockQml/Analysis.qml
+    // - Backends/real_py/analysis.py
+    //
+    // This approach is used to reduce duplication of objects between the backend
+    // and frontend, and to minimize the number of automatically generated signals/slots.
+    //
+    // TODO: Profile performance and memory usage, and decide whether to use this
+    // direct access approach or keep a wrapper layer.
 
     ///////////////
     // Summary page
