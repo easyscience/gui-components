@@ -15,10 +15,7 @@ based on the EasyScience framework.
 
 <!-- HOME REPOSITORY SECTION -->
 
-**EasyApplication** is developed as a Python library.
-
-License:
-[BSD 3-Clause](https://github.com/easyscience/easyapp/blob/master/LICENSE)
+**EasyApplication** is distributed as a Python package.
 
 License:
 [BSD 3-Clause](https://github.com/easyscience/gui-components/blob/master/LICENSE)
