@@ -7,13 +7,14 @@ import re
 import sys
 import urllib.request
 
-from EasyApp.Logic.Logging import console
 from PySide6.QtCore import Property
 from PySide6.QtCore import QObject
 from PySide6.QtCore import QProcess
 from PySide6.QtCore import Signal
 from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QApplication
+
+from EasyApplication.Logic.Logging import console
 
 
 class Updater(QObject):

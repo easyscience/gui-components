@@ -46,13 +46,6 @@ repos:
         pass_filenames: false
         stages: [manual]
 
-      - id: pixi-notebook-lint-check
-        name: pixi run notebook-lint-check
-        entry: pixi run notebook-lint-check
-        language: system
-        pass_filenames: false
-        stages: [manual]
-
       - id: pixi-unit-tests
         name: pixi run unit-tests
         entry: pixi run unit-tests

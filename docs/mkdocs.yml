@@ -172,9 +172,5 @@ nav:
       - Installation & Setup: installation-and-setup/index.md
   - User Guide:
       - User Guide: user-guide/index.md
-  - Tutorials:
-      - Tutorials: tutorials/index.md
-      - Getting Started:
-          - Dummy tutorial: tutorials/tutorial.ipynb
   - API Reference:
       - API Reference: api-reference/index.md

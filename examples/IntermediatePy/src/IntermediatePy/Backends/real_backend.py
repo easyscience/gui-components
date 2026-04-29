@@ -4,7 +4,7 @@
 
 from PySide6.QtCore import QObject, Property
 
-from EasyApp.Logic.Logging import LoggerLevelHandler
+from EasyApplication.Logic.Logging import LoggerLevelHandler
 
 from .real_py.project import Project
 from .real_py.status import Status
