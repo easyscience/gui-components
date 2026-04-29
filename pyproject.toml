@@ -3,7 +3,7 @@
 ###############################
 
 [project]
-name = 'easyapplication'
+name = 'EasyApplication'
 dynamic = ['version'] # Use versioningit to manage the version
 description = 'Qt/QML components for building graphical applications'
 authors = [{ name = 'EasyScience contributors' }]
@@ -85,7 +85,7 @@ requires = ['hatchling', 'versioningit']
 # https://hatch.pypa.io/
 
 [tool.hatch.build.targets.wheel]
-packages = ['src/easyapplication']
+packages = ['src/EasyApplication']
 
 [tool.hatch.metadata]
 allow-direct-references = true

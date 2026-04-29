@@ -3148,8 +3148,8 @@ packages:
   requires_python: '>=3.5'
 - pypi: ./
   name: easyapplication
-  version: 0.8.0+dev35
-  sha256: d7118f70de032721845ac67bab3d4930b185d0ea95fc74a05cd33e0d28f4d369
+  version: 0.8.0+devdirty35
+  sha256: 3109fcc04be06e53cf1c182ec11f092a566460ecf1f85e2e4d56d1663c38cc2a
   requires_dist:
   - pooch
   - build ; extra == 'dev'
