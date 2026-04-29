@@ -1,46 +1,39 @@
-# Qt Creator
-*.autosave
+# Python
+__pycache__/
+.venv/
+.coverage
+.pyc
 
-# Qt Creator Qml
+# Pixi
+.pixi/
+
+# PyInstaller
+dist/
+build/
+*.spec
+
+# MkDocs
+docs/site/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# Node
+node_modules/
+
+# QtCreator
+*.autosave
 *.qmlproject.user
 *.qmlproject.user.*
-
-# Qt Creator Python
 *.pyproject.user
 *.pyproject.user.*
-
-# Qt Creator C++
-*.pro.user
-*.pro.user.*
-
-# Qt Creator CMake
 CMakeLists.txt.user*
-
-# VS Code
-.vscode/
 
 # PyCharm
 .idea/
 
-# Fortran
-fort.1
-
-# Python
-__pycache__
-.venv
-.coverage
-.pyc
-
-# Poetry
-dist
-*.egg-info
-
-# PyInstaller
-build
-*.spec
-
-# Jupyter
-.ipynb_checkpoints
+# VS Code
+.vscode/
 
 # macOS
 .DS_Store
@@ -48,9 +41,6 @@ build
 *.dmg
 
 # Misc
-..*
+.cache/
 *.log
 *.zip
-settings.ini*
-temp.cif
-.ci/

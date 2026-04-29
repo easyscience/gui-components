@@ -1,0 +1,36 @@
+# Git
+.git/
+
+# Copier
+.copier-answers*.yml
+
+# Pixi
+.pixi
+pixi.lock
+
+# MkDocs
+docs/overrides/
+docs/site/
+docs/docs/assets/
+
+# Python
+.pytest_cache/
+
+# MyPy
+.mypy_cache/
+
+# Ruff
+.ruff_cache/
+
+# Node
+node_modules
+
+# Minified files
+*.min.js
+*.min.css
+
+# Misc
+.benchmarks
+.cache
+deps/
+tmp/

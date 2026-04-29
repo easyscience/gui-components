@@ -6,27 +6,19 @@ build-backend = 'hatchling.build'
 name = 'advancedpy'
 version = '1.0.0'
 description = 'Example of a desktop application of advanced complexity with Python backend and EasyApp-based GUI'
-authors = [
-  {name = 'Andrew Sazonov', email = 'andrew.sazonov@ess.eu'}
-]
+authors = [{ name = 'Andrew Sazonov', email = 'andrew.sazonov@ess.eu' }]
 readme = 'README.md'
-license = {file = 'LICENSE'}
+license = { file = 'LICENSE' }
 classifiers = [
   'Development Status :: 4 - Beta',
   'License :: OSI Approved :: BSD License',
-  'Programming Language :: Python :: 3'
+  'Programming Language :: Python :: 3',
 ]
 requires-python = '>=3.11'
-dependencies = [
-  'numpy<2'
-]
+dependencies = ['numpy<2']
 
 [project.optional-dependencies]
-ci = [
-  'validate-pyproject[all]',
-  'build',
-  'wheel'
-]
+ci = ['validate-pyproject[all]', 'build', 'wheel']
 
 [project.urls]
 homepage = 'https://github.com/EasyScience/EasyApp/tree/master/examples/AdvancedPy'
