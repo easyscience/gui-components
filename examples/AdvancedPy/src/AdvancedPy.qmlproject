@@ -6,7 +6,7 @@ Project {
     // List of module and plugin directories passed to QML runtime
     importPaths: [
         "AdvancedPy",
-        "../../../src",  // EasyApp
+        "../../../src",  // EasyApplication
     ]
 
     // Include .qml files from specified directory and its subdirectories
@@ -14,7 +14,7 @@ Project {
         directory: "AdvancedPy"
     }
     QmlFiles {
-        directory: "../../../src/EasyApp"
+        directory: "../../../src/EasyApplication"
     }
 
     // Include .js files from specified directory and its subdirectories
@@ -22,7 +22,7 @@ Project {
         directory: "AdvancedPy"
     }
     JavaScriptFiles {
-        directory: "../../../src/EasyApp"
+        directory: "../../../src/EasyApplication"
     }
 
     // Include Module Definition Files (qmldir), as well as .ts and .qrc
@@ -33,7 +33,7 @@ Project {
         recursive: true
     }
     Files {
-        directory: "../../../src/EasyApp"
+        directory: "../../../src/EasyApplication"
         filter: "qmldir;*.ts;*.qrc;*.html"
         recursive: true
     }

@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: 2024 EasyApp contributors
+// SPDX-FileCopyrightText: 2024 EasyApplication contributors
 // SPDX-License-Identifier: BSD-3-Clause
-// © 2024 Contributors to the EasyApp project <https://github.com/easyscience/EasyApp>
+// © 2024 Contributors to the EasyApplication project <https://github.com/easyscience/EasyApplication>
 
 pragma Singleton
 
@@ -23,7 +23,7 @@ QtObject {
         'date': new Date().toISOString().slice(0,10),
         'developerYearsFrom': '2019',
         'developerYearsTo': '2024',
-        'description': 'Example of a desktop application of advanced complexity with Python backend and EasyApp-based GUI',
+        'description': 'Example of a desktop application of advanced complexity with Python backend and EasyApplication-based GUI',
         'developerIcons': [
             {
                 'url': 'https://ess.eu',

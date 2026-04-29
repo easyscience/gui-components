@@ -1,10 +1,10 @@
-# SPDX-FileCopyrightText: 2024 EasyApp contributors
+# SPDX-FileCopyrightText: 2024 EasyApplication contributors
 # SPDX-License-Identifier: BSD-3-Clause
-# © 2024 Contributors to the EasyApp project <https://github.com/easyscience/EasyApp>
+# © 2024 Contributors to the EasyApplication project <https://github.com/easyscience/EasyApplication>
 
 from PySide6.QtCore import QObject, Property
 
-from EasyApp.Logic.Logging import LoggerLevelHandler
+from EasyApplication.Logic.Logging import LoggerLevelHandler
 
 from .real_py.project import Project
 from .real_py.analysis import Analysis
