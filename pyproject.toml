@@ -22,7 +22,10 @@ classifiers = [
   'Programming Language :: Python :: 3.14',
 ]
 requires-python = '>=3.12'
-dependencies = ['PySide6']
+dependencies = [
+  'numpy',   # Scientific computing library
+  'PySide6', # Qt for Python
+]
 
 [project.optional-dependencies]
 dev = [
