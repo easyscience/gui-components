@@ -6,12 +6,11 @@ icon: material/information-slab-circle
 
 ## Description
 
-**EasyApplication** is a collection of Qt/QML graphical components to create cross-platform applications with intuitive graphical interface based on the EasyScience framework.
-
+**EasyApplication** is a collection of Qt/QML graphical components to
+create cross-platform applications with intuitive graphical interface
+based on the EasyScience framework.
 
 **EasyApplication** is developed as a Python library.
-
-
 
 <!--
 **EasyApplication** is developed using the
@@ -34,11 +33,11 @@ the
 
 ## Citation
 
-If you use **EasyApplication** library in your work,
-please cite the specific version you used.
+If you use **EasyApplication** library in your work, please cite the
+specific version you used.
 
-All official releases of the **EasyApplication** library are archived
-on Zenodo, each with a version-specific Digital Object Identifier (DOI).
+All official releases of the **EasyApplication** library are archived on
+Zenodo, each with a version-specific Digital Object Identifier (DOI).
 
 Citation details in various styles (e.g., APA, MLA) and formats (e.g.,
 BibTeX, JSON) are available on the
@@ -55,8 +54,9 @@ The project is maintained by the
 [European Spallation Source (ESS)](https://ess.eu).
 
 If you would like to report a bug or request a new feature, please use
-the [GitHub Issue Tracker](https://github.com/easyscience/easyapp/issues)
-(A free GitHub account is required.)
+the
+[GitHub Issue Tracker](https://github.com/easyscience/easyapp/issues) (A
+free GitHub account is required.)
 
 To contribute code, documentation, or tests, please see our
 [:material-account-plus: Contributing Guidelines](https://github.com/easyscience/easyapp/blob/master/CONTRIBUTING.md)

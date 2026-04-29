@@ -1,162 +1,156 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+    <script src="plotly-2.18.0.min.js"></script>
 
-<head>
+    <style type="text/css">
+      :root {
+        --fontPixelSize: 14;
+      }
 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
-  <script src="plotly-2.18.0.min.js"></script>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-  <style type="text/css">
+      html,
+      body {
+        height: 100%;
+      }
 
-    :root {
-      --fontPixelSize:14;
-    }
+      body {
+        overflow: hidden;
+        font-size: calc(var(--fontPixelSize) * 1px);
+      }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      #plotContainer {
+        height: 100%;
+        width: 100%;
+        padding: calc(var(--fontPixelSize) * 1px);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+      }
 
-    html,
-    body {
-      height: 100%;
-    }
+      #plotDiv {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
 
-    body {
-      overflow: hidden;
-      font-size: calc(var(--fontPixelSize) * 1px);
-    }
+  <body>
+    <div id="plotContainer">
+      <div id="plotDiv"></div>
+    </div>
 
-    #plotContainer {
-      height: 100%;
-      width: 100%;
-      padding: calc(var(--fontPixelSize) * 1px);;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
+    <script>
+      ///////
+      // Data
+      ///////
 
-    #plotDiv {
-      width: 100%;
-      height: 100%;
-    }
+      // Default data
+      let data = {
+        x: ['A', 'B', 'C'],
+        y: [1, 2, 3],
+        z: [
+          [1, 20, 30],
+          [20, 1, 60],
+          [30, 60, 1],
+        ],
+      }
 
-  </style>
+      /////////
+      // Plotly
+      /////////
 
-</head>
+      // Default trace
+      let trace = {
+        name: '',
+        x: data.x,
+        y: data.y,
+        z: data.z,
+        type: 'heatmap',
+        colorbar: { title: { text: '' } },
+        colorscale: 'Portland',
+        hoverongaps: false,
+        hovertemplate: '',
+      }
 
-<body>
+      // Plot dataset
+      let plotTraces = [trace]
 
-  <div id='plotContainer'>
-    <div id='plotDiv'></div>
-  </div>
+      // Plot layout
+      let plotLayout = {
+        autosize: true,
+        margin: { l: 43, r: 3, b: 50, t: 40, pad: 0 },
+        showlegend: false,
+        xaxis: {
+          title: 'x-axis',
+          automargin: true,
+        },
+        yaxis: {
+          title: 'y-axis',
+          automargin: true,
+        },
+        zaxis: {
+          title: 'z-axis',
+        },
+        shapes: [],
+      }
 
-  <script>
+      // Plot config
+      let plotConfig = {
+        displayModeBar: true,
+        displaylogo: false,
+      }
 
-    ///////
-    // Data
-    ///////
+      // Create plot
+      Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
 
-    // Default data
-    let data = {
-      'x': ['A', 'B', 'C'],
-      'y': [1, 2, 3],
-      'z': [[1, 20, 30], [20, 1, 60], [30, 60, 1]],
-    }
+      /////////////////////////////////////////
+      // Functionality to be accesable from QML
+      /////////////////////////////////////////
 
-    /////////
-    // Plotly
-    /////////
+      function redrawPlot() {
+        Plotly.redraw('plotDiv')
+      }
 
-    // Default trace
-    let trace = {
-      name: '',
-      x: data.x,
-      y: data.y,
-      z: data.z,
-      type: 'heatmap',
-      colorbar: {title: {text: ''}},
-      colorscale: 'Portland',
-      hoverongaps: false,
-      hovertemplate: ''
-    }
+      function setXAxisTitle(newTitle) {
+        plotLayout.xaxis.title = newTitle
+      }
 
-    // Plot dataset
-    let plotTraces = [ trace ]
+      function setYAxisTitle(newTitle) {
+        plotLayout.yaxis.title = newTitle
+      }
 
-    // Plot layout
-    let plotLayout = {
-      autosize: true,
-      margin: { l: 43, r: 3, b: 50, t: 40, pad: 0 },
-      showlegend: false,
-      xaxis: {
-        title: 'x-axis',
-        automargin: true,
-      },
-      yaxis: {
-        title: 'y-axis',
-        automargin: true,
-      },
-      zaxis: {
-        title: 'z-axis',
-      },
-      shapes: [],
-    }
+      function setShape(newShape) {
+        return (plotLayout.shapes = newShape)
+      }
 
-    // Plot config
-    let plotConfig = {
-      displayModeBar: true,
-      displaylogo: false,
-    }
+      function setColorbarTitle(newTitle) {
+        trace.colorbar.title.text = newTitle
+      }
 
-    // Create plot
-    Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
+      function setXyzData(newData) {
+        trace.x = newData.x
+        trace.y = newData.y
+        trace.z = newData.z
+        trace.hovertemplate = newData.hoverTemplate
+      }
 
-    /////////////////////////////////////////
-    // Functionality to be accesable from QML
-    /////////////////////////////////////////
-
-    function redrawPlot() {
-      Plotly.redraw('plotDiv')
-    }
-
-    function setXAxisTitle(newTitle) {
-      plotLayout.xaxis.title = newTitle
-    }
-
-    function setYAxisTitle(newTitle) {
-      plotLayout.yaxis.title = newTitle
-    }
-
-    function setShape(newShape) {
-      return plotLayout.shapes = newShape
-    }
-
-    function setColorbarTitle(newTitle){
-      trace.colorbar.title.text = newTitle
-    }
-
-    function setXyzData(newData) {
-      trace.x = newData.x
-      trace.y = newData.y
-      trace.z = newData.z
-      trace.hovertemplate = newData.hoverTemplate
-    }
-
-    function getDataFromJson(filename) {
-      let request = new XMLHttpRequest()
-      request.open("GET", filename, false)
-      request.send(null)
-      let data = JSON.parse(request.responseText)
-      return data
-    }
-
-</script>
-
-</body>
-
+      function getDataFromJson(filename) {
+        let request = new XMLHttpRequest()
+        request.open('GET', filename, false)
+        request.send(null)
+        let data = JSON.parse(request.responseText)
+        return data
+      }
+    </script>
+  </body>
 </html>

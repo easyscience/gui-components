@@ -1,11 +1,18 @@
-__author__ = "github.com/AndrewSazonov"
-__version__ = "0.0.1"
+# SPDX-FileCopyrightText: 2026 EasyScience contributors <https://github.com/easyscience>
+# SPDX-License-Identifier: BSD-3-Clause
+
 
 import os
 
-from PySide6.QtCore import QObject, QTranslator, QLocale, Property, Slot
-#from PySide6.QtWidgets import QApplication
-#from PySide6.QtQml import QQmlApplicationEngine
+from PySide6.QtCore import Property
+from PySide6.QtCore import QLocale
+from PySide6.QtCore import QObject
+from PySide6.QtCore import QTranslator
+from PySide6.QtCore import Slot
+
+# from PySide6.QtWidgets import QApplication
+# from PySide6.QtQml import QQmlApplicationEngine
+
 
 class Translator(QObject):
     def __init__(self, app, engine, translations_path, languages):

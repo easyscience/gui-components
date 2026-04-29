@@ -1,137 +1,135 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style type="text/css">
+    :root {
+      --xAxisTitle: '';
+      --yAxisTitle: '';
+    }
 
-<style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  :root {
-    --xAxisTitle:"";
-    --yAxisTitle:"";
-  }
+    body {
+      overflow: hidden;
+      font-family: 'PT Sans', sans-serif;
+    }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+    #chartDiv {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
 
-  body {
-    overflow: hidden;
-    font-family: "PT Sans", sans-serif;
-  }
+  <body>
+    <div id="chartDiv"></div>
 
-  #chartDiv {
-    width: 100vw;
-    height: 100vh;
-  }
+    <script>
+      /* GLOBAL VARIABLES */
 
-</style>
+      let xArrayValues = []
+      let yArrayValues = []
 
-<body>
+      /* PLOT DESCRIPTION */
 
-  <div id="chartDiv"></div>
+      let data = [
+        {
+          x: xArrayValues,
+          y: yArrayValues,
+          mode: 'lines',
+          //line: {simplify: false},
+          //type: 'scattergl',
+        },
+      ]
 
-  <script>
-
-    /* GLOBAL VARIABLES */
-
-    let xArrayValues = []
-    let yArrayValues = []
-
-    /* PLOT DESCRIPTION */
-
-    let data = [{
-      x: xArrayValues,
-      y: yArrayValues,
-      mode: 'lines',
-      //line: {simplify: false},
-      //type: 'scattergl',
-    }]
-
-    let layout = {
-      autosize: true,
-      xaxis: {
-        title: '',
-        automargin: true,
-        autorange: true,
-        showgrid: true,
-        zeroline: false,
-        showline: true,
-        mirror: 'ticks',
-      },
-      yaxis: {
-        title: '',
-        automargin: true,
-        showgrid: true,
-        zeroline: false,
-        showline: true,
-        mirror: 'ticks',
-      },
-      margin: {
+      let layout = {
+        autosize: true,
+        xaxis: {
+          title: '',
+          automargin: true,
+          autorange: true,
+          showgrid: true,
+          zeroline: false,
+          showline: true,
+          mirror: 'ticks',
+        },
+        yaxis: {
+          title: '',
+          automargin: true,
+          showgrid: true,
+          zeroline: false,
+          showline: true,
+          mirror: 'ticks',
+        },
+        margin: {
           l: 43,
           r: 3,
           b: 50,
           t: 40,
-          pad: 0
-        }
-    }
-
-    let config = {
-      displayModeBar: true,
-      displaylogo: false,
-    }
-
-    /* CREATE PLOT */
-
-    Plotly.newPlot('chartDiv', data, layout, config)
-
-    /* FUNCTIONS */
-
-    function setXArrayValues(newValues) {
-      xArrayValues.length = 0
-      for (let i = 0; i < newValues.length; i++) {
-        xArrayValues[i] = newValues[i]
-      }
-    }
-
-    function setYArrayValues(newValues) {
-      yArrayValues.length = 0
-      for (let i = 0; i < newValues.length; i++) {
-        yArrayValues[i] = newValues[i]
-      }
-    }
-
-    function redrawPlot() {
-      Plotly.redraw('chartDiv')
-    }
-
-    function redrawPlotWithYAnimation() {
-      Plotly.animate('chartDiv', {
-        data: [{ y: yArrayValues }],
-        traces: [0]
-      }, {
-        transition: {
-          duration: 500,
-          easing: 'cubic-in-out'
+          pad: 0,
         },
-        frame: {
-          duration: 500
+      }
+
+      let config = {
+        displayModeBar: true,
+        displaylogo: false,
+      }
+
+      /* CREATE PLOT */
+
+      Plotly.newPlot('chartDiv', data, layout, config)
+
+      /* FUNCTIONS */
+
+      function setXArrayValues(newValues) {
+        xArrayValues.length = 0
+        for (let i = 0; i < newValues.length; i++) {
+          xArrayValues[i] = newValues[i]
         }
-      })
-    }
+      }
 
-    function setXAxisTitle(newTitle) {
-      layout.xaxis.title.text = newTitle
-    }
+      function setYArrayValues(newValues) {
+        yArrayValues.length = 0
+        for (let i = 0; i < newValues.length; i++) {
+          yArrayValues[i] = newValues[i]
+        }
+      }
 
-    function setYAxisTitle(newTitle) {
-      layout.yaxis.title.text = newTitle
-    }
+      function redrawPlot() {
+        Plotly.redraw('chartDiv')
+      }
 
-  </script>
+      function redrawPlotWithYAnimation() {
+        Plotly.animate(
+          'chartDiv',
+          {
+            data: [{ y: yArrayValues }],
+            traces: [0],
+          },
+          {
+            transition: {
+              duration: 500,
+              easing: 'cubic-in-out',
+            },
+            frame: {
+              duration: 500,
+            },
+          },
+        )
+      }
 
-</body>
+      function setXAxisTitle(newTitle) {
+        layout.xaxis.title.text = newTitle
+      }
 
+      function setYAxisTitle(newTitle) {
+        layout.yaxis.title.text = newTitle
+      }
+    </script>
+  </body>
 </html>

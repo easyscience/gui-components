@@ -1,14 +1,13 @@
 class Translator {
+  // Functions
 
-    // Functions
+  languagesAsXml() {
+    return '<root><item><code>en</code><name>English</name></item></root>'
+  }
 
-    languagesAsXml() {
-        return "<root><item><code>en</code><name>English</name></item></root>"
-    }
+  defaultLanguageIndex() {
+    return 0
+  }
 
-    defaultLanguageIndex() {
-        return 0
-    }
-
-    selectLanguage(index) {}
+  selectLanguage(index) {}
 }

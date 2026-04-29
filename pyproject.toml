@@ -25,7 +25,7 @@ classifiers = [
 requires-python = '>=3.11'
 dependencies = [
   #'easyscience', # The base library of the EasyScience framework
-  'pooch',       # Data downloader
+  'pooch', # Data downloader
 ]
 
 [project.optional-dependencies]
@@ -167,12 +167,10 @@ testpaths = ['tests']
 # https://docs.astral.sh/ruff/rules/
 
 [tool.ruff]
-exclude = [
-  'tmp',
-]
+exclude = ['tmp']
 indent-width = 4
-line-length = 99 # See also `max-line-length` in [tool.ruff.lint.pycodestyle]
-preview = true # Enable new rules that are not yet stable, like DOC
+line-length = 99  # See also `max-line-length` in [tool.ruff.lint.pycodestyle]
+preview = true    # Enable new rules that are not yet stable, like DOC
 
 # Formatting options for Ruff
 
@@ -189,7 +187,7 @@ select = [
   # Various rules
   #'C90',  # https://docs.astral.sh/ruff/rules/#mccabe-c90
   #'D',   # https://docs.astral.sh/ruff/rules/#pydocstyle-d
-  'F',   # https://docs.astral.sh/ruff/rules/#pyflakes-f
+  'F', # https://docs.astral.sh/ruff/rules/#pyflakes-f
   #'FLY',  # https://docs.astral.sh/ruff/rules/#flynt-fly
   #'FURB', # https://docs.astral.sh/ruff/rules/#refurb-furb
   'I', # https://docs.astral.sh/ruff/rules/#isort-i
@@ -317,7 +315,7 @@ max-positional-args = 6
 # the parameter declarations in the code (in function's signature).
 
 [tool.pydoclint]
-exclude = '\.' # Temporarily disable pydoclint until we are ready
+exclude = '\.'              # Temporarily disable pydoclint until we are ready
 style = 'numpy'
 check-style-mismatch = true
 check-arg-defaults = true
@@ -331,7 +329,7 @@ allow-init-docstring = true
 # https://github.com/jsh9/format-docstring
 
 [tool.format_docstring]
-exclude = '\.' # Temporarily disable format-docstring until we are ready
+exclude = '\.'            # Temporarily disable format-docstring until we are ready
 docstring_style = 'numpy'
 line_length = 72
 fix_rst_backticks = true

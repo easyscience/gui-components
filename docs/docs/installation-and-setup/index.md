@@ -8,8 +8,8 @@ icon: material/cog-box
 **Python 3.11** through **3.14**.
 
 To install and set up EasyApplication, we recommend using
-[**Pixi**](https://pixi.prefix.dev), a modern package manager for Windows,
-macOS, and Linux.
+[**Pixi**](https://pixi.prefix.dev), a modern package manager for
+Windows, macOS, and Linux.
 
 ??? note "Main benefits of using Pixi"
 
@@ -77,7 +77,8 @@ This section describes the simplest way to set up EasyApplication using
 
 #### Updating Pixi and EasyApplication
 
-- To update all packages in the Pixi environment, including EasyApplication:
+- To update all packages in the Pixi environment, including
+  EasyApplication:
   ```txt
   pixi update
   ```
@@ -93,9 +94,9 @@ This section describes the simplest way to set up EasyApplication using
 
 ## Classical Installation
 
-This section describes how to install EasyApplication using the traditional
-method with **pip**. It is assumed that you are familiar with Python package
-management and virtual environments.
+This section describes how to install EasyApplication using the
+traditional method with **pip**. It is assumed that you are familiar
+with Python package management and virtual environments.
 
 ### Environment Setup <small>optional</small> { #environment-setup data-toc-label="Environment Setup" }
 
@@ -160,8 +161,8 @@ simply delete and recreate the environment.
 
 ### Installing from PyPI { #from-pypi }
 
-EasyApplication is available on **PyPI (Python Package Index)** and can be
-installed using `pip`. To do so, use the following command:
+EasyApplication is available on **PyPI (Python Package Index)** and can
+be installed using `pip`. To do so, use the following command:
 
 ```txt
 pip install easyapplication
@@ -197,7 +198,8 @@ pip show easyapplication
 Installing unreleased versions is generally not recommended but may be
 useful for testing.
 
-To install EasyApplication from the `develop` branch of GitHub, for example:
+To install EasyApplication from the `develop` branch of GitHub, for
+example:
 
 ```txt
 pip install git+https://github.com/easyscience/easyapp@develop
@@ -211,10 +213,10 @@ pip install 'easyapplication[dev] @ git+https://github.com/easyscience/easyapp@d
 
 ## How to Run Tutorials
 
-EasyApplication includes a collection of **Jupyter Notebook examples** that
-demonstrate key functionality. These tutorials serve as **step-by-step
-guides** to help users understand the data analysis workflow. They are
-available as **static HTML pages** in the
+EasyApplication includes a collection of **Jupyter Notebook examples**
+that demonstrate key functionality. These tutorials serve as
+**step-by-step guides** to help users understand the data analysis
+workflow. They are available as **static HTML pages** in the
 [:material-school: Tutorials](../tutorials/index.md) section.
 
 In the next sections, we explain how to set up Jupyter and run the
@@ -234,7 +236,8 @@ once using the command line, as shown below.
   ```txt
   pixi add --pypi jupyterlab pixi-kernel
   ```
-- Download all the EasyApplication tutorials to the `tutorials/` directory:
+- Download all the EasyApplication tutorials to the `tutorials/`
+  directory:
   ```txt
   pixi run easyapplication download-all-tutorials
   ```
@@ -256,7 +259,8 @@ once using the command line, as shown below.
   ```txt
   python -m ipykernel install --user --name=venv --display-name "EasyApplication Python kernel"
   ```
-- Download all the EasyApplication tutorials to the `tutorials/` directory:
+- Download all the EasyApplication tutorials to the `tutorials/`
+  directory:
   ```txt
   python -m easyapplication download-all-tutorials
   ```

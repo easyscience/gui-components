@@ -1,148 +1,139 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+    <script src="plotly-2.18.0.min.js"></script>
 
-<head>
+    <style type="text/css">
+      @font-face {
+        font-family: ChartFont;
+        src: url('PTSans-Regular.ttf');
+      }
 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
-  <script src="plotly-2.18.0.min.js"></script>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-  <style type="text/css">
+      html,
+      body {
+        height: 100%;
+      }
 
-    @font-face {
-      font-family: ChartFont;
-      src:url("PTSans-Regular.ttf");
-    }
+      body {
+        overflow: hidden;
+        font-family: 'ChartFont';
+      }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      #plotContainer {
+        height: 100%;
+        width: 100%;
+        padding: 14px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+      }
 
-    html,
-    body {
-      height: 100%;
-    }
+      #plotDiv {
+        width: 100%;
+        height: 100%;
+      }
 
-    body {
-      overflow: hidden;
-      font-family: 'ChartFont';
-    }
+      div.plotly-notifier {
+        /* Plotly notifier element */
+        visibility: hidden;
+      }
+    </style>
+  </head>
 
-    #plotContainer {
-      height: 100%;
-      width: 100%;
-      padding: 14px;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
+  <body>
+    <div id="plotContainer">
+      <div id="plotDiv"></div>
+    </div>
 
-    #plotDiv {
-      width: 100%;
-      height: 100%;
-    }
+    <script>
+      ///////
+      // Data
+      ///////
 
-    div.plotly-notifier { /* Plotly notifier element */
-      visibility: hidden;
-    }
+      let data = {
+        x: [1, 2, 3],
+        y: [10, 20, 30],
+      }
 
-  </style>
+      /////////
+      // Plotly
+      /////////
 
-</head>
+      // Default trace
+      let trace = {
+        name: '',
+        type: 'bar',
+        x: data.x,
+        y: data.y,
+        customdata: [],
+        hovertemplate: '',
+      }
 
-<body>
+      // Plot dataset
+      let plotTraces = [trace]
 
-  <div id='plotContainer'>
-    <div id='plotDiv'></div>
-  </div>
+      // Plot layout
+      let plotLayout = {
+        //autosize: true,
+        xaxis: {
+          title: 'x-title',
+          autorange: true,
+        },
+        yaxis: {
+          title: 'y-title',
+          autorange: true,
+        },
+      }
 
-  <script>
+      // Plot config
+      let plotConfig = {
+        displayModeBar: true,
+        displaylogo: false,
+      }
 
-    ///////
-    // Data
-    ///////
+      // Create plot
+      Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
 
-    let data = {
-      'x': [1, 2, 3],
-      'y': [10, 20, 30],
-    }
+      /////////////////////////////////////////
+      // Functionality to be accesable from QML
+      /////////////////////////////////////////
 
-    /////////
-    // Plotly
-    /////////
+      function redrawPlot() {
+        Plotly.redraw('plotDiv')
+      }
 
-    // Default trace
-    let trace = {
-      name: '',
-      type: 'bar',
-      x: data.x,
-      y: data.y,
-      customdata: [],
-      hovertemplate: ''
-    }
+      function setXAxisTitle(newTitle) {
+        plotLayout.xaxis.title = newTitle
+      }
 
-    // Plot dataset
-    let plotTraces = [ trace ]
+      function setYAxisTitle(newTitle) {
+        plotLayout.yaxis.title = newTitle
+      }
 
-    // Plot layout
-    let plotLayout = {
-      //autosize: true,
-      xaxis: {
-        title: 'x-title',
-        autorange: true,
-      },
-      yaxis: {
-        title: 'y-title',
-        autorange: true,
-      },
-    }
+      function setXyData(newData) {
+        trace.x = newData.x
+        trace.y = newData.y
+        trace.customdata = newData.customData
+        trace.hovertemplate = newData.hoverTemplate
+      }
 
-    // Plot config
-    let plotConfig = {
-      displayModeBar: true,
-      displaylogo: false,
-    }
-
-    // Create plot
-    Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
-
-    /////////////////////////////////////////
-    // Functionality to be accesable from QML
-    /////////////////////////////////////////
-
-    function redrawPlot() {
-      Plotly.redraw('plotDiv')
-    }
-
-    function setXAxisTitle(newTitle) {
-      plotLayout.xaxis.title = newTitle
-    }
-
-    function setYAxisTitle(newTitle) {
-      plotLayout.yaxis.title = newTitle
-    }
-
-    function setXyData(newData) {
-      trace.x = newData.x
-      trace.y = newData.y
-      trace.customdata = newData.customData
-      trace.hovertemplate = newData.hoverTemplate
-    }
-
-    function getDataFromJson(filename) {
+      function getDataFromJson(filename) {
         let request = new XMLHttpRequest()
-        request.open("GET", filename, false)
+        request.open('GET', filename, false)
         request.send(null)
         let data = JSON.parse(request.responseText)
         return data
-    }
-
-  </script>
-
-</body>
-
+      }
+    </script>
+  </body>
 </html>

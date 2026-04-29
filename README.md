@@ -9,33 +9,36 @@
   </picture>
 </p>
 
-**EasyApplication** is a collection of Qt/QML graphical components to create cross-platform applications with intuitive graphical interface based on the EasyScience framework.
+**EasyApplication** is a collection of Qt/QML graphical components to
+create cross-platform applications with intuitive graphical interface
+based on the EasyScience framework.
 
 <!-- HOME REPOSITORY SECTION -->
 
-
 **EasyApplication** is developed as a Python library.
 
-
-
-License: [BSD 3-Clause](https://github.com/easyscience/easyapp/blob/master/LICENSE)
+License:
+[BSD 3-Clause](https://github.com/easyscience/easyapp/blob/master/LICENSE)
 
 ## Useful Links
 
 ### For Users
 
 - 📖 [Documentation](https://easyscience.github.io/easyapp/latest)
-- 🚀 [Getting Started](https://easyscience.github.io/easyapp/latest/introduction)
+- 🚀
+  [Getting Started](https://easyscience.github.io/easyapp/latest/introduction)
 - 🧪 [Tutorials](https://easyscience.github.io/easyapp/latest/tutorials)
-- 💬 [Get in Touch](https://easyscience.github.io/easyapp/latest/introduction/#get-in-touch)
-- 🧾 [Citation](https://easyscience.github.io/easyapp/latest/introduction/#citation)
+- 💬
+  [Get in Touch](https://easyscience.github.io/easyapp/latest/introduction/#get-in-touch)
+- 🧾
+  [Citation](https://easyscience.github.io/easyapp/latest/introduction/#citation)
 
 ### For Contributors
 
 - 🧑‍💻 [Source Code](https://github.com/easyscience/easyapp)
 - 🐞 [Issue Tracker](https://github.com/easyscience/easyapp/issues)
 - 💡 [Discussions](https://github.com/easyscience/easyapp/discussions)
-- 🤝 [Contributing Guide](https://github.com/easyscience/easyapp/blob/master/CONTRIBUTING.md)
-- 🛡 [Code of Conduct](https://github.com/easyscience/.github/blob/master/CODE_OF_CONDUCT.md)
-
-
+- 🤝
+  [Contributing Guide](https://github.com/easyscience/easyapp/blob/master/CONTRIBUTING.md)
+- 🛡
+  [Code of Conduct](https://github.com/easyscience/.github/blob/master/CODE_OF_CONDUCT.md)

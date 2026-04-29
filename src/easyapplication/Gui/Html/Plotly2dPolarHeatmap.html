@@ -1,158 +1,148 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+    <script src="plotly-2.18.0.min.js"></script>
 
-<head>
-
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
-  <script src="plotly-2.18.0.min.js"></script>
-
-  <style type="text/css">
-
-    :root {
-      --fontPixelSize:14;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      height: 100%;
-    }
-
-    body {
-      overflow: hidden;
-      font-size: calc(var(--fontPixelSize) * 1px);
-    }
-
-    #plotContainer {
-      height: 100%;
-      width: 100%;
-      padding: calc(var(--fontPixelSize) * 1px);;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-
-    #plotDiv {
-      width: 100%;
-      height: 100%;
-    }
-
-  </style>
-
-</head>
-
-<body>
-
-  <div id='plotContainer'>
-    <div id='plotDiv'></div>
-  </div>
-
-  <script>
-
-    ///////
-    // Data
-    ///////
-
-    // Default data
-    let data = {
-      'r': [800, 800, 800], // Circle radius
-      'theta': [45, 90, 120], // Polar angle
-      'z': [10, 20, 30], // Color intensity
-    }
-
-    /////////
-    // Plotly
-    /////////
-
-    // Default trace
-    let trace = {
-      name: '',
-      type: 'barpolar',
-      r: data.r,
-      theta: data.theta,
-      mode: 'markers',
-      marker: {
-        symbol: 'circle',
-        color: data.z,
-        cmin: Math.min(...data.z),
-        cmax: Math.max(...data.z),
-        size: 5,
-        showscale: true,
-        colorbar: {title: {text: ''}},
-        colorscale: 'Portland',
-      },
-      customdata: [],
-      hovertemplate: ''
-    }
-
-    // Plot dataset
-    let plotTraces = [ trace ]
-
-    // Plot layout
-    let plotLayout = {
-      autoresize: true,
-      autosize: true,
-      polar: {
-        radialaxis: {
-          visible: false,
-          range: [Math.min(...data.r)-1, Math.max(...data.r)]
-        },
-        angularaxis: {
-          visible: true
-        },
-        hole: 0.9,
+    <style type="text/css">
+      :root {
+        --fontPixelSize: 14;
       }
-    }
 
-    // Plot config
-    let plotConfig = {
-      displayModeBar: true,
-      displaylogo: false,
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    // Create plot
-    Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
+      html,
+      body {
+        height: 100%;
+      }
 
-    /////////////////////////////////////////
-    // Functionality to be accesable from QML
-    /////////////////////////////////////////
+      body {
+        overflow: hidden;
+        font-size: calc(var(--fontPixelSize) * 1px);
+      }
 
-    function redrawPlot() {
-      Plotly.redraw('plotDiv')
-    }
+      #plotContainer {
+        height: 100%;
+        width: 100%;
+        padding: calc(var(--fontPixelSize) * 1px);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+      }
 
-    function setColorbarTitle(newTitle){
-      trace.marker.colorbar.title.text = newTitle
-    }
+      #plotDiv {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
 
-    function setXyzData(newData) {
-      trace.r = newData.r
-      trace.theta = newData.theta
-      trace.marker.color = newData.z
-      trace.marker.cmin = Math.min(...newData.z)
-      trace.marker.cmax = Math.max(...newData.z)
-      trace.customdata = newData.customData
-      trace.hovertemplate = newData.hoverTemplate
-    }
+  <body>
+    <div id="plotContainer">
+      <div id="plotDiv"></div>
+    </div>
 
-    function getDataFromJson(filename) {
+    <script>
+      ///////
+      // Data
+      ///////
+
+      // Default data
+      let data = {
+        r: [800, 800, 800], // Circle radius
+        theta: [45, 90, 120], // Polar angle
+        z: [10, 20, 30], // Color intensity
+      }
+
+      /////////
+      // Plotly
+      /////////
+
+      // Default trace
+      let trace = {
+        name: '',
+        type: 'barpolar',
+        r: data.r,
+        theta: data.theta,
+        mode: 'markers',
+        marker: {
+          symbol: 'circle',
+          color: data.z,
+          cmin: Math.min(...data.z),
+          cmax: Math.max(...data.z),
+          size: 5,
+          showscale: true,
+          colorbar: { title: { text: '' } },
+          colorscale: 'Portland',
+        },
+        customdata: [],
+        hovertemplate: '',
+      }
+
+      // Plot dataset
+      let plotTraces = [trace]
+
+      // Plot layout
+      let plotLayout = {
+        autoresize: true,
+        autosize: true,
+        polar: {
+          radialaxis: {
+            visible: false,
+            range: [Math.min(...data.r) - 1, Math.max(...data.r)],
+          },
+          angularaxis: {
+            visible: true,
+          },
+          hole: 0.9,
+        },
+      }
+
+      // Plot config
+      let plotConfig = {
+        displayModeBar: true,
+        displaylogo: false,
+      }
+
+      // Create plot
+      Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
+
+      /////////////////////////////////////////
+      // Functionality to be accesable from QML
+      /////////////////////////////////////////
+
+      function redrawPlot() {
+        Plotly.redraw('plotDiv')
+      }
+
+      function setColorbarTitle(newTitle) {
+        trace.marker.colorbar.title.text = newTitle
+      }
+
+      function setXyzData(newData) {
+        trace.r = newData.r
+        trace.theta = newData.theta
+        trace.marker.color = newData.z
+        trace.marker.cmin = Math.min(...newData.z)
+        trace.marker.cmax = Math.max(...newData.z)
+        trace.customdata = newData.customData
+        trace.hovertemplate = newData.hoverTemplate
+      }
+
+      function getDataFromJson(filename) {
         let request = new XMLHttpRequest()
-        request.open("GET", filename, false)
+        request.open('GET', filename, false)
         request.send(null)
         let data = JSON.parse(request.responseText)
         return data
-    }
-
-  </script>
-
-</body>
-
+      }
+    </script>
+  </body>
 </html>
