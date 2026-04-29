@@ -22,10 +22,7 @@ classifiers = [
   'Programming Language :: Python :: 3.14',
 ]
 requires-python = '>=3.12'
-dependencies = [
-  #'easyscience', # The base library of the EasyScience framework
-  'pooch', # Data downloader
-]
+dependencies = ['PySide6']
 
 [project.optional-dependencies]
 dev = [
@@ -63,6 +60,7 @@ dev = [
 ]
 
 [project.urls]
+Homepage = 'https://app.easyscience.software'
 Documentation = 'https://easyscience.github.io/gui-components'
 'Release Notes' = 'https://github.com/easyscience/gui-components/releases'
 'Source Code' = 'https://github.com/easyscience/gui-components'
