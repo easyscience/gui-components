@@ -42,11 +42,17 @@ Rectangle {
         cursorShape: Qt.PointingHandCursor
         blocking: false
         onHoveredChanged: {
-            if (hovered) {
-                //console.error(`${control} [TableViewDelegate.qml] hovered`)
-                parent.ListView.view.currentIndex = index
-            }
+            // Hover highlight is now handled by the Rectangle below, no currentIndex binding
         }
+    }
+
+    // Hover tint
+    Rectangle {
+        anchors.fill: parent
+        color: EaStyle.Colors.tableHighlight
+        opacity: mouseHoverHandler.hovered ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: EaStyle.Sizes.tableHighlightMoveDuration } }
+        Behavior on color { EaAnimations.ThemeChange {} }
     }
 
 }
