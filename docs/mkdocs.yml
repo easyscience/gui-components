@@ -1,9 +1,9 @@
 # Project information
 site_name: EasyApplication Library
-site_url: https://easyscience.github.io/easyapp
+site_url: https://easyscience.github.io/gui-components
 
 # Repository
-repo_url: https://github.com/easyscience/easyapp
+repo_url: https://github.com/easyscience/gui-components
 edit_uri: edit/develop/docs/
 
 # Copyright
@@ -65,7 +65,7 @@ extra:
       link: https://easyscience.github.io/application
       name: EasyApplication Main Webpage
     - icon: fontawesome/brands/github # Name as in Font Awesome
-      link: https://github.com/easyscience/easyapp
+      link: https://github.com/easyscience/gui-components
       name: EasyApplication Library Source Code on GitHub
   # Set custom variables to be used in Markdown and HTML files
   vars:

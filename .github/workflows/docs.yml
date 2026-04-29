@@ -108,7 +108,7 @@ jobs:
       # imported. This step allows to avoid "Matplotlib is building the font
       # cache" messages during notebook execution.
       - name: Pre-build site step
-        run: pixi run python -c "import easyapplication"
+        run: pixi run python -c "import EasyApplication"
 
       # Prepare the Jupyter notebooks for documentation (strip output, etc.).
       - name: Prepare notebooks

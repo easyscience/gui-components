@@ -9,7 +9,7 @@
 # ## Import Library
 
 # %%
-import easyapplication
+import EasyApplication
 
 # %% [markdown]
 # ## Step 1: Blah Blah Blah
@@ -17,4 +17,4 @@ import easyapplication
 # %%
 # This is a placeholder for tutorial content.
 print('This is a dummy tutorial.')
-print('Imported library:', easyapplication)
+print('Imported library:', EasyApplication)

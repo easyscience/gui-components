@@ -44,8 +44,8 @@ concurrency:
 # Set the environment variables to be used in all jobs defined in this workflow
 env:
   CI_BRANCH: ${{ github.head_ref || github.ref_name }}
-  PY_VERSIONS: '3.11 3.14'
-  PIXI_ENVS: 'py-311-env py-314-env'
+  PY_VERSIONS: '3.12 3.14'
+  PIXI_ENVS: 'py-312-env py-314-env'
   # Opt into Node.js 24 for all JavaScript actions.
   # Remove once all referenced actions natively target Node 24.
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -204,7 +204,7 @@ jobs:
           run-install: false
           frozen: false
 
-      - name: Install easyapplication from the built wheel
+      - name: Install EasyApplication from the built wheel
         shell: bash
         run: |
           set -euo pipefail
@@ -214,8 +214,8 @@ jobs:
             echo "🔹🔸🔹🔸🔹 Python: $py_ver 🔹🔸🔹🔸🔹"
 
             echo "Initializing pixi project"
-            pixi init easyapplication_py$py_ver
-            cd easyapplication_py$py_ver
+            pixi init EasyApplication_py$py_ver
+            cd EasyApplication_py$py_ver
 
             echo "Adding Python $py_ver"
             pixi add "python=$py_ver"
@@ -234,8 +234,8 @@ jobs:
 
             whl_url="file://$(python -c 'import os,sys; print(os.path.abspath(sys.argv[1]))' "${whl_path[0]}")"
 
-            echo "Adding easyapplication from: $whl_url"
-            pixi add --pypi "easyapplication[dev] @ ${whl_url}"
+            echo "Adding EasyApplication from: $whl_url"
+            pixi add --pypi "EasyApplication[dev] @ ${whl_url}"
 
             echo "Exiting pixi project directory"
             cd ..
@@ -250,8 +250,8 @@ jobs:
             echo
             echo "🔹🔸🔹🔸🔹 Python: $py_ver 🔹🔸🔹🔸🔹"
 
-            echo "Entering pixi project directory easyapplication_py$py_ver"
-            cd easyapplication_py$py_ver
+            echo "Entering pixi project directory EasyApplication_py$py_ver"
+            cd EasyApplication_py$py_ver
 
             echo "Running tests"
             pixi run python -m pytest ../tests/unit/ --color=yes -v
@@ -269,8 +269,8 @@ jobs:
             echo
             echo "🔹🔸🔹🔸🔹 Python: $py_ver 🔹🔸🔹🔸🔹"
 
-            echo "Entering pixi project directory easyapplication_py$py_ver"
-            cd easyapplication_py$py_ver
+            echo "Entering pixi project directory EasyApplication_py$py_ver"
+            cd EasyApplication_py$py_ver
 
             echo "Running tests"
             pixi run python -m pytest ../tests/functional/ --color=yes -v
@@ -288,8 +288,8 @@ jobs:
             echo
             echo "🔹🔸🔹🔸🔹 Python: $py_ver 🔹🔸🔹🔸🔹"
 
-            echo "Entering pixi project directory easyapplication_py$py_ver"
-            cd easyapplication_py$py_ver
+            echo "Entering pixi project directory EasyApplication_py$py_ver"
+            cd EasyApplication_py$py_ver
 
             echo "Running tests"
             pixi run python -m pytest ../tests/integration/ --color=yes -n auto -v ${{ needs.env-prepare.outputs.pytest-marks }}

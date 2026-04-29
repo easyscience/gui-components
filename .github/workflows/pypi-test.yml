@@ -46,34 +46,34 @@ jobs:
           frozen: false
 
       - name: Init pixi project
-        run: pixi init easyapplication
+        run: pixi init EasyApplication
 
       - name: Set the minimum system requirements
-        working-directory: easyapplication
+        working-directory: EasyApplication
         run: pixi project system-requirements add macos 14.0
 
       - name: Add Python 3.14 from Conda
-        working-directory: easyapplication
+        working-directory: EasyApplication
         run: pixi add "python=3.14"
 
       - name: Add other Conda dependencies
-        working-directory: easyapplication
+        working-directory: EasyApplication
         run: pixi add gsl
 
-      - name: Add easyapplication (with dev dependencies) from PyPI
-        working-directory: easyapplication
-        run: pixi add --pypi "easyapplication[dev]"
+      - name: Add EasyApplication (with dev dependencies) from PyPI
+        working-directory: EasyApplication
+        run: pixi add --pypi "EasyApplication[dev]"
 
       - name: Run unit tests to verify the installation
-        working-directory: easyapplication
+        working-directory: EasyApplication
         run: pixi run python -m pytest ../tests/unit/ --color=yes -v
 
       - name: Run functional tests to verify the installation
-        working-directory: easyapplication
+        working-directory: EasyApplication
         run: pixi run python -m pytest ../tests/functional/ --color=yes -v
 
       - name: Run integration tests to verify the installation
-        working-directory: easyapplication
+        working-directory: EasyApplication
         run: pixi run python -m pytest ../tests/integration/ --color=yes -n auto
 
   # Job 2: Build and publish dashboard (reusable workflow)

@@ -5,7 +5,7 @@ icon: material/cog-box
 # :material-cog-box: Installation & Setup
 
 **EasyApplication** is a cross-platform Python library compatible with
-**Python 3.11** through **3.14**.
+**Python 3.12** through **3.14**.
 
 To install and set up EasyApplication, we recommend using
 [**Pixi**](https://pixi.prefix.dev), a modern package manager for
@@ -59,8 +59,8 @@ This section describes the simplest way to set up EasyApplication using
 
 - Initialize a new Pixi project and navigate into it:
   ```txt
-  pixi init easyapplication
-  cd easyapplication
+  pixi init EasyApplication
+  cd EasyApplication
   ```
 - Set the Python version for the Pixi environment (e.g., 3.14):
   ```txt
@@ -68,11 +68,11 @@ This section describes the simplest way to set up EasyApplication using
   ```
 - Add EasyApplication to the Pixi environment from PyPI:
   ```txt
-  pixi add --pypi easyapplication
+  pixi add --pypi EasyApplication
   ```
 - Add a Pixi task to run EasyApplication commands easily:
   ```txt
-  pixi task add easyapplication "python -m easyapplication"
+  pixi task add EasyApplication "python -m EasyApplication"
   ```
 
 #### Updating Pixi and EasyApplication
@@ -165,32 +165,32 @@ EasyApplication is available on **PyPI (Python Package Index)** and can
 be installed using `pip`. To do so, use the following command:
 
 ```txt
-pip install easyapplication
+pip install EasyApplication
 ```
 
 To install a specific version of EasyApplication, e.g., 1.0.3:
 
 ```txt
-pip install 'easyapplication==1.0.3'
+pip install 'EasyApplication==1.0.3'
 ```
 
 To upgrade to the latest version:
 
 ```txt
-pip install --upgrade easyapplication
+pip install --upgrade EasyApplication
 ```
 
 To upgrade to the latest version and force reinstallation of all
 dependencies (useful if files are corrupted):
 
 ```txt
-pip install --upgrade --force-reinstall easyapplication
+pip install --upgrade --force-reinstall EasyApplication
 ```
 
 To check the installed version:
 
 ```txt
-pip show easyapplication
+pip show EasyApplication
 ```
 
 ### Installing from GitHub <small>alternative</small> { #from-github data-toc-label="Installing from GitHub" }
@@ -202,13 +202,13 @@ To install EasyApplication from the `develop` branch of GitHub, for
 example:
 
 ```txt
-pip install git+https://github.com/easyscience/easyapp@develop
+pip install git+https://github.com/easyscience/gui-components@develop
 ```
 
 To include extra dependencies (e.g., dev):
 
 ```txt
-pip install 'easyapplication[dev] @ git+https://github.com/easyscience/easyapp@develop'
+pip install 'EasyApplication[dev] @ git+https://github.com/easyscience/gui-components@develop'
 ```
 
 ## How to Run Tutorials
@@ -239,7 +239,7 @@ once using the command line, as shown below.
 - Download all the EasyApplication tutorials to the `tutorials/`
   directory:
   ```txt
-  pixi run easyapplication download-all-tutorials
+  pixi run EasyApplication download-all-tutorials
   ```
 - Start JupyterLab in the `tutorials/` directory to access the
   notebooks:
@@ -262,7 +262,7 @@ once using the command line, as shown below.
 - Download all the EasyApplication tutorials to the `tutorials/`
   directory:
   ```txt
-  python -m easyapplication download-all-tutorials
+  python -m EasyApplication download-all-tutorials
   ```
 - Launch the Jupyter Notebook server (opens browser automatically at
   `http://localhost:8888/`):

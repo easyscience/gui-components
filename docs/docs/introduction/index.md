@@ -20,16 +20,16 @@ based on the EasyScience framework.
 ## License
 
 **EasyApplication** library is released under the
-[BSD 3-Clause License](https://raw.githubusercontent.com/easyscience/easyapp/master/LICENSE).
+[BSD 3-Clause License](https://raw.githubusercontent.com/easyscience/gui-components/master/LICENSE).
 
 ## Releases
 
 The latest version of the **EasyApplication** library is
-[{{ vars.release_version }}](https://github.com/easyscience/easyapp/releases/latest).
+[{{ vars.release_version }}](https://github.com/easyscience/gui-components/releases/latest).
 
 For a complete list of new features, bug fixes, and improvements, see
 the
-[GitHub Releases page](https://github.com/easyscience/easyapp/releases).
+[GitHub Releases page](https://github.com/easyscience/gui-components/releases).
 
 ## Citation
 
@@ -55,11 +55,11 @@ The project is maintained by the
 
 If you would like to report a bug or request a new feature, please use
 the
-[GitHub Issue Tracker](https://github.com/easyscience/easyapp/issues) (A
-free GitHub account is required.)
+[GitHub Issue Tracker](https://github.com/easyscience/gui-components/issues)
+(A free GitHub account is required.)
 
 To contribute code, documentation, or tests, please see our
-[:material-account-plus: Contributing Guidelines](https://github.com/easyscience/easyapp/blob/master/CONTRIBUTING.md)
+[:material-account-plus: Contributing Guidelines](https://github.com/easyscience/gui-components/blob/master/CONTRIBUTING.md)
 for detailed development instructions.
 
 ## Get in Touch

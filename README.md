@@ -20,25 +20,32 @@ based on the EasyScience framework.
 License:
 [BSD 3-Clause](https://github.com/easyscience/easyapp/blob/master/LICENSE)
 
+License:
+[BSD 3-Clause](https://github.com/easyscience/gui-components/blob/master/LICENSE)
+
 ## Useful Links
 
 ### For Users
 
-- 📖 [Documentation](https://easyscience.github.io/easyapp/latest)
+- 📖
+  [Documentation](https://easyscience.github.io/gui-components/latest)
 - 🚀
-  [Getting Started](https://easyscience.github.io/easyapp/latest/introduction)
-- 🧪 [Tutorials](https://easyscience.github.io/easyapp/latest/tutorials)
+  [Getting Started](https://easyscience.github.io/gui-components/latest/introduction)
+- 🧪
+  [Tutorials](https://easyscience.github.io/gui-components/latest/tutorials)
 - 💬
-  [Get in Touch](https://easyscience.github.io/easyapp/latest/introduction/#get-in-touch)
+  [Get in Touch](https://easyscience.github.io/gui-components/latest/introduction/#get-in-touch)
 - 🧾
-  [Citation](https://easyscience.github.io/easyapp/latest/introduction/#citation)
+  [Citation](https://easyscience.github.io/gui-components/latest/introduction/#citation)
 
 ### For Contributors
 
-- 🧑‍💻 [Source Code](https://github.com/easyscience/easyapp)
-- 🐞 [Issue Tracker](https://github.com/easyscience/easyapp/issues)
-- 💡 [Discussions](https://github.com/easyscience/easyapp/discussions)
+- 🧑‍💻 [Source Code](https://github.com/easyscience/gui-components)
+- 🐞
+  [Issue Tracker](https://github.com/easyscience/gui-components/issues)
+- 💡
+  [Discussions](https://github.com/easyscience/gui-components/discussions)
 - 🤝
-  [Contributing Guide](https://github.com/easyscience/easyapp/blob/master/CONTRIBUTING.md)
+  [Contributing Guide](https://github.com/easyscience/gui-components/blob/master/CONTRIBUTING.md)
 - 🛡
   [Code of Conduct](https://github.com/easyscience/.github/blob/master/CODE_OF_CONDUCT.md)

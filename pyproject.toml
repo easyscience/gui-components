@@ -17,12 +17,11 @@ classifiers = [
   'Operating System :: OS Independent',
   'Programming Language :: Python :: 3 :: Only',
   'Programming Language :: Python :: 3',
-  'Programming Language :: Python :: 3.11',
   'Programming Language :: Python :: 3.12',
   'Programming Language :: Python :: 3.13',
   'Programming Language :: Python :: 3.14',
 ]
-requires-python = '>=3.11'
+requires-python = '>=3.12'
 dependencies = [
   #'easyscience', # The base library of the EasyScience framework
   'pooch', # Data downloader
@@ -64,10 +63,10 @@ dev = [
 ]
 
 [project.urls]
-Documentation = 'https://easyscience.github.io/easyapp'
-'Release Notes' = 'https://github.com/easyscience/easyapp/releases'
-'Source Code' = 'https://github.com/easyscience/easyapp'
-'Issue Tracker' = 'https://github.com/easyscience/easyapp/issues'
+Documentation = 'https://easyscience.github.io/gui-components'
+'Release Notes' = 'https://github.com/easyscience/gui-components/releases'
+'Source Code' = 'https://github.com/easyscience/gui-components'
+'Issue Tracker' = 'https://github.com/easyscience/gui-components/issues'
 
 ############################
 # Build system configuration

@@ -2,12 +2,12 @@
 # Any changes will be overwritten by Copier.
 _commit: v0.11.0
 _src_path: gh:easyscience/templates
-lib_docs_url: https://easyscience.github.io/easyapp
+lib_docs_url: https://easyscience.github.io/gui-components
 lib_doi: 10.5281/zenodo.18163581
-lib_package_name: easyapplication
+lib_package_name: EasyApplication
 lib_python_max: '3.14'
-lib_python_min: '3.11'
-lib_repo_name: easyapp
+lib_python_min: '3.12'
+lib_repo_name: gui-components
 project_contact_email: support@easyscience.org
 project_copyright_years: 2021-2026
 project_extended_description: A collection of Qt/QML graphical components to create

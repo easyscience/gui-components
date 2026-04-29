@@ -59,12 +59,12 @@ pixi-kernel = '*' # Pixi Jupyter kernel
 
 [pypi-dependencies] # == [feature.default.pypi-dependencies]
 #pip = '*' # Native package installer
-easyapplication = { path = '.', editable = true, extras = ['dev'] }
+EasyApplication = { path = '.', editable = true, extras = ['dev'] }
 
 # Specific features: Set specific Python versions
 
 [feature.py-min.dependencies]
-python = '3.11.*'
+python = '3.12.*'
 [feature.py-max.dependencies]
 python = '3.14.*'
 
@@ -76,7 +76,7 @@ python = '3.14.*'
 
 # The `default` feature is always included in all environments.
 # Additional features can be specified per environment.
-py-311-env = { features = ['py-min'] }
+py-312-env = { features = ['py-min'] }
 py-314-env = { features = ['py-max'] }
 
 # The `default` environment is always created and includes the `default` feature.
@@ -152,10 +152,10 @@ raw-metrics-json = 'radon raw -s -j src/'
 # 📊 Coverage
 #############
 
-unit-tests-coverage = 'pixi run unit-tests --cov=src/easyapplication --cov-report=term-missing'
-functional-tests-coverage = 'pixi run functional-tests --cov=src/easyapplication --cov-report=term-missing'
-integration-tests-coverage = 'pixi run integration-tests --cov=src/easyapplication --cov-report=term-missing'
-docstring-coverage = 'interrogate -c pyproject.toml src/easyapplication'
+unit-tests-coverage = 'pixi run unit-tests --cov=src/EasyApplication --cov-report=term-missing'
+functional-tests-coverage = 'pixi run functional-tests --cov=src/EasyApplication --cov-report=term-missing'
+integration-tests-coverage = 'pixi run integration-tests --cov=src/EasyApplication --cov-report=term-missing'
+docstring-coverage = 'interrogate -c pyproject.toml src/EasyApplication'
 
 cov = { depends-on = [
   'docstring-coverage',
@@ -219,10 +219,10 @@ pre-commit-setup = { depends-on = [
 # 🐙️ GitHub Tasks
 #################
 
-repo-wiki = 'gh api -X PATCH repos/easyscience/easyapp -f has_wiki=false'
-repo-discussions = 'gh api -X PATCH repos/easyscience/easyapp -f has_discussions=true'
-repo-description = "gh api -X PATCH repos/easyscience/easyapp -f description='Qt/QML components for building graphical applications'"
-repo-homepage = "gh api -X PATCH repos/easyscience/easyapp -f homepage='https://easyscience.github.io/easyapp'"
+repo-wiki = 'gh api -X PATCH repos/easyscience/gui-components -f has_wiki=false'
+repo-discussions = 'gh api -X PATCH repos/easyscience/gui-components -f has_discussions=true'
+repo-description = "gh api -X PATCH repos/easyscience/gui-components -f description='Qt/QML components for building graphical applications'"
+repo-homepage = "gh api -X PATCH repos/easyscience/gui-components -f homepage='https://easyscience.github.io/gui-components'"
 repo-config = { depends-on = [
   'repo-wiki',
   'repo-discussions',
@@ -230,16 +230,16 @@ repo-config = { depends-on = [
   'repo-homepage',
 ] }
 
-master-protection = 'gh api -X POST repos/easyscience/easyapp/rulesets --input .github/configs/rulesets-master.json'
-develop-protection = 'gh api -X POST repos/easyscience/easyapp/rulesets --input .github/configs/rulesets-develop.json'
-gh-pages-protection = 'gh api -X POST repos/easyscience/easyapp/rulesets --input .github/configs/rulesets-gh-pages.json'
+master-protection = 'gh api -X POST repos/easyscience/gui-components/rulesets --input .github/configs/rulesets-master.json'
+develop-protection = 'gh api -X POST repos/easyscience/gui-components/rulesets --input .github/configs/rulesets-develop.json'
+gh-pages-protection = 'gh api -X POST repos/easyscience/gui-components/rulesets --input .github/configs/rulesets-gh-pages.json'
 branch-protection = { depends-on = [
   'master-protection',
   'develop-protection',
   'gh-pages-protection',
 ] }
 
-pages-deployment = 'gh api -X POST repos/easyscience/easyapp/pages --input .github/configs/pages-deployment.json'
+pages-deployment = 'gh api -X POST repos/easyscience/gui-components/pages --input .github/configs/pages-deployment.json'
 
 github-labels = 'python tools/update_github_labels.py'
 
@@ -272,4 +272,4 @@ post-install = { depends-on = [
 ##########################
 # 🔗 Main Package Shortcut
 ##########################
-easyapplication = 'python -m easyapplication'
+EasyApplication = 'python -m EasyApplication'
