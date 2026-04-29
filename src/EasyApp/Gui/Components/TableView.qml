@@ -78,6 +78,19 @@ ListView {
         interval: 10
         onTriggered: setAllColumnsWidthAndAlignment()
     }
+
+    // ScrollBar
+    ScrollBar.vertical: EaElements.ScrollBar {
+        topPadding: topInset
+
+        interactive: true
+        topInset: listView.headerItem ? listView.headerItem.height : 0
+
+        policy: ScrollBar.AsNeeded
+    }
+
+    // Logic
+
     function flexibleColumnWidth() {
         let fixedColumnsWidth = 0
         for (let item of headerLabelItems) {
