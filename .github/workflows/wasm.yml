@@ -125,9 +125,9 @@ jobs:
       - name: Upload the zipped wasm folder
         uses: actions/upload-artifact@v4
         with:
-          name: wasm  # name of the zip file to be created and uploaded
-          path: build/wasm  # directory whose content is to be zipped
-          compression-level: 0  # no compression
+          name: wasm # name of the zip file to be created and uploaded
+          path: build/wasm # directory whose content is to be zipped
+          compression-level: 0 # no compression
           if-no-files-found: error
 
       - name: Push the built wasm to the webapp branch
@@ -136,4 +136,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_API_PERSONAL_ACESS_TOKEN }}
           REPO: self
           BRANCH: webapp
-          FOLDER: build/wasm  # directory whose content is to be pushed
+          FOLDER: build/wasm # directory whose content is to be pushed

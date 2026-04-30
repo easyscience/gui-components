@@ -1,7 +1,7 @@
-# SPDX-FileCopyrightText: 2024 EasyApp contributors
+# SPDX-FileCopyrightText: 2024 EasyApplication contributors
 # SPDX-License-Identifier: BSD-3-Clause
-# © 2024 Contributors to the EasyApp project <https://github.com/easyscience/EasyApp>
 
+from importlib.resources import files
 from pathlib import Path
 import sys
 
@@ -10,16 +10,15 @@ from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType
 from PySide6.QtCore import qInstallMessageHandler
 from PySide6.QtGui import QIcon
 
-# It is usually assumed that the EasyApp package is already installed in the desired python environment.
-# If this is not the case, and if the example is run from the EasyApp repository, one need to add the path to the
-# EasyApp source code.
-CURRENT_DIR = Path(__file__).parent  # path to qml components of the current project
-EASYAPP_DIR = CURRENT_DIR / '..' / '..' / '..' / '..' / 'src'  # path to qml components of the easyapp module
-sys.path.append(str(EASYAPP_DIR))
-
-from EasyApp.Logic.Logging import console
+from EasyApplication.Logic.Logging import console
 
 from Backends.real_backend import Backend
+
+# path to qml components of the current project
+CURRENT_DIR = Path(__file__).parent
+
+# path to the installed easyapplication module
+EA_DIR = files("EasyApplication") / '..'
 
 
 if __name__ == '__main__':
@@ -40,7 +39,7 @@ if __name__ == '__main__':
     console.debug(f'QML application engine created {engine}')
 
     engine.addImportPath(CURRENT_DIR)
-    engine.addImportPath(EASYAPP_DIR)
+    engine.addImportPath(EA_DIR)
     console.debug('Paths added where QML searches for components')
 
     engine.load(CURRENT_DIR / 'main.qml')

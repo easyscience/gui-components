@@ -1,14 +1,14 @@
-// SPDX-FileCopyrightText: 2024 EasyApp contributors
+// SPDX-FileCopyrightText: 2024 EasyApplication contributors
 // SPDX-License-Identifier: BSD-3-Clause
-// © 2024 Contributors to the EasyApp project <https://github.com/easyscience/EasyApp>
+// © 2024 Contributors to the EasyApplication project <https://github.com/easyscience/EasyApplication>
 
 import QtQuick
 import QtQuick.Controls
 
-import EasyApp.Gui.Style as EaStyle
-import EasyApp.Gui.Globals as EaGlobals
-import EasyApp.Gui.Elements as EaElements
-import EasyApp.Gui.Components as EaComponents
+import EasyApplication.Gui.Style as EaStyle
+import EasyApplication.Gui.Globals as EaGlobals
+import EasyApplication.Gui.Elements as EaElements
+import EasyApplication.Gui.Components as EaComponents
 
 import Gui.Globals as Globals
 

@@ -1,12 +1,12 @@
-# SPDX-FileCopyrightText: 2024 EasyApp contributors
+# SPDX-FileCopyrightText: 2024 EasyApplication contributors
 # SPDX-License-Identifier: BSD-3-Clause
-# © 2024 Contributors to the EasyApp project <https://github.com/easyscience/EasyApp>
+# © 2024 Contributors to the EasyApplication project <https://github.com/easyscience/EasyApplication>
 
 import time
 from pathlib import Path
 from PySide6.QtCore import QObject, Signal, Slot, Property
 
-from EasyApp.Logic.Logging import console
+from EasyApplication.Logic.Logging import console
 from .logic.helpers import IO
 from .logic.helpers import DottyDict
 

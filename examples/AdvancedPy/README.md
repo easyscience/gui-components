@@ -13,14 +13,14 @@
     ├── AdvancedPy.pyproject                # Python project for the Qt Creator IDE
     │
     └── 🗂️ AdvancedPy                       # Directory with the name of the current Python package
-        ├── __init__.py                     # Executed when the current Python package is imported       
-        ├── main.qml                        # Root QML component        
-        ├── main.py                         # Root Python file      
+        ├── __init__.py                     # Executed when the current Python package is imported
+        ├── main.qml                        # Root QML component
+        ├── main.py                         # Root Python file
         │
         ├── 🗂️ Backends                     # Backend logic
         │   ├── MockBackend.qml             # Parent object for all other objects with mock QML logic
         │   ├── 🗂️ MockQml                  # Mock QML backend to be used if no python backend is defined
-        │   │   ├── qmldir                  
+        │   │   ├── qmldir
         │   │   ├── Status.qml              # Mock logic for the status bar
         │   │   ├── Project.qml             # Mock logic for the application page 'Project'
         │   │   └── Report.qml              # Mock logic for the application page 'Report'
@@ -35,12 +35,12 @@
         │           └── helpers.py          # Some helper functions
         │
         └── 🗂️ Gui                          # Frontend GUI components
-            ├── qmldir                      
+            ├── qmldir
             ├── ApplicationWindow.qml       # Top-level application window
-            ├── StatusBar.qml               # Status bar    
+            ├── StatusBar.qml               # Status bar
             │
             ├── 🗂️ Globals                  # Globally accessible objects
-            │   ├── qmldir                  
+            │   ├── qmldir
             │   ├── ApplicationInfo.qml     # Name, version and other information about the application
             │   ├── BackendWrapper.qml      # Layer between the backend proxy and GUI objects
             │   └── References.qml          # QML object ids to globally access the desired objects
@@ -49,11 +49,11 @@
             │   ├── 🗂️ Home                 # Components of the application page 'Home'
             │   ├── 🗂️ Project              # Components of the application page 'Project'
             │   └── 🗂️ Report               # Components of the application page 'Report'
-            │    
+            │
             └── 🗂️ Resources
                 └── 🗂️ Logos                # Logos of the application and contributors
 
-(*) Full structure of the 'Pages' directory is shown below   
+(*) Full structure of the 'Pages' directory is shown below
 ```
 
 ### Structure of the application pages only
@@ -64,7 +64,7 @@
 ├── 🗂️ Home                                 # Components of the application 'Home' page
 │   ├── Content.qml
 │   │
-│   └── 🗂️ Popups                   
+│   └── 🗂️ Popups
 │       └── About.qml
 │
 ├── 🗂️ Project                              # Components of the application 'Project' page
@@ -76,25 +76,25 @@
 │   └── 🗂️ Sidebar                          # Tabs of the sidebar
 │       │
 │       ├── 🗂️ Basic                        # Components of the sidebar tab with basic controls
-│       │   ├── Layout.qml        
+│       │   ├── Layout.qml
 │       │   │
-│       │   ├── 🗂️ Groups           
+│       │   ├── 🗂️ Groups
 │       │   │   ├── GetStarted.qml
 │       │   │   ├── Examples.qml
 │       │   │   └── Recent.qml
 │       │   │
-│       │   └── 🗂️ Popups           
+│       │   └── 🗂️ Popups
 │       │       ├── OpenCifFile.qml
 │       │       └── ProjectDescription.qml
 │       │
 │       ├── 🗂️ Extra                         # Components of the sidebar tab with extra controls
-│       │   ├── Layout.qml        
+│       │   ├── Layout.qml
 │       │   │
-│       │   └── 🗂️ Groups           
+│       │   └── 🗂️ Groups
 │       │       └── Scrolling.qml
 │       │
 │       └── 🗂️ Text                          # Components of the sidebar tab with text mode controls
-│           └── Layout.qml          
+│           └── Layout.qml
 │
 └── 🗂️ Report                                # Components of the application 'Report' page
     ├── Layout.qml                           # Layout of the whole page
@@ -105,19 +105,21 @@
     └── 🗂️ Sidebar                           # Tabs of the sidebar
         │
         ├── 🗂️ Basic                         # Components of the sidebar tab with basic controls
-        │   ├── Layout.qml   
-        │   │       
-        │   └── 🗂️ Groups           
+        │   ├── Layout.qml
+        │   │
+        │   └── 🗂️ Groups
         │       └── Export.qml
         │
         └── 🗂️ Extra                         # Components of the sidebar tab with extra controls
-            ├── Layout.qml          
+            ├── Layout.qml
             │
-            └── 🗂️ Groups           
+            └── 🗂️ Groups
                 └── Empty.qml
 ```
 
 ### Glossary
 
-* qmldir - Declares objects that can then be imported into other qml files. See
-[doc.qt.io](https://doc.qt.io/qt-6/qtqml-modules-qmldir.html) for more details.
+- qmldir - Declares objects that can then be imported into other qml
+  files. See
+  [doc.qt.io](https://doc.qt.io/qt-6/qtqml-modules-qmldir.html) for more
+  details.
