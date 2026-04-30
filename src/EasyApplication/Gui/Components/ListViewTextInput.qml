@@ -29,4 +29,9 @@ EaElements.TextInput {
                            EaStyle.Colors.themeForegroundHovered :
                            EaStyle.Colors.themeForeground
     Behavior on color { EaAnimations.ThemeChange {} }
+
+    Keys.onEscapePressed: (event) => {
+        focus = false
+        event.accepted = true
+    }
 }
