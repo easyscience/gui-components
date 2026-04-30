@@ -104,6 +104,7 @@ Rectangle {
         Row {
             id: contentRow
 
+            anchors.horizontalCenter: parent.horizontalCenter
             height: parent.height
             spacing: EaStyle.Sizes.tableColumnSpacing
             leftPadding: listView ? listView.rowPadding : 0
