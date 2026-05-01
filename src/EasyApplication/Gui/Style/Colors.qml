@@ -48,15 +48,15 @@ QtObject {
     property color themeBackgroundHovered1: isDarkPalette ? "#353535" : "#fefefe"
     property color themeBackgroundHovered2: isDarkPalette ? "#3a3a3a" : "#f7f7f7"
 
-    property color themeRowHovered: isDarkPalette ? "#394247" : "#E6F5FC"
-    property color themeRowHighlight: isDarkPalette ? "#3A484F" : "#DCF0FA"
-    property color themeRowHighlightHovered: isDarkPalette ? "#3E5059" : "#C9E6F5"
-
     property color themeForeground: isDarkPalette ? "#eee" : "#333"
     property color themeForegroundMinor: isDarkPalette ? "#888" : "#aaa"
     property color themeForegroundDisabled: isDarkPalette ? "#666": "#bbb" // control.Material.hintTextColor
     property color themeForegroundHovered: themeAccent
     property color themeForegroundHighlight: isDarkPalette ? '#FFAB91' : '#FF5722'
+
+    property color themeRowHovered: isDarkPalette ? "#394247" : "#E6F5FC"
+    property color themeRowHighlight: isDarkPalette ? "#3A484F" : "#DCF0FA"
+    property color themeRowHighlightHovered: isDarkPalette ? "#3E5059" : "#C9E6F5"
 
     // Application window
     property color appBorder: isDarkPalette ? "#292929" : "#ddd"

@@ -1,0 +1,59 @@
+import QtQuick
+import QtQuick.Controls
+
+import EasyApplication.Gui.Style as EaStyle
+import EasyApplication.Gui.Animations as EaAnimations
+
+Rectangle {
+    id: listViewHeader
+    default property alias contentRowData: contentRow.data
+    property Item listView: ListView.view ?? null
+
+    // Per-cell implicit widths derived from header children. ListView's
+    // resolver reads this for columns marked tableColumnAuto (0). Re-fires
+    // when any child's implicitWidth changes (font, locale, text update).
+    readonly property var implicitColumnWidths: {
+        let arr = []
+        for (let i = 0; i < contentRow.children.length; i++)
+            arr.push(Math.ceil(contentRow.children[i].implicitWidth))
+        return arr
+    }
+
+    z: 3 // To display header above delegate and highlighted area
+
+    implicitWidth: parent === null ? 0 : parent.width
+    implicitHeight: listView ? listView.tableRowHeight : 0
+
+    color: EaStyle.Colors.contentBackground
+    Behavior on color { EaAnimations.ThemeChange {} }
+
+    Component.onCompleted: if (listView) listView.applyWidths(contentRow)
+
+    Connections {
+        target: listView
+        function onResolvedColumnWidthsChanged() { listView.applyWidths(contentRow) }
+    }
+
+    Row {
+        id: contentRow
+
+        anchors.horizontalCenter: parent.horizontalCenter
+        height: parent.height
+        spacing: EaStyle.Sizes.tableColumnSpacing
+        leftPadding: listView ? listView.rowPadding : 0
+        rightPadding: listView ? listView.rowPadding : 0
+    }
+
+    // Header sits above delegate 0 (OverlayHeader). Without an input
+    // handler here, clicks fall through to that delegate's MouseArea,
+    // bypassing the ListView-level TapHandler. This claims the press
+    // so header clicks transfer focus to the list.
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            if (!listView) return
+            listView.endEditing()
+            listView.clearSelection()
+        }
+    }
+}
