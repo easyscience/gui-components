@@ -9,6 +9,16 @@ Rectangle {
     default property alias contentRowData: contentRow.data
     property Item listView: ListView.view ?? null
 
+    // Per-cell implicit widths derived from header children. ListView's
+    // resolver reads this for columns marked tableColumnAuto (0). Re-fires
+    // when any child's implicitWidth changes (font, locale, text update).
+    readonly property var implicitColumnWidths: {
+        let arr = []
+        for (let i = 0; i < contentRow.children.length; i++)
+            arr.push(Math.ceil(contentRow.children[i].implicitWidth))
+        return arr
+    }
+
     z: 3 // To display header above delegate and highlighted area
 
     implicitWidth: parent === null ? 0 : parent.width

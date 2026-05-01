@@ -49,12 +49,24 @@ ListView {
     // that scope.
     property bool selectionActive: true
 
-    // Column widths definition. Each entry is a width in px, or -1 to fill remaining space.
-    // Example: columnWidths: [40, -1, 100]
+    // Column widths definition. Each entry is one of:
+    //   positive int  — fixed width in pixels.
+    //   EaStyle.Sizes.tableColumnFlex (-1) — fill remaining row width.
+    //                  Multiple flex columns split the leftover space evenly.
+    //   EaStyle.Sizes.tableColumnAuto  (0) — fit the header label's implicit
+    //                  text width plus autoColumnPadding. Requires a header
+    //                  delegate (ListViewHeader) so the resolver has a label
+    //                  to measure; falls back to 0 if header not yet ready.
+    // Example: columnWidths: [40, EaStyle.Sizes.tableColumnFlex, EaStyle.Sizes.tableColumnAuto, 100]
     property var columnWidths: []
 
+    // Padding added to each tableColumnAuto column on top of the measured
+    // header text width. Defaults to 2x tableColumnSpacing — same breathing
+    // room as a typical hand-tuned column.
+    property real autoColumnPadding: EaStyle.Sizes.tableColumnSpacing * 2
+
     // Horizontal padding inside each row (header + delegate). Subtracted from
-    // flex-column budget so -1 columns don't overflow the row.
+    // flex-column budget so flex columns don't overflow the row.
     property real rowPadding: EaStyle.Sizes.tableColumnSpacing
 
     // Clear all selection and reset anchor.
@@ -91,17 +103,31 @@ ListView {
 
     // Computed px widths from columnWidths.
     // Used by: ListViewHeader + ListViewDelegate (subscribe via onResolvedColumnWidthsChanged)
+    //
+    // Two-pass resolution:
+    //   1. tableColumnAuto (0)  → header child implicitWidth + autoColumnPadding.
+    //   2. tableColumnFlex (-1) → split leftover row width evenly.
     readonly property var resolvedColumnWidths: {
         if (!columnWidths.length) return []
+
+        // Pass 1: resolve auto columns from header implicit widths.
+        const headerWidths = (headerItem && headerItem.implicitColumnWidths) || []
+        let widths = columnWidths.map((w, i) => {
+            if (w === EaStyle.Sizes.tableColumnAuto && i < headerWidths.length)
+                return headerWidths[i] + autoColumnPadding
+            return w
+        })
+
+        // Pass 2: distribute remainder among flex columns.
         let fixed = 0, flexCount = 0
-        for (let w of columnWidths) {
+        for (let w of widths) {
             if (w > 0) fixed += w
             else flexCount++
         }
-        const spacing = EaStyle.Sizes.tableColumnSpacing * (columnWidths.length - 1)
+        const spacing = EaStyle.Sizes.tableColumnSpacing * (widths.length - 1)
         const border = EaStyle.Sizes.borderThickness * 2
         const fill = flexCount > 0 ? Math.max(0, (width - fixed - spacing - border - rowPadding * 2) / flexCount) : 0
-        return columnWidths.map(w => w > 0 ? w : fill)
+        return widths.map(w => w > 0 ? w : fill)
     }
 
     // Apply resolvedColumnWidths to children of a Row item.
