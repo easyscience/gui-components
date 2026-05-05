@@ -33,6 +33,7 @@ EaElements.TextField {
         anchors.verticalCenter: control.verticalCenter
         leftPadding: EaStyle.Sizes.fontPixelSize * 0.5
         rightPadding: EaStyle.Sizes.fontPixelSize * 0.75
+        topPadding: EaStyle.Sizes.fontPixelSize * 0.25
 
         font: control.font
         color: control.placeholderTextColor
