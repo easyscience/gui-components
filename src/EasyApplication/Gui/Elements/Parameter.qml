@@ -19,7 +19,6 @@ EaElements.TextField {
     topInset: title === '' ? 0 : EaStyle.Sizes.fontPixelSize * 1.5
     topPadding: topInset + padding
 
-    width: parameterFieldWidth()
     placeholderText: ''
 
     EaElements.Label {
@@ -31,7 +30,7 @@ EaElements.TextField {
         id: unitsPlaceholder
 
         x: control.width - width
-        anchors.verticalCenter: control.verticalCenter
+        anchors.baseline: control.baseline
         leftPadding: EaStyle.Sizes.fontPixelSize * 0.5
         rightPadding: EaStyle.Sizes.fontPixelSize * 0.75
 
