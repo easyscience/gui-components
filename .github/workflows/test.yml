@@ -46,9 +46,6 @@ env:
   CI_BRANCH: ${{ github.head_ref || github.ref_name }}
   PY_VERSIONS: '3.12 3.14'
   PIXI_ENVS: 'py-312-env py-314-env'
-  # Opt into Node.js 24 for all JavaScript actions.
-  # Remove once all referenced actions natively target Node 24.
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   # Job 1: Set up environment variables
@@ -83,7 +80,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set up pixi
         uses: ./.github/actions/setup-pixi
@@ -187,7 +184,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Download package (incl. extras) from previous job
         uses: ./.github/actions/download-artifact
@@ -214,14 +211,15 @@ jobs:
             echo "🔹🔸🔹🔸🔹 Python: $py_ver 🔹🔸🔹🔸🔹"
 
             echo "Initializing pixi project"
-            pixi init EasyApplication_py$py_ver
+            pixi init --platform linux-64 --platform osx-arm64 --platform win-64 eEasyApplication_py$py_ver
             cd EasyApplication_py$py_ver
+
+            echo "Configure pixi platforms"
+            pixi workspace platform edit linux-64 --glibc 2.35 --no-install
+            pixi workspace platform edit osx-arm64 --macos 14.0 --no-install
 
             echo "Adding Python $py_ver"
             pixi add "python=$py_ver"
-
-            echo "Setting macOS 14.0 as minimum required"
-            pixi project system-requirements add macos 14.0
 
             echo "Looking for wheel in ../dist/py$py_ver/"
             ls -l "../dist/py$py_ver/"
@@ -232,10 +230,10 @@ jobs:
               exit 1
             fi
 
-            whl_url="file://$(python -c 'import os,sys; print(os.path.abspath(sys.argv[1]))' "${whl_path[0]}")"
+            whl_abs_path="$(python -c 'import os,sys; print(os.path.abspath(sys.argv[1]))' "${whl_path[0]}")"
 
-            echo "Adding EasyApplication from: $whl_url"
-            pixi add --pypi "EasyApplication[dev] @ ${whl_url}"
+            echo "Adding EasyApplication from: $whl_abs_path"
+            pixi add --pypi "EasyApplication[dev] @ ${whl_abs_path}"
 
             echo "Exiting pixi project directory"
             cd ..

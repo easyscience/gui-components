@@ -20,9 +20,6 @@ permissions:
 env:
   CI_BRANCH: ${{ github.head_ref || github.ref_name }}
   DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-  # Opt into Node.js 24 for all JavaScript actions.
-  # Remove once all referenced actions natively target Node 24.
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   # Job 1: Test installation from PyPI on multiple OS
@@ -35,7 +32,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set up pixi
         uses: ./.github/actions/setup-pixi
@@ -46,11 +43,13 @@ jobs:
           frozen: false
 
       - name: Init pixi project
-        run: pixi init EasyApplication
+        run: pixi init --platform linux-64 --platform osx-arm64 --platform win-64 EasyApplication
 
-      - name: Set the minimum system requirements
+      - name: Configure pixi platforms
         working-directory: EasyApplication
-        run: pixi project system-requirements add macos 14.0
+        run: |
+          pixi workspace platform edit linux-64 --glibc 2.35 --no-install
+          pixi workspace platform edit osx-arm64 --macos 14.0 --no-install
 
       - name: Add Python 3.14 from Conda
         working-directory: EasyApplication

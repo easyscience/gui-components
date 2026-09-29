@@ -29,6 +29,9 @@ node_modules
 *.min.js
 *.min.css
 
+# Tox
+.tox
+
 # Misc
 .benchmarks
 .cache
