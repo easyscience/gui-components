@@ -93,13 +93,16 @@ jobs:
       # Retry is needed to handle transient GitHub API/authentication issues
       # that occasionally cause 403 errors when multiple workflows push concurrently.
       # Uses personal_token (not github_token) as GITHUB_TOKEN cannot access external repos.
-      - name: Push to ${{ env.REPO_OWNER }}/dashboard/${{ env.REPO_NAME }}/${{ env.CI_BRANCH }}
+      - name:
+          Push to ${{ env.REPO_OWNER }}/dashboard/${{ env.REPO_NAME }}/${{ env.CI_BRANCH
+          }}
         shell: bash
         env:
           DASHBOARD_COMMIT_MESSAGE: ${{ env.CI_BRANCH }}
-          DASHBOARD_GIT_USER_EMAIL: ${{ vars.EASYSCIENCE_APP_ID }}+easyscience[bot]@users.noreply.github.com
-          DASHBOARD_PUSH_ATTEMPTS: "3"
-          DASHBOARD_PUSH_DELAY_SECONDS: "15"
+          DASHBOARD_GIT_USER_EMAIL:
+            ${{ vars.EASYSCIENCE_APP_ID }}+easyscience[bot]@users.noreply.github.com
+          DASHBOARD_PUSH_ATTEMPTS: '3'
+          DASHBOARD_PUSH_DELAY_SECONDS: '15'
           DASHBOARD_PUBLISH_BRANCH: master
           DASHBOARD_REMOTE_REPOSITORY: ${{ env.REPO_OWNER }}/dashboard
           DASHBOARD_SOURCE_DIR: ./_dashboard_publish
