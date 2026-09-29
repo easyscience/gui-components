@@ -41,6 +41,31 @@ python = '3.12.*'
 [feature.py-max.dependencies]
 python = '3.14.*'
 
+# Development dependencies for local development and testing with
+# editable installations.
+
+[feature.dev.dependencies]
+nodejs = '*'      # Required for Prettier (non-Python formatting)
+jupyterlab = '*'  # Jupyter notebooks
+ipython = '*'     # Interactive Python shell
+pixi-kernel = '*' # Pixi Jupyter kernel
+
+[feature.dev.pypi-dependencies]
+pip = '*'
+EasyApplication = { path = '.', editable = true, extras = ['dev'] }
+
+# User-like behavior for testing with pip-installed dependencies instead
+# of editable installations.
+
+[feature.user.dependencies]
+jupyterlab = '*'  # Jupyter notebooks
+ipython = '*'     # Interactive Python shell
+pixi-kernel = '*' # Pixi Jupyter kernel
+
+[feature.user.pypi-dependencies]
+pip = '*'
+EasyApplication = '*'
+
 ##############
 # ENVIRONMENTS
 ##############
@@ -49,7 +74,6 @@ python = '3.14.*'
 
 # The `default` feature is always included in all environments.
 # Additional features can be specified per environment.
-
 
 # Specific environments for CI testing with different Python versions.
 py-312-env = { features = ['py-min', 'dev'] }
