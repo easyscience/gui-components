@@ -1,0 +1,26 @@
+# Codecov configuration
+# https://docs.codecov.com/docs/codecov-yaml
+
+github_checks:
+  annotations: true
+
+comment:
+  layout: 'reach, diff, flags, files'
+  behavior: default
+  require_changes: false
+  require_base: false
+  require_head: true
+
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+        # Make project coverage informational (won't block PR)
+        informational: true
+    patch:
+      default:
+        target: auto
+        # Require patch coverage but with threshold
+        threshold: 1%
