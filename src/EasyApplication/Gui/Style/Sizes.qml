@@ -42,6 +42,16 @@ QtObject {
     property int tableMaxRowCountShow: 5
     property int tableHighlightMoveDuration: 100
 
+    // ListView columnWidths sentinels.
+    // Use as entries in ListView.columnWidths instead of literal magic numbers.
+    //   tableColumnAuto (0) — fit header label's text width plus autoColumnPadding.
+    //                         Resolved by ListView from ListViewHeader child implicitWidth.
+    //                         Falls back to tableColumnFlex behaviour if no header is set.
+    //   tableColumnFlex (-1) — fill remaining row width. Multiple flex columns split evenly.
+    // Positive values are taken as fixed pixel widths.
+    readonly property int tableColumnAuto: 0
+    readonly property int tableColumnFlex: -1
+
     // Status bar
     property int statusBarHeight: Math.round(fontPixelSize * 2.5)
     property int statusBarSpacing: fontPixelSize
