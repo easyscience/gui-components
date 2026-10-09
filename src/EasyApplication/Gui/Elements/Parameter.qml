@@ -25,7 +25,7 @@ EaElements.TextField {
 
     implicitWidth: Math.max(
         EaStyle.Sizes.fontPixelSize * 10,
-        contentWidth + leftPadding + rightPadding,
+        Math.max(contentWidth, implicitPlaceholderWidth) + leftPadding + rightPadding,
         titleLabel.implicitWidth + leftPadding + padding
     )
     placeholderText: ''
