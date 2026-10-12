@@ -12,9 +12,10 @@ T.TextField {
 
     property bool warned: false
     property bool enterFlash: false
+    readonly property real implicitPlaceholderWidth: placeholder.implicitWidth
 
     implicitWidth: implicitBackgroundWidth + leftInset + rightInset
-                   || Math.max(contentWidth, placeholder.implicitWidth) + leftPadding + rightPadding
+                   || Math.max(contentWidth, implicitPlaceholderWidth) + leftPadding + rightPadding
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              contentHeight + topPadding + bottomPadding,
                              placeholder.implicitHeight + topPadding + bottomPadding)
