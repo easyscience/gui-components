@@ -69,7 +69,7 @@ Rectangle {
         Behavior on color { EaAnimations.ThemeChange {} }
     }
 
-    Component.onCompleted: if (listView) listView.applyWidths(contentRow)
+    Component.onCompleted: if (listView) listView.applyColumns(contentRow)
 
     // A cell editor (e.g. ListViewTextInput) claiming activeFocus flips
     // `editing` true. Mirror that into the row selection so the edited
@@ -82,7 +82,11 @@ Rectangle {
 
     Connections {
         target: listView
-        function onResolvedColumnWidthsChanged() { listView.applyWidths(contentRow) }
+        function onResolvedColumnWidthsChanged() { listView.applyColumns(contentRow) }
+        function onColumnAlignmentsChanged() { listView.applyColumns(contentRow) }
+        // Rows created before the header exists miss columnAlignFromHeader
+        // values; resolvedColumnWidths won't re-fire if columnWidths is empty.
+        function onHeaderItemChanged() { listView.applyColumns(contentRow) }
     }
 
     // Hover tint. Lives in the delegate so position is implicit from the

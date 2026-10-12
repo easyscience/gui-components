@@ -19,6 +19,16 @@ Rectangle {
         return arr
     }
 
+    // Per-cell horizontalAlignment from header children (undefined if the
+    // child has none). ListView copies these into delegate cells for
+    // columns marked columnAlignFromHeader (-1).
+    readonly property var implicitColumnAlignments: {
+        let arr = []
+        for (let i = 0; i < contentRow.children.length; i++)
+            arr.push(contentRow.children[i].horizontalAlignment)
+        return arr
+    }
+
     z: 3 // To display header above delegate and highlighted area
 
     implicitWidth: parent === null ? 0 : parent.width
@@ -27,11 +37,12 @@ Rectangle {
     color: EaStyle.Colors.contentBackground
     Behavior on color { EaAnimations.ThemeChange {} }
 
-    Component.onCompleted: if (listView) listView.applyWidths(contentRow)
+    Component.onCompleted: if (listView) listView.applyColumns(contentRow)
 
     Connections {
         target: listView
-        function onResolvedColumnWidthsChanged() { listView.applyWidths(contentRow) }
+        function onResolvedColumnWidthsChanged() { listView.applyColumns(contentRow) }
+        function onColumnAlignmentsChanged() { listView.applyColumns(contentRow) }
     }
 
     // Header sits above delegate 0 (OverlayHeader). Without an input

@@ -58,9 +58,19 @@ ListView {
     //   EaStyle.Sizes.columnWidthAuto  (0) — fit the header label's implicit
     //                  text width plus autoColumnPadding. Requires a header
     //                  delegate (ListViewHeader) so the resolver has a label
-    //                  to measure; falls back to 0 if header not yet ready.
+    //                  to measure; behaves as columnWidthFlex if no header.
     // Example: columnWidths: [40, EaStyle.Sizes.columnWidthFlex, EaStyle.Sizes.columnWidthAuto, 100]
     property var columnWidths: []
+
+    // Column alignments definition. Each entry is one of:
+    //   Text.Align* value — applied to header and delegate cells of the column.
+    //   EaStyle.Sizes.columnAlignFromHeader (-1) — delegate cells copy the
+    //                  header cell's horizontalAlignment. No-op without header.
+    //   EaStyle.Sizes.columnAlignFromCell    (0) — column untouched; each cell
+    //                  keeps its own horizontalAlignment.
+    // Missing entries count as columnAlignFromCell.
+    // Example: columnAlignments: [EaStyle.Sizes.columnAlignFromHeader, Text.AlignLeft]
+    property var columnAlignments: []
 
     // Padding added to each columnWidthAuto column on top of the measured
     // header text width. Defaults to 2x tableColumnSpacing — same breathing
@@ -132,11 +142,26 @@ ListView {
         return widths.map(w => w > 0 ? w : fill)
     }
 
-    // Apply resolvedColumnWidths to children of a Row item.
-    // Used by: ListViewHeader + ListViewDelegate (onCompleted + onResolvedColumnWidthsChanged)
-    function applyWidths(row) {
+    // Apply resolvedColumnWidths and columnAlignments to children of a Row item.
+    // Used by: ListViewHeader + ListViewDelegate (onCompleted +
+    // onResolvedColumnWidthsChanged + onColumnAlignmentsChanged)
+    function applyColumns(row) {
         for (let i = 0; i < row.children.length && i < resolvedColumnWidths.length; i++)
             row.children[i].width = resolvedColumnWidths[i]
+
+        const headerAligns = (headerItem && headerItem.implicitColumnAlignments) || []
+        for (let i = 0; i < row.children.length && i < columnAlignments.length; i++) {
+            const align = columnAlignments[i]
+            const cell = row.children[i]
+            if (cell.horizontalAlignment === undefined || align === EaStyle.Sizes.columnAlignFromCell)
+                continue
+            if (align === EaStyle.Sizes.columnAlignFromHeader) {
+                if (headerAligns[i] !== undefined)
+                    cell.horizontalAlignment = headerAligns[i]
+            } else {
+                cell.horizontalAlignment = align
+            }
+        }
     }
 
     // Check if given row index is selected.
