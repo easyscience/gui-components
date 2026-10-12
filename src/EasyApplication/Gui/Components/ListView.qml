@@ -53,16 +53,16 @@ ListView {
 
     // Column widths definition. Each entry is one of:
     //   positive int  — fixed width in pixels.
-    //   EaStyle.Sizes.tableColumnFlex (-1) — fill remaining row width.
+    //   EaStyle.Sizes.columnWidthFlex (-1) — fill remaining row width.
     //                  Multiple flex columns split the leftover space evenly.
-    //   EaStyle.Sizes.tableColumnAuto  (0) — fit the header label's implicit
+    //   EaStyle.Sizes.columnWidthAuto  (0) — fit the header label's implicit
     //                  text width plus autoColumnPadding. Requires a header
     //                  delegate (ListViewHeader) so the resolver has a label
     //                  to measure; falls back to 0 if header not yet ready.
-    // Example: columnWidths: [40, EaStyle.Sizes.tableColumnFlex, EaStyle.Sizes.tableColumnAuto, 100]
+    // Example: columnWidths: [40, EaStyle.Sizes.columnWidthFlex, EaStyle.Sizes.columnWidthAuto, 100]
     property var columnWidths: []
 
-    // Padding added to each tableColumnAuto column on top of the measured
+    // Padding added to each columnWidthAuto column on top of the measured
     // header text width. Defaults to 2x tableColumnSpacing — same breathing
     // room as a typical hand-tuned column.
     property real autoColumnPadding: EaStyle.Sizes.tableColumnSpacing * 2
@@ -107,15 +107,15 @@ ListView {
     // Used by: ListViewHeader + ListViewDelegate (subscribe via onResolvedColumnWidthsChanged)
     //
     // Two-pass resolution:
-    //   1. tableColumnAuto (0)  → header child implicitWidth + autoColumnPadding.
-    //   2. tableColumnFlex (-1) → split leftover row width evenly.
+    //   1. columnWidthAuto (0)  → header child implicitWidth + autoColumnPadding.
+    //   2. columnWidthFlex (-1) → split leftover row width evenly.
     readonly property var resolvedColumnWidths: {
         if (!columnWidths.length) return []
 
         // Pass 1: resolve auto columns from header implicit widths.
         const headerWidths = (headerItem && headerItem.implicitColumnWidths) || []
         let widths = columnWidths.map((w, i) => {
-            if (w === EaStyle.Sizes.tableColumnAuto && i < headerWidths.length)
+            if (w === EaStyle.Sizes.columnWidthAuto && i < headerWidths.length)
                 return headerWidths[i] + autoColumnPadding
             return w
         })

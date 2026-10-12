@@ -10,7 +10,7 @@ Rectangle {
     property Item listView: ListView.view ?? null
 
     // Per-cell implicit widths derived from header children. ListView's
-    // resolver reads this for columns marked tableColumnAuto (0). Re-fires
+    // resolver reads this for columns marked columnWidthAuto (0). Re-fires
     // when any child's implicitWidth changes (font, locale, text update).
     readonly property var implicitColumnWidths: {
         let arr = []
