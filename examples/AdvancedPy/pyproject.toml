@@ -25,4 +25,4 @@ homepage = 'https://github.com/EasyScience/EasyApp/tree/master/examples/Advanced
 
 [tool.hatch.build.targets.wheel]
 packages = ['src/AdvancedPy']
-#artifacts = ['*.py', '*.qml', 'qmldir']
+# artifacts = ['*.py', '*.qml', 'qmldir']

@@ -28,6 +28,7 @@ node_modules/
 *.pyproject.user
 *.pyproject.user.*
 CMakeLists.txt.user*
+*settings.ini
 
 # PyCharm
 .idea/
