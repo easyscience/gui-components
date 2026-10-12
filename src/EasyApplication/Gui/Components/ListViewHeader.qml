@@ -34,6 +34,21 @@ Rectangle {
         function onResolvedColumnWidthsChanged() { listView.applyWidths(contentRow) }
     }
 
+    // Header sits above delegate 0 (OverlayHeader). Without an input
+    // handler here, clicks fall through to that delegate's MouseArea,
+    // bypassing the ListView-level TapHandler. This claims the press
+    // so header clicks transfer focus to the list. Declared before
+    // contentRow so interactive header controls receive clicks first;
+    // only clicks on labels and empty space reach this MouseArea.
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            if (!listView) return
+            listView.endEditing()
+            listView.clearSelection()
+        }
+    }
+
     Row {
         id: contentRow
 
@@ -42,18 +57,5 @@ Rectangle {
         spacing: EaStyle.Sizes.tableColumnSpacing
         leftPadding: listView ? listView.rowPadding : 0
         rightPadding: listView ? listView.rowPadding : 0
-    }
-
-    // Header sits above delegate 0 (OverlayHeader). Without an input
-    // handler here, clicks fall through to that delegate's MouseArea,
-    // bypassing the ListView-level TapHandler. This claims the press
-    // so header clicks transfer focus to the list.
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            if (!listView) return
-            listView.endEditing()
-            listView.clearSelection()
-        }
     }
 }
