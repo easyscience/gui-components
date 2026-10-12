@@ -30,8 +30,10 @@ ListView {
     // false = indicator style: thin, non-draggable, shows only while scrolling
     property bool scrollBarInteractive: true
 
-    // When false, clicks never modify the selection model. Use for lists
-    // with inline editors but no row-level selection concept.
+    // Controls whether row clicks update the selection.
+    // Selection requires a QAbstractItemModel-backed model, such as QML ListModel
+    // or a C++/Python item model. Integer, JavaScript-array, and ObjectModel models
+    // can display rows, but do not support selection.
     property bool selectable: true
 
     // Allow ctrl/shift multi-select.
