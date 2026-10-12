@@ -20,6 +20,7 @@ MenuItem 1.0 MenuItem.qml
 ParamComboBox 1.0 ParamComboBox.qml
 Parameter 1.0 Parameter.qml
 ParamTextField 1.0 ParamTextField.qml
+Pill 1.0 Pill.qml
 RadioButton 1.0 RadioButton.qml
 RemoteController 1.0 RemoteController.qml
 RemotePointer 1.0 RemotePointer.qml
