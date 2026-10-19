@@ -21,6 +21,10 @@ SideBarColumn 1.0 SideBarColumn.qml
 PreferencesDialog 1.0 PreferencesDialog.qml
 ProjectDescriptionDialog 1.0 ProjectDescriptionDialog.qml
 
+ListView 1.0 ListView.qml
+ListViewDelegate 1.0 ListViewDelegate.qml
+ListViewHeader 1.0 ListViewHeader.qml
+ListViewTextInput 1.0 ListViewTextInput.qml
 TableView 1.0 TableView.qml
 TableViewHeader 1.0 TableViewHeader.qml
 TableViewDelegate 1.0 TableViewDelegate.qml
