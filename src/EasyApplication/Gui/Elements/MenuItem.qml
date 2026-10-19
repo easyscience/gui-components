@@ -11,6 +11,8 @@ import EasyApplication.Gui.Elements as EaElements
 T.MenuItem {
     id: control
 
+    property color color: EaStyle.Colors.themeAccent
+
     property int textFormat: Text.RichText
     property int elide: Text.ElideMiddle
 
