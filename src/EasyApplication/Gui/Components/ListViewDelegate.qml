@@ -95,6 +95,18 @@ Rectangle {
         opacity: mouseHoverHandler.hovered || editing ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: EaStyle.Sizes.tableHighlightMoveDuration } }
         Behavior on color { EaAnimations.ThemeChange {} }
+        // Background input stays behind the editor scope. Unlike a passive
+        // ancestor TapHandler, it does not also handle an accepted cell click.
+        MouseArea {
+            anchors.fill: parent
+            cursorShape: undefined
+            onClicked: mouse => {
+                if (index < 0) return
+                listView.currentIndex = index
+                listView.endEditing()
+                listView.selectWithModifiers(index, mouse.modifiers)
+            }
+        }
     }
 
     FocusScope {
@@ -109,22 +121,6 @@ Rectangle {
             spacing: EaStyle.Sizes.tableColumnSpacing
             leftPadding: listView ? listView.rowPadding : 0
             rightPadding: listView ? listView.rowPadding : 0
-        }
-    }
-
-    // TapHandler (not MouseArea) so nested interactive children like
-    // TableViewButton receive their own press events — MouseArea's
-    // exclusive grab on press would swallow clicks on those buttons.
-    TapHandler {
-        id: tap
-        onTapped: {
-            if (index < 0) return
-            listView.currentIndex = index
-            // Tap lands on the row background (cell editors swallow their
-            // own press). Release any in-progress edit before updating
-            // selection so editor visuals drop on row-background clicks.
-            listView.endEditing()
-            listView.selectWithModifiers(index, tap.point.modifiers)
         }
     }
 
