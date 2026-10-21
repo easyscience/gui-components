@@ -62,19 +62,28 @@ ListView {
     }
     property Item markerItem: null
     property bool markerMoves: false
+    property int markerModelRevision: 0
     function refreshMarker() {
-        const view = listView, row = markerRow, source = model
-        const next = row >= 0 ? itemAtIndex(row) : null
-        markerMoves = markerItem !== null && next !== null
-        if (!Qt.isQtObject(view) || view.markerRow !== row || view.model !== source
-                || (next !== null && (!Qt.isQtObject(next) || view.itemAtIndex(row) !== next))) return
+        const view = listView
+        if (!Qt.isQtObject(view)) return
+        const revision = view.markerModelRevision, row = view.markerRow
+        if (!Qt.isQtObject(view) || view.markerModelRevision !== revision) return
+        const next = row >= 0 ? view.itemAtIndex(row) : null
+        view.markerMoves = view.markerItem !== null && next !== null
+        if (!Qt.isQtObject(view) || view.markerModelRevision !== revision || view.markerRow !== row
+                || (next !== null && !Qt.isQtObject(next))
+                || (row >= 0 && view.itemAtIndex(row) !== next)) return
         view.markerItem = next
     }
     onMarkerRowChanged: refreshMarker()
     onCurrentItemChanged: refreshMarker()
     onContentYChanged: refreshMarker()
     onContentHeightChanged: refreshMarker()
-    onModelChanged: markerItem = null
+    onModelChanged: {
+        const view = listView
+        ++view.markerModelRevision
+        if (Qt.isQtObject(view)) view.markerItem = null
+    }
 
     // Column widths definition. Each entry is one of:
     //   positive int  — fixed width in pixels.

@@ -60,3 +60,34 @@ parallel Rectangle/color overrides; its null-safe model/header replacement stays
 Native qualification must check ordinary unmodified shared delegates, headerless
 scrolling/variable geometry, multi-selection, clear/anchor, nested editor/button/
 combo input and both themes. Source proposal alone is not native/render evidence.
+
+
+## Synchronous marker refresh during model replacement
+
+FIRST is the shared ListView.refreshMarker implementation and Edi's existing
+null-safe/typed-header replacement of that component. Geometry, row and content
+callbacks refresh the same actual delegate marker synchronously. They must not
+read the native ListView.model property: Qt 6.11.1 setModel temporarily clears its
+internal model before resetting content position, while its owning-model flag
+still permits the getter to dereference that cleared pointer. Ordinary QObject
+validity does not prove the native model getter is safe inside those callbacks.
+
+The marker records modelChanged with its own revision and compares that revision
+after the existing markerMoves publication. It also rechecks the live view, the
+requested marker row and the actual realized item, including a null target, before
+publishing markerItem. Replacing a model during a synchronous callback therefore
+retires the earlier snapshot without reading ListView.model. Count and realized
+item lookup remain the original geometry inputs; no timer, platform switch,
+selection/focus/scroll write or persistent row fill is added. Edi's existing
+replacement carries the same correction and retains its model/header protections.
+
+The owner Mac crash reports dated 2026-10-21 17:02:10 and 17:02:26 identify a model
+getter fault during setModel/content-position callbacks in initial QML creation.
+Their exact QML caller is inferred from the source and native stack, not a QML
+source-line backtrace. The official Qt source documents the native transient:
+https://github.com/qt/qtdeclarative/blob/v6.11.1/src/quick/items/qquickitemview.cpp
+(model getter/setter, count and itemAtIndex). Source diagnosis and this correction
+do not qualify changed-source startup, rendering or native tests. Qualification
+must include synchronous startup/model replacement with changed content position,
+reentrant replacement from markerMoves notification, null/replaced/deleted targets,
+and original selection, scrolling, variable geometry and nested control input.
