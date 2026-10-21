@@ -28,40 +28,33 @@ Rectangle {
             && listView.selectionActive
     }
 
-    // Selection for the base row fill. Suppressed during editing so the
-    // editor isn't drawn over the highlight color.
+    // Retained selection API; background paint is independent of selection.
+    // Inline editing and selection remain separate.
     readonly property bool selected: inSelection && !editing
 
     implicitWidth: listView.width
     implicitHeight: listView.tableRowHeight
 
-    color: {
-        let selectedColor = EaStyle.Colors.themeRowHighlight
-        let evenRowColor = EaStyle.Colors.themeBackgroundHovered2
-        let oddRowColor = EaStyle.Colors.themeBackgroundHovered1
-        let alternatingColor = index % 2 ? evenRowColor : oddRowColor
-
-        return control.selected ? selectedColor : alternatingColor
-    }
+    // Selection never replaces the alternating row background.
+    color: index % 2 ? EaStyle.Colors.themeBackgroundHovered2 : EaStyle.Colors.themeBackgroundHovered1
     Behavior on color { EaAnimations.ThemeChange {} }
 
-    // Vertical accent bar on the left edge. Dual-purpose:
-    //   - inSelection → solid themeAccent (selection indicator, persists
-    //     during inline editing so the selected row stays identifiable).
-    //   - shift-selection anchor row (not selected, not editing)
-    //     → themeAccentMinor (replaces the former top-right triangle).
-    // z:2 keeps the bar above the hover overlay (z:1) so selection
-    // remains visible while hovering.
+    // Multiple selected rows and an unselected shift anchor retain individual
+    // bars. The sole selected/current row uses the view's moving marker instead.
+    // z:2 keeps these bars above the ordinary hover overlay.
     Rectangle {
         z: 2
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        width: 3
+        anchors.leftMargin: EaStyle.Sizes.borderThickness
+        width: 2
         color: EaStyle.Colors.themeAccent
         visible: {
             listView.selectedIndexes
-            if (control.inSelection) return true
+            if (control.inSelection)
+                return listView.selectedIndexes.length > 1
+                    || (listView.currentRow >= 0 && index !== listView.currentRow)
             return listView.selectionActive
                 && index === listView.anchorRow
                 && !editing
@@ -69,7 +62,17 @@ Rectangle {
         Behavior on color { EaAnimations.ThemeChange {} }
     }
 
-    Component.onCompleted: if (listView) listView.applyWidths(contentRow)
+    readonly property int rowIndex: index
+    onRowIndexChanged: if (listView) listView.refreshMarker()
+    onYChanged: if (listView) listView.refreshMarker()
+    onHeightChanged: if (listView) listView.refreshMarker()
+    Component.onCompleted: {
+        const view = listView
+        if (!Qt.isQtObject(view)) return
+        view.applyWidths(contentRow)
+        if (Qt.isQtObject(control) && Qt.isQtObject(view) && control.listView === view)
+            view.refreshMarker()
+    }
 
     // A cell editor (e.g. ListViewTextInput) claiming activeFocus flips
     // `editing` true. Mirror that into the row selection so the edited
@@ -89,9 +92,7 @@ Rectangle {
     // delegate's own bounds — no y math, no uniform-row-height assumption.
     Rectangle {
         anchors.fill: parent
-        color: control.inSelection && !editing
-            ? EaStyle.Colors.themeRowHighlightHovered
-            : EaStyle.Colors.themeRowHovered
+        color: EaStyle.Colors.themeRowHovered
         opacity: mouseHoverHandler.hovered || editing ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: EaStyle.Sizes.tableHighlightMoveDuration } }
         Behavior on color { EaAnimations.ThemeChange {} }

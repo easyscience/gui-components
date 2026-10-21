@@ -31,3 +31,32 @@ with selection modifiers, and drag scrolling. Check both prior active edits and
 row reuse/removal. Use existing native consumer tests; dummy arithmetic tests do
 not qualify pointer delivery. Source reasoning identifies this contract defect,
 not the actor behind any particular consuming application's focus loss.
+
+
+## Shared selection paint and current-row geometry
+
+FIRST is Components/ListView.qml, ListViewDelegate's original ItemSelectionModel
+and background MouseArea/editor FocusScope, and Elements/TabBar's accent underline.
+Ordinary shared consumers, with or without ListViewHeader, get alternating rows
+and the unchanged ordinary hover/edit paint. Selection does not add a persistent
+blue full-row fill or a separate selected-hover fill. A single selected row uses one moving two-pixel accent marker,
+with the tab underline's 250ms motion. Multiple selected rows keep individual
+accent bars and the original unselected anchor marker. SelectionActive still dims
+all markers; selected/inSelection remain truthful APIs.
+
+The optional currentRow input supplies a backend presentation row without writing
+currentIndex, selection, focus or content position. The shared marker takes y and
+height from the actual itemAtIndex delegate in contentItem coordinates, not index
+multiplied by a guessed row height. View/delegate layout and virtualization signals
+refresh that item; destroyed items clear their typed Item reference. It stays below
+the original z:3 overlay header and inside the original clipped viewport. Initial
+appearance/removal snaps in place; movement between realized targets is smoothed.
+
+Ctrl/Shift selection, clear/anchor bookkeeping, model and header APIs, editing,
+accepted child controls, focus release and Flickable stealing remain the original
+implementation. No marker handles input. Consumers must not add another bar/fill.
+Edi's existing current-row adapter must use this same facility and remove its local
+parallel Rectangle/color overrides; its null-safe model/header replacement stays.
+Native qualification must check ordinary unmodified shared delegates, headerless
+scrolling/variable geometry, multi-selection, clear/anchor, nested editor/button/
+combo input and both themes. Source proposal alone is not native/render evidence.
