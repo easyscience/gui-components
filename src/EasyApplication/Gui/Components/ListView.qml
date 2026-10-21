@@ -55,10 +55,15 @@ ListView {
 
     // Companion geometry: one moving marker for a single selection/current row.
     // Multi-selection keeps one marker on every selected delegate instead.
-    readonly property int markerRow: {
-        if (!selectionActive) return -1
-        if (currentRow >= 0 && currentRow < count) return currentRow
-        return selectedIndexes.length === 1 ? selectedIndexes[0].row : -1
+    readonly property int markerRow: currentMarkerRow()
+    function currentMarkerRow() {
+        if (!selectionActive || count <= 0) return -1
+        let row = currentRow
+        if (row < 0 || row >= count) {
+            const selected = selectedIndexes
+            row = selected.length === 1 ? selected[0].row : -1
+        }
+        return selectionActive && row >= 0 && row < count ? row : -1
     }
     property Item markerItem: null
     property bool markerMoves: false
@@ -66,13 +71,15 @@ ListView {
     function refreshMarker() {
         const view = listView
         if (!Qt.isQtObject(view)) return
-        const revision = view.markerModelRevision, row = view.markerRow
+        const revision = view.markerModelRevision, row = view.currentMarkerRow()
         if (!Qt.isQtObject(view) || view.markerModelRevision !== revision) return
-        const next = row >= 0 ? view.itemAtIndex(row) : null
+        const next = row >= 0 && row < view.count ? view.itemAtIndex(row) : null
         view.markerMoves = view.markerItem !== null && next !== null
-        if (!Qt.isQtObject(view) || view.markerModelRevision !== revision || view.markerRow !== row
+        if (!Qt.isQtObject(view) || view.markerModelRevision !== revision) return
+        const current = view.currentMarkerRow()
+        if (!Qt.isQtObject(view) || view.markerModelRevision !== revision || current !== row
                 || (next !== null && !Qt.isQtObject(next))
-                || (row >= 0 && view.itemAtIndex(row) !== next)) return
+                || (row >= 0 && (row >= view.count || view.itemAtIndex(row) !== next))) return
         view.markerItem = next
     }
     onMarkerRowChanged: refreshMarker()

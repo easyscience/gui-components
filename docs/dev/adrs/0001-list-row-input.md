@@ -91,3 +91,38 @@ do not qualify changed-source startup, rendering or native tests. Qualification
 must include synchronous startup/model replacement with changed content position,
 reentrant replacement from markerMoves notification, null/replaced/deleted targets,
 and original selection, scrolling, variable geometry and nested control input.
+
+
+## Marker row membership during synchronous clear
+
+FIRST is shared ListView's markerRow selection policy and refreshMarker, including
+the model-revision repair above and Edi's existing Base mirror. A derived QML
+binding can still expose its previous row while native removal/count callbacks
+are synchronously evaluating that binding. A live QObject or surviving delegate
+alone does not establish current model membership after a clear.
+
+One currentMarkerRow function owns the original backend-current-row versus sole
+selection policy. It returns no row for an empty view and bounds either source
+against the actual safe native count. The readonly markerRow still binds to that
+one policy, while refreshMarker calls the policy directly instead of re-reading
+the currently evaluating derived binding. It rechecks that bounded current row,
+the model revision, live objects and actual itemAtIndex identity after markerMoves
+can synchronously invoke another operation. Out-of-range delegate lookup is never
+a marker source; a count-clear can synchronously publish a null marker even if the
+old derived property has not settled. No model getter is reintroduced.
+
+Actual delegate coordinates/height, accent movement, backend-row precedence,
+multiple selection and anchor/input/selection/focus/scroll behavior remain. This
+changes only marker presentation/currentness; it adds no timer, native/private Qt
+patch, selection write or recovery operation. Both existing ListView copies carry
+the same policy/fences; Edi's null model/typed-header initialization stays exact.
+
+The routed diagnostic observed count zero after clear returned while markerRow
+still named a removed row and markerItem retained its surviving delegate. An event
+counter firing earlier inside the clear callback does not by itself prove that
+target was already retired. This source correction makes no changed-source native
+or Mac qualification claim. Independent exercises must cover empty/shrunk/replaced
+models, stale selected/backend rows, callback clear/replacement/null successors,
+realized-item reuse and original geometry/selection/nested controls. Qt's public
+source keeps count null-guarded and itemAtIndex based on realized view items:
+https://github.com/qt/qtdeclarative/blob/v6.11.2/src/quick/items/qquickitemview.cpp
