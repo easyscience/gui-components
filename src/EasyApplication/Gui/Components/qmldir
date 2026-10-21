@@ -25,6 +25,11 @@ ListView 1.0 ListView.qml
 ListViewDelegate 1.0 ListViewDelegate.qml
 ListViewHeader 1.0 ListViewHeader.qml
 ListViewTextInput 1.0 ListViewTextInput.qml
+ListViewLabel 1.0 ListViewLabel.qml
+ListViewButton 1.0 ListViewButton.qml
+ListViewCheckBox 1.0 ListViewCheckBox.qml
+ListViewComboBox 1.0 ListViewComboBox.qml
+ListViewParameter 1.0 ListViewParameter.qml
 TableView 1.0 TableView.qml
 TableViewHeader 1.0 TableViewHeader.qml
 TableViewDelegate 1.0 TableViewDelegate.qml

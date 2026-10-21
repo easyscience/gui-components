@@ -63,6 +63,9 @@ Rectangle {
     }
 
     readonly property int rowIndex: index
+    // The row the view's moving accent marker is on (its current row, or its one
+    // selected row). A row-number cell (ListViewLabel.marksCurrentRow) reads it.
+    readonly property bool current: listView !== null && index >= 0 && listView.markerRow === index
     onRowIndexChanged: if (listView) listView.refreshMarker()
     onYChanged: if (listView) listView.refreshMarker()
     onHeightChanged: if (listView) listView.refreshMarker()
