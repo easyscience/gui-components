@@ -22,6 +22,7 @@ Rectangle {
     // bar and the hover overlay color — both stay selection-aware even
     // while an inline editor owns focus.
     readonly property bool inSelection: {
+        if (!listView) return false
         listView.selectedIndexes
         return index >= 0
             && listView.isSelected(index)
@@ -32,8 +33,8 @@ Rectangle {
     // Inline editing and selection remain separate.
     readonly property bool selected: inSelection && !editing
 
-    implicitWidth: listView.width
-    implicitHeight: listView.tableRowHeight
+    implicitWidth: listView ? listView.width : 0
+    implicitHeight: listView ? listView.tableRowHeight : 0
 
     // Selection never replaces the alternating row background.
     color: index % 2 ? EaStyle.Colors.themeBackgroundHovered2 : EaStyle.Colors.themeBackgroundHovered1
@@ -51,6 +52,7 @@ Rectangle {
         width: 2
         color: EaStyle.Colors.themeAccent
         visible: {
+            if (!listView) return false
             listView.selectedIndexes
             if (control.inSelection)
                 return listView.selectedIndexes.length > 1
@@ -81,14 +83,14 @@ Rectangle {
     // `editing` true. Mirror that into the row selection so the edited
     // row is also the selected row.
     onEditingChanged: {
-        if (editing && index >= 0 && !control.inSelection && listView.selectOnEdit) {
+        if (editing && listView && index >= 0 && !control.inSelection && listView.selectOnEdit) {
             listView.selectWithModifiers(index, Qt.NoModifier)
         }
     }
 
     Connections {
         target: listView
-        function onResolvedColumnWidthsChanged() { listView.applyWidths(contentRow) }
+        function onResolvedColumnWidthsChanged() { if (listView) listView.applyWidths(contentRow) }
     }
 
     // Hover tint. Lives in the delegate so position is implicit from the
@@ -105,7 +107,7 @@ Rectangle {
             anchors.fill: parent
             cursorShape: undefined
             onClicked: mouse => {
-                if (index < 0) return
+                if (index < 0 || !listView) return
                 listView.currentIndex = index
                 listView.endEditing()
                 listView.selectWithModifiers(index, mouse.modifiers)
