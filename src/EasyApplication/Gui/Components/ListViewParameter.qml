@@ -77,7 +77,10 @@ EaElements.TextInput {
 
     minored: !parameter.enabled ?? false
 
-    height: parent ? parent.height : implicitHeight
+    // The row's height; with no row yet, its own implicit height. Binding the height to
+    // implicitHeight would make the text lay out in that height, which on macOS's
+    // fractional line heights changed implicitHeight again: a binding loop.
+    height: parent ? parent.height : undefined
 
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter

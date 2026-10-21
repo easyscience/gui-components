@@ -27,7 +27,10 @@ EaElements.Label {
 
     readonly property alias hovered: mouseHoverHandler.hovered
 
-    height: parent ? parent.height : implicitHeight
+    // The row's height; with no row yet, its own implicit height. Binding the height to
+    // implicitHeight would make the text lay out in that height, which on macOS's
+    // fractional line heights changed implicitHeight again: a binding loop.
+    height: parent ? parent.height : undefined
     anchors.verticalCenter: parent ? parent.verticalCenter : undefined
 
     horizontalAlignment: Text.AlignHCenter
