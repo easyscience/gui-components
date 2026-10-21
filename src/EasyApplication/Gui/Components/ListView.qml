@@ -157,7 +157,8 @@ ListView {
         if (!columnWidths.length) return []
 
         // Pass 1: resolve auto columns from header implicit widths.
-        const headerWidths = (headerItem && headerItem.implicitColumnWidths) || []
+        const tableHeader = headerItem as EaComponents.ListViewHeader
+        const headerWidths = tableHeader ? tableHeader.implicitColumnWidths : []
         let widths = columnWidths.map((w, i) => {
             if (w === EaStyle.Sizes.tableColumnAuto && i < headerWidths.length)
                 return headerWidths[i] + autoColumnPadding
@@ -336,7 +337,7 @@ ListView {
 
     ItemSelectionModel {
         id: selectionModel
-        model: listView.model
+        model: listView.model ?? null
 
         onSelectionChanged: {
             if (selectedIndexes.length === 0)
