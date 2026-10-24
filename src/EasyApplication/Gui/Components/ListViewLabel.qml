@@ -48,9 +48,16 @@ EaElements.Label {
                            EaStyle.Colors.themeForegroundHovered :
                            EaStyle.Colors.themeForeground
 
-    EaElements.ToolTip {
-        text: control.ToolTip.text !== "" ? control.ToolTip.text : control.text
-        visible: text !== "" && control.truncated && mouseHoverHandler.hovered && EaGlobals.Vars.showToolTips
+    // The tool tip exists only while it can show. A table has a cell for every
+    // row in view, and making a tool tip for each of them took a large share
+    // of the time a long table took to appear.
+    Loader {
+        active: control.truncated && mouseHoverHandler.hovered && EaGlobals.Vars.showToolTips
+        sourceComponent: EaElements.ToolTip {
+            parent: control
+            text: control.ToolTip.text !== "" ? control.ToolTip.text : control.text
+            visible: text !== ""
+        }
     }
 
     HoverHandler {
