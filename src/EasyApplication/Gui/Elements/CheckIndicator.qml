@@ -19,14 +19,15 @@ Rectangle {
     color: EaStyle.Colors.themeBackgroundHovered2
     Behavior on color { EaAnimations.ThemeChange {} }
 
-    border.color: !control.enabled ? EaStyle.Colors.themeForegroundDisabled :
+    border.color: !control.enabled ? EaStyle.Colors.checkBoxBorderDisabled :
                                      control.checked ?
                                          control.color :
                                          control.hovered ? EaStyle.Colors.themeForegroundHovered :
-                                                           EaStyle.Colors.appBarComboBoxBorder
+                                                           EaStyle.Colors.checkBoxBorder
     Behavior on border.color { EaAnimations.ThemeChange {} }
 
-    border.width: checkState !== Qt.Unchecked ? width / 2 : 1
+    // A checked box is filled while enabled; a disabled one keeps its border and shows the mark in the border colour.
+    border.width: control.enabled && checkState !== Qt.Unchecked ? width / 2 : 1
     Behavior on border.width {
         NumberAnimation {
             duration: 100
@@ -52,9 +53,9 @@ Rectangle {
             }
         }
 
-        color: indicatorItem.enabled ?
+        color: control.enabled ?
                    "white" ://EaStyle.Colors.checkSymbol :
-                   EaStyle.Colors.themeForegroundDisabled
+                   EaStyle.Colors.checkBoxBorderDisabled
         Behavior on color { EaAnimations.ThemeChange {} }
     }
 
@@ -63,6 +64,8 @@ Rectangle {
         y: (parent.height - height) / 2
         width: 12
         height: 3
+
+        color: control.enabled ? "white" : EaStyle.Colors.checkBoxBorderDisabled
 
         scale: indicatorItem.checkState === Qt.PartiallyChecked ? 1 : 0
         Behavior on scale {
