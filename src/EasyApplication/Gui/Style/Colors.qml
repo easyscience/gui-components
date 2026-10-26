@@ -77,9 +77,10 @@ QtObject {
     property color appBarComboBoxBackgroundPressed: isDarkPalette ? "#90666666" : "#ffffffff"
     property color appBarComboBoxBorder: isDarkPalette ? Qt.darker(appBarBackground, 1.1) : Qt.darker(appBarBackground, 1.05)
 
-    // Check box: a disabled box has a lighter border than an enabled one
-    property color checkBoxBorder: isDarkPalette ? "#666" : "#bbb"
-    property color checkBoxBorderDisabled: isDarkPalette ? "#4a4a4a" : "#d6d6d6"
+    // Check box: an enabled box has the app's border; a disabled one a translucent black border and mark, fainter
+    // than that on both shades of a table's alternating rows
+    property color checkBoxBorder: appBarComboBoxBorder
+    property color checkBoxBorderDisabled: isDarkPalette ? Qt.rgba(0, 0, 0, 0.12) : Qt.rgba(0, 0, 0, 0.08)
 
     // Content
     property color contentBackground: isDarkPalette ? "#3a3a3a" : "#f4f4f4"
