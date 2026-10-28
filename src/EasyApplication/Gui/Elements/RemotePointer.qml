@@ -1,6 +1,5 @@
 import QtQuick
 
-
 Rectangle {
     id: pointer
 
@@ -17,74 +16,80 @@ Rectangle {
     property real minOpacity: 0.50
     property real maxOpacity: 0.75
 
+    // Keep the input/placement geometry fixed. The original circle grows around
+    // its center in the scene graph instead of relaying out on every pulse frame.
     width: minSize
     height: minSize
-    radius: minSize/2
+    radius: minSize / 2
+    transformOrigin: Item.Center
 
     color: "coral"
     opacity: 0
 
-    ParallelAnimation {
+    OpacityAnimator {
         id: showAnimation
-        PropertyAction { target: pointer; property: "x"; value: pointer.posX - pointer.width/2 }
-        PropertyAction { target: pointer; property: "y"; value: pointer.posY - pointer.height/2 }
-        PropertyAnimation { target: pointer; property: "opacity"; to: pointer.minOpacity; duration: pointer.showHideDuration }
+        target: pointer
+        to: pointer.minOpacity
+        duration: pointer.showHideDuration
     }
 
-    ParallelAnimation {
+    OpacityAnimator {
         id: hideAnimation
-        PropertyAnimation { target: pointer; property: "opacity"; to: 0; duration: pointer.showHideDuration }
+        target: pointer
+        to: 0
+        duration: pointer.showHideDuration
     }
 
     ParallelAnimation {
         id: moveAnimation
-        PropertyAnimation { target: pointer; property: "x"; to: pointer.posX - pointer.minSize/2; duration: pointer.moveDuration; easing.type: Easing.InOutCubic }
-        PropertyAnimation { target: pointer; property: "y"; to: pointer.posY - pointer.minSize/2; duration: pointer.moveDuration; easing.type: Easing.InOutCubic }
-        PropertyAnimation { target: pointer; property: "width"; to: pointer.minSize; duration: pointer.moveDuration; easing.type: Easing.InOutCubic }
-        PropertyAnimation { target: pointer; property: "height"; to: pointer.minSize; duration: pointer.moveDuration; easing.type: Easing.InOutCubic }
-        PropertyAnimation { target: pointer; property: "radius"; to: pointer.minSize/2; duration: pointer.moveDuration; easing.type: Easing.InOutCubic }
+        XAnimator { target: pointer; to: pointer.posX - pointer.minSize / 2; duration: pointer.moveDuration; easing.type: Easing.InOutCubic }
+        YAnimator { target: pointer; to: pointer.posY - pointer.minSize / 2; duration: pointer.moveDuration; easing.type: Easing.InOutCubic }
     }
 
+    // Animator-only groups can run on Qt Quick's rendering thread. A basic
+    // render loop still works, but this is not a substitute for responsive GUI work.
     SequentialAnimation {
         id: clickAnimation
         ParallelAnimation {
-            PropertyAction { target: pointer; property: "x"; value: pointer.posX - pointer.maxSize/2 }
-            PropertyAction { target: pointer; property: "y"; value: pointer.posY - pointer.maxSize/2 }
-            PropertyAction { target: pointer; property: "width"; value: pointer.maxSize }
-            PropertyAction { target: pointer; property: "height"; value: pointer.maxSize }
-            PropertyAction { target: pointer; property: "radius"; value: pointer.maxSize/2 }
-            PropertyAction { target: pointer; property: "opacity"; value: pointer.maxOpacity }
+            ScaleAnimator { target: pointer; from: 1; to: pointer.maxSize / Math.max(1, pointer.minSize); duration: pointer.pressDuration; easing.type: Easing.InOutCubic }
+            OpacityAnimator { target: pointer; from: pointer.minOpacity; to: pointer.maxOpacity; duration: pointer.pressDuration; easing.type: Easing.InOutCubic }
         }
         ParallelAnimation {
-            PropertyAnimation { target: pointer; property: "x"; to: pointer.posX - pointer.minSize/2; duration: pointer.clickRelaxation; easing.type: Easing.InOutCubic }
-            PropertyAnimation { target: pointer; property: "y"; to: pointer.posY - pointer.minSize/2; duration: pointer.clickRelaxation; easing.type: Easing.InOutCubic }
-            PropertyAnimation { target: pointer; property: "width"; to: pointer.minSize; duration: pointer.clickRelaxation; easing.type: Easing.InOutCubic }
-            PropertyAnimation { target: pointer; property: "height"; to: pointer.minSize; duration: pointer.clickRelaxation; easing.type: Easing.InOutCubic }
-            PropertyAnimation { target: pointer; property: "radius"; to: pointer.minSize/2; duration: pointer.clickRelaxation; easing.type: Easing.InOutCubic }
-            PropertyAnimation { target: pointer; property: "opacity"; to: pointer.minOpacity; duration: pointer.clickRelaxation; easing.type: Easing.InOutCubic }
+            ScaleAnimator { target: pointer; from: pointer.maxSize / Math.max(1, pointer.minSize); to: 1; duration: pointer.clickRelaxation; easing.type: Easing.InOutCubic }
+            OpacityAnimator { target: pointer; from: pointer.maxOpacity; to: pointer.minOpacity; duration: pointer.clickRelaxation; easing.type: Easing.InOutCubic }
         }
     }
 
-    // Pointer Logic
-
     function move(x, y) {
+        clickAnimation.stop()
+        pointer.scale = 1
         pointer.posX = x
         pointer.posY = y
-        moveAnimation.start()
-        //wait(pointer.moveDuration)
+        moveAnimation.restart()
     }
 
     function click() {
-        clickAnimation.start()
-        //wait(pointer.clickRelaxation)
+        showAnimation.stop()
+        hideAnimation.stop()
+        moveAnimation.stop()
+        pointer.x = pointer.posX - pointer.minSize / 2
+        pointer.y = pointer.posY - pointer.minSize / 2
+        clickAnimation.restart()
     }
 
     function show() {
-        showAnimation.start()
+        hideAnimation.stop()
+        clickAnimation.stop()
+        moveAnimation.stop()
+        pointer.scale = 1
+        pointer.x = pointer.posX - pointer.minSize / 2
+        pointer.y = pointer.posY - pointer.minSize / 2
+        showAnimation.restart()
     }
 
     function hide() {
-        hideAnimation.start()
+        showAnimation.stop()
+        clickAnimation.stop()
+        hideAnimation.restart()
     }
-
 }
