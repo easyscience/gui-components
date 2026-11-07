@@ -11,6 +11,9 @@ import EasyApplication.Gui.Elements as EaElements
 T.MenuItem {
     id: control
 
+    // An icon from the icon font, drawn before the text; every button in a popup has one.
+    property string fontIcon: ""
+
     property color color: EaStyle.Colors.themeAccent
 
     property int textFormat: Text.RichText
@@ -51,7 +54,8 @@ T.MenuItem {
     contentItem: Label {
         readonly property real arrowPadding: control.subMenu && control.arrow ? control.arrow.width + control.spacing : 0
         readonly property real indicatorPadding: control.checkable && control.indicator ? control.indicator.width + control.spacing : 0
-        leftPadding: !control.mirrored ? indicatorPadding : arrowPadding
+        readonly property real iconPadding: control.fontIcon !== "" ? iconLabel.implicitWidth + EaStyle.Sizes.fontPixelSize * 0.5 : 0
+        leftPadding: (!control.mirrored ? indicatorPadding : arrowPadding) + iconPadding
         rightPadding: control.mirrored ? indicatorPadding : arrowPadding
 
         font: control.font
@@ -64,6 +68,17 @@ T.MenuItem {
 
         color: EaStyle.Colors.themeForeground
         Behavior on color { EaAnimations.ThemeChange {} }
+
+        Label {
+            id: iconLabel
+            visible: control.fontIcon !== ""
+            x: parent.leftPadding - parent.iconPadding
+            anchors.verticalCenter: parent.verticalCenter
+            font.family: EaStyle.Fonts.iconsFamily
+            font.pixelSize: control.font.pixelSize
+            text: control.fontIcon
+            color: EaStyle.Colors.themeForeground
+        }
     }
 
     background: Rectangle {

@@ -5,6 +5,7 @@ import QtQuick.Controls.Material.impl
 import QtQuick.Templates as T
 
 import EasyApplication.Gui.Style as EaStyle
+import EasyApplication.Gui.Elements as EaElements
 
 T.Menu {
     id: control
@@ -21,7 +22,10 @@ T.Menu {
 
     transformOrigin: !cascade ? Item.Top : (mirrored ? Item.TopRight : Item.TopLeft)
 
-    delegate: MenuItem { }
+    // An action shown in the menu names its icon, from the icon font, in icon.name.
+    delegate: EaElements.MenuItem {
+        fontIcon: action ? action.icon.name : ""
+    }
 
     enter: Transition {
         // grow_fade_in

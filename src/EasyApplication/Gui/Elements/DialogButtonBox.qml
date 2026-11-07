@@ -26,7 +26,31 @@ T.DialogButtonBox {
     alignment: Qt.AlignRight
     buttonLayout: T.DialogButtonBox.AndroidLayout
 
-    delegate: EaElements.Button { highlighted: true }
+    // A standard button takes the icon of its role; every button in a popup has one. A box with its own delegate
+    // gives it roleIcon(DialogButtonBox.buttonRole).
+    delegate: EaElements.Button {
+        highlighted: true
+        fontIcon: control.roleIcon(T.DialogButtonBox.buttonRole)
+    }
+    function roleIcon(role) {
+        switch (role) {
+        case T.DialogButtonBox.AcceptRole:
+        case T.DialogButtonBox.YesRole:
+        case T.DialogButtonBox.ApplyRole:
+            return "check"
+        case T.DialogButtonBox.RejectRole:
+        case T.DialogButtonBox.NoRole:
+            return "times"
+        case T.DialogButtonBox.DestructiveRole:
+            return "trash"
+        case T.DialogButtonBox.ResetRole:
+            return "undo"
+        case T.DialogButtonBox.HelpRole:
+            return "question-circle"
+        default:
+            return ""
+        }
+    }
 
     contentItem: ListView {
         implicitWidth: contentWidth

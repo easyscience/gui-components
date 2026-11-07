@@ -5,10 +5,14 @@ import QtQuick.Controls.impl
 
 import EasyApplication.Gui.Style as EaStyle
 import EasyApplication.Gui.Animations as EaAnimations
+import EasyApplication.Gui.Elements as EaElements
 
 
 T.Button {
     id: control
+
+    // An icon from the icon font, drawn before the text; every button in a popup has one.
+    property string fontIcon: ""
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
@@ -29,11 +33,19 @@ T.Button {
 
     flat: true
 
-    // Icon text
+    // ToolTip, asked for from the hover handler, which reports hover on a disabled button too
+    EaElements.ToolTip {
+        text: control.ToolTip.text
+        requested: mouseHoverHandler.hovered
+    }
+
+    // Icon text; an icon from the icon font sits just before the text, the text keeping its place otherwise.
     contentItem: IconLabel {
+        readonly property real glyphPadding: control.fontIcon !== "" ? glyph.implicitWidth + EaStyle.Sizes.fontPixelSize * 0.5 : 0
         spacing: control.spacing
         mirrored: control.mirrored
         display: control.display
+        leftPadding: glyphPadding
 
         icon: control.icon
         text: control.text
@@ -41,6 +53,17 @@ T.Button {
 
         color: foregroundColor()
         Behavior on color { EaAnimations.ThemeChange {} }
+
+        Label {
+            id: glyph
+            visible: control.fontIcon !== ""
+            x: (parent.width - parent.implicitWidth) / 2
+            anchors.verticalCenter: parent.verticalCenter
+            font.family: EaStyle.Fonts.iconsFamily
+            font.pixelSize: control.font.pixelSize
+            text: control.fontIcon
+            color: foregroundColor()
+        }
     }
 
     //Mouse area to react on click events

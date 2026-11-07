@@ -105,11 +105,13 @@ T.ApplicationWindow {
 
         footer: EaElements.DialogButtonBox {
             EaElements.Button {
+                fontIcon: "times"
                 text: qsTr("Not Now")
                 onClicked: updateFoundDialog.close()
             }
 
             EaElements.Button {
+                fontIcon: "download"
                 text: qsTr("Update")
                 onClicked: updater.installUpdate()
             }

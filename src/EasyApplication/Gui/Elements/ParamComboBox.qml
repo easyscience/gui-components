@@ -138,6 +138,7 @@ EaElements.ComboBox {
 
                 // Content
                 EaElements.Button {
+                    fontIcon: "book"  // opens the parameter's documentation
                     text: `${control.category}.${control.name}`
                     checked: true
                     onClicked: Qt.openUrlExternally(control.url)

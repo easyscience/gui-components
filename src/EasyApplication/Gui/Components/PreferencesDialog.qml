@@ -159,6 +159,7 @@ EaElements.Dialog {
             EaElements.SideBarButton {
                 width: checkOnAppStartRow.width
                 highlighted: true
+                fontIcon: "sync-alt"
                 text: qsTr("Check now")
                 onClicked: {
                     EaGlobals.Vars.updater.silentCheck = false
