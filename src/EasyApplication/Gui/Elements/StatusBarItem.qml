@@ -115,9 +115,7 @@ T.Button {
     // ToolTip
     EaElements.ToolTip {
         text: control.ToolTip.text
-        visible: text !== "" &&
-                 control.hovered &&
-                 EaGlobals.Vars.showToolTips
+        requested: control.hovered
     }
     // ToolTip
 

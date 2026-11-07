@@ -44,10 +44,6 @@ EaElements.TextInput {
     readonly property bool overflows: contentWidth > width
     EaElements.ToolTip {
         text: control.text
-        visible: text !== ""
-              && control.overflows
-              && control.hovered
-              && !control.activeFocus
-              && EaGlobals.Vars.showToolTips
+        requested: control.overflows && control.hovered && !control.activeFocus
     }
 }

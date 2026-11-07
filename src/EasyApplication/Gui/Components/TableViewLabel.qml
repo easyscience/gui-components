@@ -27,10 +27,7 @@ EaElements.Label {
 
     EaElements.ToolTip {
         text: control.ToolTip.text
-        visible: text !== "" &&
-                 control.truncated &&
-                 mouseHoverHandler.hovered &&
-                 EaGlobals.Vars.showToolTips
+        requested: control.truncated && mouseHoverHandler.hovered
     }
 
     // HoverHandler to react on hover events

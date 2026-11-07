@@ -36,6 +36,10 @@ QtObject {
     property bool showAppStatusBar: true
     property bool showAppPreferencesDialog: false
     property bool showAppAboutDialog: false
+    // Tooltips open at a level, "All", "Important" or "Off", after the pointer rests on a control for toolTipDelay ms.
+    property string toolTipLevel: "Important"
+    property int toolTipDelay: 1500
+    // Whether any tooltip opens, for code that has not moved to toolTipAllowed yet; the app keeps it in step.
     property bool showToolTips: true
     property bool showUserGuides: false
     property bool showProjectDescriptionDialog: false
@@ -103,4 +107,14 @@ QtObject {
         property alias paramNameFormat: object.paramNameFormat
     }
 
+
+    // The one place that decides whether a tooltip may open. Important leaves out a control whose label or icon
+    // already says what it does, unless it is disabled: then its tooltip says why and how to enable it.
+    function toolTipAllowed(selfExplanatory, disabled) {
+        if (toolTipLevel === "All")
+            return true
+        if (toolTipLevel === "Important")
+            return !selfExplanatory || disabled
+        return false
+    }
 }

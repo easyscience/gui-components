@@ -38,9 +38,8 @@ T.TabButton {
     // ToolTip
     EaElements.ToolTip {
         text: control.ToolTip.text
-        visible: text !== "" &&
-                 control.hovered &&
-                 EaGlobals.Vars.showToolTips
+        requested: control.hovered
+        selfExplanatory: true
     }
 
     // Icon with text label

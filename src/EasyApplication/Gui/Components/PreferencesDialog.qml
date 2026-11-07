@@ -115,8 +115,8 @@ EaElements.Dialog {
 
             EaElements.CheckBox {
                 id: toolTipsCheckBox
-                checked: EaGlobals.Vars.showToolTips
-                onCheckedChanged: EaGlobals.Vars.showToolTips = checked
+                checked: EaGlobals.Vars.toolTipLevel !== "Off"
+                onToggled: EaGlobals.Vars.toolTipLevel = checked ? "Important" : "Off"
             }
 
             EaElements.Label {

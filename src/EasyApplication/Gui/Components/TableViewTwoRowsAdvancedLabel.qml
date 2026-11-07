@@ -138,10 +138,7 @@ T.Button {
     // ToolTip
     EaElements.ToolTip {
         text: control.ToolTip.text
-        visible: text !== "" &&
-                 valueLabel.truncated &&
-                 mouseHoverHandler.hovered &&
-                 EaGlobals.Vars.showToolTips
+        requested: valueLabel.truncated && mouseHoverHandler.hovered
     }
     // ToolTip
 

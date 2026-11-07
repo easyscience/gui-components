@@ -39,7 +39,7 @@ T.Button {
     // ToolTip
     EaElements.ToolTip {
         text: control.ToolTip.text
-        visible: label.truncated && control.hovered && EaGlobals.Vars.showToolTips && text !== ""
+        requested: label.truncated && control.hovered
     }
 
     // Text label

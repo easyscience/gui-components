@@ -58,9 +58,7 @@ T.CheckBox {
     // ToolTip
     EaElements.ToolTip {
         text: control.ToolTip.text
-        visible: text !== "" &&
-                 control.hovered &&
-                 EaGlobals.Vars.showToolTips
+        requested: control.hovered
     }
 
     // HoverHandler to react on hover events

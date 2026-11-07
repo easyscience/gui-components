@@ -70,7 +70,7 @@ Rectangle {
 
         EaElements.ToolTip {
             text: pill.removeTooltip
-            visible: removeArea.containsMouse && EaGlobals.Vars.showToolTips
+            requested: removeArea.containsMouse
         }
     }
 }

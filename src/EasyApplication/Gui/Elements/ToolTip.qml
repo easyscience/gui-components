@@ -20,6 +20,15 @@ T.ToolTip {
     property int borderRadius: 0.25 * EaStyle.Sizes.fontPixelSize
     property int textFormat: Text.PlainText //Text.RichText
 
+    // Where the tooltip is wanted, usually while the pointer is on its control. Set this, not `visible`:
+    // whether it opens is the tooltip level's decision (EaGlobals.Vars.toolTipAllowed).
+    property bool requested: false
+    // A control whose label or icon already says what it does: its tooltip opens only at level All.
+    property bool selfExplanatory: false
+    visible: requested && text !== ""
+             && EaGlobals.Vars.toolTipAllowed(selfExplanatory, parent !== null && !parent.enabled)
+    delay: EaGlobals.Vars.toolTipDelay
+
     property int enterAnimationDuration: 1000
     property int exitAnimationDuration: 500
 
