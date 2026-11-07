@@ -32,7 +32,7 @@ T.GroupBox {
     implicitHeight: collapsed ?
                         titleArea.height :
                         titleArea.height + spacing + contentHeight + bottomPadding
-    Behavior on implicitHeight { EaAnimations.ThemeChange { duration: 500 } }
+    Behavior on implicitHeight { EaAnimations.ThemeChange { id: foldAnimation; duration: 500 } }
 
     spacing: title === '' ? EaStyle.Sizes.fontPixelSize : 0.5 * EaStyle.Sizes.fontPixelSize  // between title and content
     padding: 0
@@ -41,7 +41,10 @@ T.GroupBox {
     leftPadding: EaStyle.Sizes.fontPixelSize
     rightPadding: EaStyle.Sizes.fontPixelSize
 
+    // Drawn through a layer while it folds, for the reason in SideBarColumn; only then, since a layer redrawn
+    // on every frame of a size change is what made text jiggle in the shapes-app prototype.
     clip: true
+    layer.enabled: foldAnimation.running
 
     font.pixelSize: EaStyle.Sizes.fontPixelSize
 

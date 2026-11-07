@@ -27,7 +27,10 @@ Item {
         anchors.left: mainAreaContainer.left
         anchors.right: mainAreaContainer.right
 
+        // Drawn through a layer: in the web build on Windows a clipped item crossing the edge of an enclosing
+        // clip loses its own clip, and inside a layer it does not. The clip stays for input and visibility.
         clip: true
+        layer.enabled: true
         interactive: false
 
         currentIndex: tabs.currentIndex

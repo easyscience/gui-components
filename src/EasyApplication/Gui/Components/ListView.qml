@@ -273,7 +273,10 @@ ListView {
                 ? 2 * EaStyle.Sizes.tableRowHeight
                 : tableRowHeight * visibleRowCount + _headerHeight
 
+    // Drawn through a layer: in the web build on Windows a clipped item crossing the edge of an enclosing
+    // clip loses its own clip, and inside a layer it does not. The clip stays for input and visibility.
     clip: true
+    layer.enabled: true
     headerPositioning: ListView.OverlayHeader
     boundsBehavior: Flickable.StopAtBounds
     enabled: count > 0
