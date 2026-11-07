@@ -105,6 +105,12 @@ T.TextField {
         onPressed: (mouse) => mouse.accepted = false
     }
 
+    // ToolTip, asked for from the hover handler, which reports hover on a disabled field too
+    EaElements.ToolTip {
+        text: control.ToolTip.text
+        requested: mouseHoverHandler.hovered
+    }
+
     // HoverHandler to react on hover events
     HoverHandler {
         id: mouseHoverHandler

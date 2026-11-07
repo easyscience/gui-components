@@ -28,12 +28,20 @@ T.Slider {
         handlePressed: control.pressed
         handleHovered: control.hovered
 
+        // The value while it is dragged or hovered; on a disabled slider with a tooltip of its own, that text, which
+        // says why it is disabled.
         EaElements.ToolTip {
             id: toolTip
 
-            requested: control.pressed || control.hovered
-            text: EaLogic.Utils.toDefaultPrecision(control.value)
+            readonly property bool reason: !control.enabled && control.T.ToolTip.text !== ""
+            requested: reason ? toolTipHover.hovered : control.pressed || control.hovered
+            text: reason ? control.T.ToolTip.text : EaLogic.Utils.toDefaultPrecision(control.value)
         }
+    }
+
+    // Reports hover on a disabled slider too.
+    HoverHandler {
+        id: toolTipHover
     }
 
     background: Rectangle {
