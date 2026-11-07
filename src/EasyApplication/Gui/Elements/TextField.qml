@@ -3,6 +3,7 @@ import QtQuick.Templates as T
 import QtQuick.Controls
 import QtQuick.Controls.impl
 
+import EasyApplication.Gui.Globals as EaGlobals
 import EasyApplication.Gui.Style as EaStyle
 import EasyApplication.Gui.Animations as EaAnimations
 import EasyApplication.Gui.Elements as EaElements
@@ -105,10 +106,18 @@ T.TextField {
         onPressed: (mouse) => mouse.accepted = false
     }
 
-    // ToolTip, asked for from the hover handler, which reports hover on a disabled field too
+    // What the field would show with room, shown in its tooltip while `shortened` (a caller that shows its value
+    // shorter sets both), and the self-explanatory flag a caller sets on the field.
+    property string fullText: text
+    property bool shortened: false
+    property bool toolTipSelfExplanatory: false
+
+    // The field's one tooltip, asked for from the hover handler, which reports hover on a disabled field too: help
+    // (ToolTip.text) and the full text. While `warned`, the warning of the caller that set it shows instead.
     EaElements.ToolTip {
-        text: control.ToolTip.text
-        requested: mouseHoverHandler.hovered
+        text: EaGlobals.Vars.toolTipComposed(control.ToolTip.text, control.fullText, control.shortened)
+        requested: mouseHoverHandler.hovered && !control.warned
+        selfExplanatory: control.toolTipSelfExplanatory
     }
 
     // HoverHandler to react on hover events

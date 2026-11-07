@@ -38,10 +38,16 @@ T.ComboBox {
     font.family: EaStyle.Fonts.fontFamily
     font.pixelSize: EaStyle.Sizes.fontPixelSize
 
-    // ToolTip, asked for from a hover handler, which reports hover on a disabled control too
+    // Set by a caller that shows a warning of its own (a refused choice): the help steps aside for it.
+    property bool warned: false
+    property bool toolTipSelfExplanatory: false
+
+    // The box's one tooltip, asked for from a hover handler, which reports hover on a disabled control too, and not
+    // while its list is open.
     EaElements.ToolTip {
         text: control.ToolTip.text
-        requested: toolTipHover.hovered && !control.popup.visible
+        requested: toolTipHover.hovered && !control.popup.visible && !control.warned
+        selfExplanatory: control.toolTipSelfExplanatory
     }
     HoverHandler {
         id: toolTipHover

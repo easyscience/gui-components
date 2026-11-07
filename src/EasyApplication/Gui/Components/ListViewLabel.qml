@@ -27,6 +27,12 @@ EaElements.Label {
 
     readonly property alias hovered: mouseHoverHandler.hovered
 
+    // What the cell would show with room, in its tooltip while `shortened` (by default while elided; a caller that
+    // shows a value shorter than it is sets both), and the self-explanatory flag a caller sets on the cell.
+    property string fullText: text
+    property bool shortened: truncated
+    property bool toolTipSelfExplanatory: false
+
     // The row's height; with no row yet, its own implicit height. Binding the height to
     // implicitHeight would make the text lay out in that height, which on macOS's
     // fractional line heights changed implicitHeight again: a binding loop.
@@ -51,12 +57,14 @@ EaElements.Label {
     // The tool tip exists only while it can show. A table has a cell for every
     // row in view, and making a tool tip for each of them took a large share
     // of the time a long table took to appear.
+    // The cell's one tooltip: help (ToolTip.text), fitting or not, and the full text while shortened.
     Loader {
-        active: control.truncated && mouseHoverHandler.hovered
+        active: mouseHoverHandler.hovered && (control.ToolTip.text !== "" || control.shortened)
         sourceComponent: EaElements.ToolTip {
             parent: control
-            text: control.ToolTip.text !== "" ? control.ToolTip.text : control.text
+            text: EaGlobals.Vars.toolTipComposed(control.ToolTip.text, control.fullText, control.shortened)
             requested: true
+            selfExplanatory: control.toolTipSelfExplanatory
         }
     }
 

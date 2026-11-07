@@ -23,13 +23,7 @@ Button {
     Material.elevation: 0
     Material.background: EaStyle.Colors.statusBarBackground
 
-    EaElements.ToolTip {
-        text: control.ToolTip.text
-        requested: toolTipHover.hovered
-    }
-    HoverHandler {
-        id: toolTipHover
-    }
+    // The tooltip is the base button's own.
 
     // Background for disabled buttons
     Rectangle {

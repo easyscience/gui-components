@@ -117,4 +117,12 @@ QtObject {
             return !selfExplanatory || disabled
         return false
     }
+
+    // The text of a control's one tooltip: the full text and then the help, one per line, when both apply,
+    // or whichever applies. The full text is left out when the help already says it, as a header's help starts with
+    // its label.
+    function toolTipComposed(help, fullText, shortened) {
+        const full = shortened && fullText !== "" && help.indexOf(fullText) < 0 ? fullText : ""
+        return full !== "" && help !== "" ? full + "\n" + help : full !== "" ? full : help
+    }
 }

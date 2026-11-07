@@ -33,10 +33,16 @@ T.Button {
 
     flat: true
 
-    // ToolTip, asked for from the hover handler, which reports hover on a disabled button too
+    // Set by a caller whose label or icon already says what the button does: its tooltip then opens only at level All,
+    // or while it is disabled.
+    property bool toolTipSelfExplanatory: false
+
+    // The button's one tooltip, asked for from the hover handler, which reports hover on a disabled button too. A
+    // caller gives only its text.
     EaElements.ToolTip {
         text: control.ToolTip.text
         requested: mouseHoverHandler.hovered
+        selfExplanatory: control.toolTipSelfExplanatory
     }
 
     // Icon text; an icon from the icon font sits just before the text, the text keeping its place otherwise.
