@@ -11,7 +11,9 @@ import EasyApplication.Gui.Elements as EaElements
 T.Slider {
     id: control
 
-    property alias toolTipText: toolTip.text
+    // The bubble's text while enabled, the value by default; a caller may give its own (an input, never the shown text,
+    // which a disabled slider's reason replaces).
+    property string toolTipText: EaLogic.Utils.toDefaultPrecision(control.value)
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitHandleWidth + leftPadding + rightPadding)
@@ -35,7 +37,7 @@ T.Slider {
 
             readonly property bool reason: !control.enabled && control.T.ToolTip.text !== ""
             requested: reason ? toolTipHover.hovered : control.pressed || control.hovered
-            text: reason ? control.T.ToolTip.text : EaLogic.Utils.toDefaultPrecision(control.value)
+            text: reason ? control.T.ToolTip.text : control.toolTipText
         }
     }
 
