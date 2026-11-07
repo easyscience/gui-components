@@ -38,6 +38,15 @@ T.ComboBox {
     font.family: EaStyle.Fonts.fontFamily
     font.pixelSize: EaStyle.Sizes.fontPixelSize
 
+    // ToolTip, asked for from a hover handler, which reports hover on a disabled control too
+    EaElements.ToolTip {
+        text: control.ToolTip.text
+        requested: toolTipHover.hovered && !control.popup.visible
+    }
+    HoverHandler {
+        id: toolTipHover
+    }
+
     flat: true
     hoverEnabled: true
     editable: false

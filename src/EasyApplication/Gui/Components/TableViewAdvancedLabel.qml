@@ -38,7 +38,11 @@ T.Button {
     // ToolTip
     EaElements.ToolTip {
         text: control.ToolTip.text
-        requested: label.truncated && control.hovered
+        requested: label.truncated && toolTipHover.hovered
+    }
+    // Reports hover on a disabled label too, as control.hovered does not.
+    HoverHandler {
+        id: toolTipHover
     }
 
     // Text label

@@ -18,6 +18,15 @@ T.SpinBox {
                              up.implicitIndicatorHeight,
                              down.implicitIndicatorHeight)
 
+    // ToolTip, asked for from a hover handler, which reports hover on a disabled control too
+    EaElements.ToolTip {
+        text: control.ToolTip.text
+        requested: toolTipHover.hovered
+    }
+    HoverHandler {
+        id: toolTipHover
+    }
+
     //Mouse area to react on click events
     MouseArea {
         id: mouseArea

@@ -3,8 +3,11 @@ import QtQuick.Controls
 import QtQuick.Controls.Material
 
 import EasyApplication.Gui.Style as EaStyle
+import EasyApplication.Gui.Elements as EaElements
 
 Button {
+    id: control
+
     implicitWidth: (parent.width - parent.spacing) * 0.5 - 1
 
     topInset: 0
@@ -20,7 +23,13 @@ Button {
     Material.elevation: 0
     Material.background: EaStyle.Colors.statusBarBackground
 
-    ToolTip.visible: hovered && ToolTip.text
+    EaElements.ToolTip {
+        text: control.ToolTip.text
+        requested: toolTipHover.hovered
+    }
+    HoverHandler {
+        id: toolTipHover
+    }
 
     // Background for disabled buttons
     Rectangle {

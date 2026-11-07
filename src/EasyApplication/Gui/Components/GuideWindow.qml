@@ -22,7 +22,9 @@ Item {
         id: tooltip
 
         parent: item.parent
-        visible: !EaGlobals.Vars.showAppPreferencesDialog &&
+        // A guide opens with its page, not on hover, so at once; whether it opens is the tooltip level's.
+        delay: 0
+        requested: !EaGlobals.Vars.showAppPreferencesDialog &&
                  EaGlobals.Vars.showUserGuides &&
                  appBarCurrentIndex === container.appBarCurrentIndex &&
                  container.currentIndex === indexOf(container.contentModel.children, item)
