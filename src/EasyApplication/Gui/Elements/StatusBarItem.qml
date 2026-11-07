@@ -115,7 +115,10 @@ T.Button {
     // ToolTip
     EaElements.ToolTip {
         text: control.ToolTip.text
-        requested: control.hovered
+        requested: toolTipHover.hovered  // reported on a disabled item too, whose tooltip says why
+    }
+    HoverHandler {
+        id: toolTipHover
     }
     // ToolTip
 
