@@ -37,7 +37,7 @@ T.Slider {
             id: toolTip
 
             readonly property bool reason: !control.enabled && control.T.ToolTip.text !== ""
-            requested: reason ? toolTipHover.hovered : control.pressed || control.hovered
+            requested: control.pressed || toolTipHover.hovered
             text: reason ? control.T.ToolTip.text : control.toolTipText
             selfExplanatory: control.toolTipSelfExplanatory
         }

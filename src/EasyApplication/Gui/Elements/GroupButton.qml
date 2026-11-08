@@ -5,7 +5,8 @@ import QtQuick.Controls.Material
 import EasyApplication.Gui.Style as EaStyle
 import EasyApplication.Gui.Elements as EaElements
 
-Button {
+// The custom Button, which owns the tooltip; a bare `Button` here would resolve to the Qt Controls one.
+EaElements.Button {
     id: control
 
     implicitWidth: (parent.width - parent.spacing) * 0.5 - 1
@@ -22,8 +23,6 @@ Button {
     flat: true
     Material.elevation: 0
     Material.background: EaStyle.Colors.statusBarBackground
-
-    // The tooltip is the base button's own.
 
     // Background for disabled buttons
     Rectangle {
