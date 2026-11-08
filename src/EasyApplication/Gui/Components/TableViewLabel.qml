@@ -27,7 +27,7 @@ EaElements.Label {
 
     EaElements.ToolTip {
         text: control.ToolTip.text
-        requested: control.truncated && mouseHoverHandler.hovered
+        requested: mouseHoverHandler.hovered && (control.truncated || !control.enabled)  // the whole text, or why it is disabled
     }
 
     // HoverHandler to react on hover events
