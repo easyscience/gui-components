@@ -38,7 +38,7 @@ QtObject {
     property bool showAppAboutDialog: false
     // Tooltips open at a level, "All", "Important" or "Off", after the pointer rests on a control for toolTipDelay ms.
     property string toolTipLevel: "Important"
-    property int toolTipDelay: 1500
+    property int toolTipDelay: 1000
     // Whether any tooltip opens, for code that has not moved to toolTipAllowed yet; the app keeps it in step.
     property bool showToolTips: true
     property bool showUserGuides: false
