@@ -80,7 +80,11 @@ T.SpinBox {
 
         fontIcon: "plus"
 
-        onClicked: control.increase()
+        // A click is the user's change, as on Qt's own indicators: report it, so a caller's onValueModified runs.
+        onClicked: {
+            control.increase()
+            control.valueModified()
+        }
     }
 
     down.indicator: EaElements.SideBarButton {
@@ -97,7 +101,11 @@ T.SpinBox {
 
         fontIcon: "minus"
 
-        onClicked: control.decrease()
+        // A click is the user's change, as on Qt's own indicators: report it, so a caller's onValueModified runs.
+        onClicked: {
+            control.decrease()
+            control.valueModified()
+        }
     }
 
     background: Item {
